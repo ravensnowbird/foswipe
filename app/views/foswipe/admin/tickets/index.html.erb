@@ -1,0 +1,49 @@
+
+<% if flash[:notice]%>
+<div class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+		&times;
+	</button>
+	<%= flash[:notice]%>
+</div>
+<% end %>
+
+<h1>Listing tickets</h1>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+				<th> Id </th>
+				<th> Title </th>
+		        <th> Status </th>
+		        <th>  </th>
+		        <th>  </th>
+			
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @tickets.order("created_at desc").each do |ticket| %>
+			<tr>
+				<td><%= ticket.id %></td>
+				<td><%= ticket.title %>
+					<% unless ticket.support %>
+					<span class="label label-success">new</span>
+					<% end %>
+				</td>
+				
+				
+				
+				<td><%= ticket.status %></td>
+                <td><%= link_to 'Show', admin_ticket_path(ticket) %></td>
+        <%#= link_to 'Edit', edit_ticket_path(ticket) %>
+				<td><%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+	<br>
+
+	

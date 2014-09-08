@@ -1,0 +1,82 @@
+<div class="row">
+<div class="container">
+  
+   <div class="col-md-12">
+
+<div class="panel panel-primary">
+  <div class="panel-heading"><h3 class="panel-title"><strong>New Ticket </strong></h3></div>
+  <div class="panel-body">
+
+
+
+<%= form_for(@ticket, :html => {:multipart => true}) do |f| %>
+<% if @ticket.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+
+	<ul>
+		<% @ticket.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<%= f.label "Ticket Author:",:class=>"col-sm-2 control-label" %>
+		<div class="col-md-3">
+			<%= f.text_field :author, :class=>"form-control" %>
+		</div>
+		<br>
+		<br>
+		<br>
+		<%= f.label "Ticket Title:", :class=>"col-sm-2 control-label" %>
+		<div class="col-md-3">
+			<%= f.text_field :title, :class=>"form-control" %>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<%= f.label "Ticket description:", :class=>"col-sm-2 control-label" %>
+		<div class="col-md-3">
+			<%= f.text_area :description,:cols => "5", :rows => "5",:class=>"form-control" %>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<%= f.label "Ticket Attachment:", :class=>"col-sm-2 control-label" %>
+		<div class="col-md-3">
+			<%= f.file_field :attachment, :name => "ticket[ticket_attachments_attributes][][attachment]", :multiple => true %>
+		</div>
+		<br>
+		<br>
+		<br>
+		<%= f.label "Ticket Status:",:class=>"col-sm-2 control-label" %>&nbsp;&nbsp;&nbsp;
+		<%= f.select :status, [['Bug','bug'],['Enhancement','enhancement'],['Task','task'],['Proposal','proposal']], {},:class=>"selectpicker"  %>
+		<br>
+		<br>
+		<%= f.label "Ticket Priority:", :class=>"col-sm-2 control-label" %>&nbsp;&nbsp;&nbsp;
+		<%= f.select :priority, [['Emergency','emergency'],['Critical','critical'],['Major','major'],['Minor','minor']],{},:class=>"selectpicker" %>
+		<br>
+		<br>
+		<%= f.hidden_field :client_id, :value => current_user.id %>
+		<div class="col-md-2">
+			<%= link_to 'Back', clients_path, :class=>"btn btn-primary btn-sm" %>
+		</div>&nbsp;&nbsp;&nbsp;
+
+		<%= f.submit 'Submit Ticket', :class=>"btn btn-primary btn-sm"%>
+	</div>
+</form>
+<% end %>
+
+</div></div></div>
+</div></div>

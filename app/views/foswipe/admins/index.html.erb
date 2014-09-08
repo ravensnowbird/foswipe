@@ -1,0 +1,82 @@
+
+
+
+<% if flash[:notice]%>
+<div class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+<%= flash[:notice]%>
+</div>
+<% end %>
+</div>
+  
+<h1>Welcome Admin</h1>
+ 
+
+<div class="row">
+	<div class="col-md-4">
+		<h3>Tickets</h3>
+
+		<ul class="nav">
+			<% @tickets.order("created_at desc").each do |ticket| %>
+			<li>
+				<div style="padding: 10px;">
+					<%= link_to "#{ticket.title}", ticket_path(ticket) %>
+				<% unless ticket.support %>
+					<span class="label label-success">new</span>
+	                <% end %>
+				</div>
+			</li>
+			<% end %>
+		</ul>
+
+	</div>
+	<div class="col-md-4">
+		<h3>Clients</h3>
+		<ul class="nav">
+			<% @clients.each do |client| %>
+
+			<li>
+				<%= link_to client.name, client_path(client) %>
+			</li>
+
+			<% end %>
+		</ul>
+	</div>
+	<div class="col-md-4">
+		<h3>Support Members</h3>
+		<ul class="nav">
+			<% @supports.each do |support| %>
+
+			<li>
+				<%= link_to support.name, support_path(support) %>
+			</li>
+
+			<% end %>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2">
+		<% if current_user.type == 'Admin' %>
+		<%= link_to 'Create New Client', new_client_path, :class=>"btn btn-lg btn-primary" %>
+		<br>
+		<% end %>
+	</div>
+	<div class="col-md-6"></div>
+	<div class="col-md-2">
+		<% if current_user.type == 'Admin' %>
+		<%= link_to 'Create New Support', new_support_path, :class=>"btn btn-lg btn-primary" %>
+		<br>
+		<% end %>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+
+
+
+
+          
+          
+
+
+

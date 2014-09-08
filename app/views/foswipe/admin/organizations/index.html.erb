@@ -1,0 +1,38 @@
+<% if flash[:notice]%>
+<div class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+		&times;
+	</button>
+	<%= flash[:notice]%>
+</div>
+<% end %>
+
+
+<h1>Listing organizations</h1>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= organization.name %></td>
+        <td><%= link_to 'Show', admin_organization_path(organization) %></td>
+        <td><%= link_to 'Edit', edit_admin_organization_path(organization) %></td>
+        <td><%= link_to 'Destroy', admin_organization_path(organization), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+<%= link_to 'New Organization', new_admin_organization_path, :class=>"btn btn-primary btn-sm" %>

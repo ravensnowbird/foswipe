@@ -1,0 +1,100 @@
+<% if flash[:notice]%>
+<div class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+		&times;
+	</button>
+	<%= flash[:notice]%>
+</div>
+<% end %>
+
+<div class="bs-example">
+	<div class="panel panel-primary">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<b>Ticket Details</b>
+		</div>
+		<li class="list-group-item">
+			<b>Title:</b> <%= @ticket.title %>
+		</li>
+		<div class="panel-body">
+			<p>
+				<b>Description:</b> <%= @ticket.description %>
+			</p>
+		</div>
+
+		<!-- List group -->
+		<ul class="list-group">
+			<li class="list-group-item">
+				<b>Author:</b> <%= @ticket.author %>
+			</li>
+			<li class="list-group-item">
+				<b>Priority:</b> <%= @ticket.priority %>
+			</li>
+			<li class="list-group-item">
+				<b>Assigned To:</b> <% if @ticket.support %>
+				<%= @ticket.support.name %>
+				<% end %>
+			</li>
+			<div class="panel-body">
+				<p>
+					<b>Support Notes:</b> <%= @ticket.support_notes %>
+				</p>
+			</div>
+
+			<li class="list-group-item">
+				<b>Status:</b><%= @ticket.status %>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<% if current_user.type == 'Support' %>
+<br>
+<br>
+<br>
+<div class="row">
+	<div class="col-md-4">
+		<%= form_for (@ticket) do|f| %>
+		<%= f.label "Ticket Status:" %>
+		<%= f.select :status, [['Newly open','newly open'],['Duplicate','duplicate'],['In progress','in progress'],['Solution delivered','solution delivered'], ['Closed','closed']] %>
+		<br>
+		<br>
+
+		<%= form_tag('/assign_support_notes_to_tickets') do %>
+
+		<%= label_tag("Support notes:")%>
+		<br>
+		<%= text_area_tag("ticket[support_notes]",nil,:cols => "30", :rows => "5")%>
+		<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%>
+		<%= hidden_field_tag("ticket[support_id]", current_user.id)%>
+		<br>
+		<%= submit_tag 'Submit', :class=>"btn btn-primary btn-sm" %>
+
+		<% end %>
+		<% end %>
+	</div>
+	<br>
+
+</div>
+<br>
+<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
+<% end %>
+
+<% if current_user.type == 'Client' %>
+<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
+<% end %>
+
+<% if current_user.type == 'Admin' %>
+<br>
+<br>
+<br>
+<%= form_tag('/admin/admins/assign_tickets_to_supports') do %>
+<%= label_tag("Support List:")%>
+<%= collection_select(:ticket, :support_id, Support.all, :id, :name) %>
+<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%>&nbsp;&nbsp;&nbsp;
+<%= submit_tag 'Submit', :class=>"btn btn-primary btn-sm" %>
+<% end %>
+<br>
+<%= link_to 'Back', admin_tickets_path, :class=>"btn btn-lg btn-primary" %>
+<% end %>
+

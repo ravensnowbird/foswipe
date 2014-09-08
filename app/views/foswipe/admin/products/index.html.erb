@@ -1,0 +1,37 @@
+<% if flash[:notice]%>
+<div class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+		&times;
+	</button>
+	<%= flash[:notice]%>
+</div>
+<% end %>
+
+<h1>Listing products</h1>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= link_to 'Show', admin_product_path(product) %></td>
+        <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+        <td><%= link_to 'Destroy', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+<%= link_to 'New Product', new_admin_product_path, :class=>"btn btn-primary btn-sm" %>

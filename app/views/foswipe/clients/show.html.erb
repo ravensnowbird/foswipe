@@ -1,0 +1,52 @@
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @client.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @client.email %>
+</p>
+
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+      <th>Tickets</th>
+       <th>Status</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.description %></td>
+        <td><%= ticket.status %></td>
+        
+       
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+
+<% if current_user.type == 'Admin' %>
+<div class="row">
+	<div  class="col-md-2">
+		<%= link_to 'Back', admins_path, :class=>"btn btn-lg btn-primary" %>
+	</div>
+	<div  class="col-md-8"></div>
+	<div  class="col-md-2">
+		<td><%= link_to 'Delete Client', @client,:class=>"btn btn-lg btn-primary", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</div>
+</div>
+<% end %>

@@ -1,0 +1,50 @@
+<h1>Listing tickets</h1>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+				<th> Id </th>
+				<th> Title </th>
+				<th> Description </th>
+				<th> Priority </th>
+				<th> Assigned To </th>
+				<th> Support Notes </th>
+				<th> Status </th>
+				<th> Delete </th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @tickets.order("created_at desc").each do |ticket| %>
+			<tr>
+				<td><%= ticket.id %></td>
+				<td><%= ticket.title %>
+					<% unless ticket.support %>
+					<span class="label label-success">new</span>
+					<% end %>
+				</td>
+				<td><%= ticket.description %></td>
+				<td><%= ticket.priority %></td>
+				<td><% if ticket.support %> 
+					<%= ticket.support.name %>
+					<% end %> 
+				</td>
+				<td><%= ticket.support_notes %></td>
+				<td><%= ticket.status %></td>
+
+				<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+	<br>
+
+	<% if current_user.type == 'Admin' %>
+	<%= link_to 'Back', admins_path , :class=>"btn btn-lg btn-primary"%>
+	<% elsif current_user.type == 'Client'%>
+	<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
+	<% else %>
+	<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
+	<% end %>

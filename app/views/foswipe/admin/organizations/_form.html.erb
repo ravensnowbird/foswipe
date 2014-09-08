@@ -1,0 +1,49 @@
+
+<div class="row">
+<div class="container">
+   
+   <div class="col-md-9">
+
+<%= form_for([:admin, @organization], :class => "form-signin" ,:role=>"form") do |f| %>
+  <% if @organization.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+      <ul>
+      <% @organization.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="bs-example">
+	<div class="panel panel-primary">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<b>Form Actions on Bottom</b>
+		</div>
+		<li class="list-group-item">
+			<div class="col-md-4" ></div>
+			<div class="field">
+				<div class="row">
+			<div class="col-md-4" >
+    <%= f.label :name %><br>
+    <%= f.text_field :name, :class => "form-control"%><br>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  </div>
+  <div class="col-md-4"></div>
+  </div>
+  
+	</div>
+		</li>
+</div>
+</div>
+<% end %>
+<%= link_to 'Back', admin_organizations_path %>
+</div>
+</div></div>
