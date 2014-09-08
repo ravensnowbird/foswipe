@@ -1,2 +1,2 @@
-module TicketsHelper
+module Foswipe::TicketsHelper
 end

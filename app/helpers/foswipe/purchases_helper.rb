@@ -1,2 +1,2 @@
-module PurchasesHelper
+module Foswipe::PurchasesHelper
 end

@@ -1,2 +1,2 @@
-module SupportsHelper
+module Foswipe::SupportsHelper
 end

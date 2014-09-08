@@ -1,2 +1,2 @@
-module AdminsHelper
+module Foswipe::AdminsHelper
 end

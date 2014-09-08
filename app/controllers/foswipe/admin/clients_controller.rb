@@ -5,7 +5,7 @@ class Foswipe::Admin::ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-   @clients = Client.all
+   @clients = Foswipe::Client.all
   end
 
   # GET /clients/1
@@ -15,7 +15,7 @@ class Foswipe::Admin::ClientsController < ApplicationController
 
   # GET /clients/new
   def new
-    @client = Client.new
+    @client = Foswipe::Client.new
   end
 
   # GET /clients/1/edit
@@ -25,7 +25,7 @@ class Foswipe::Admin::ClientsController < ApplicationController
   # POST /clients
   # POST /clients.json
   def create
-    @client = Client.new(client_params)
+    @client = Foswipe::Client.new(client_params)
     @client.password = "00000000"
     respond_to do |format|
       if @client.save
@@ -65,7 +65,7 @@ class Foswipe::Admin::ClientsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
-      @client = Client.find(params[:id])
+      @client = Foswipe::Client.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,2 +1,2 @@
-module OrganizationsHelper
+module Foswipe::OrganizationsHelper
 end

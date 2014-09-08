@@ -1,2 +1,2 @@
-module ClientsHelper
+module Foswipe::ClientsHelper
 end

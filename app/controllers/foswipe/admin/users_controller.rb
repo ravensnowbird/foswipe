@@ -2,14 +2,14 @@ class Foswipe::Admin::UsersController < ApplicationController
   layout 'admin'
   def index
     if params[:approved] == "false"
-      @users = User.find_all_by_approved(false)
+      @users = Foswipe::User.find_all_by_approved(false)
     else
-      @users = User.all
+      @users = Foswipe::User.all
     end
   end
   
   def approve_user
-  @user = User.find(params[:id])
+  @user = Foswipe::User.find(params[:id])
   @user.approved = true
   if @user.save
     flash[:notice] = "#{@user.name} approved"

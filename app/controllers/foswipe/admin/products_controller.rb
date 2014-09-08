@@ -5,7 +5,7 @@ class Foswipe::Admin::ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Foswipe::Product.all
   end
 
   # GET /products/1
@@ -15,7 +15,7 @@ class Foswipe::Admin::ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = Foswipe::Product.new
   end
 
   # GET /products/1/edit
@@ -25,7 +25,7 @@ class Foswipe::Admin::ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
+    @product = Foswipe::Product.new(product_params)
 
     respond_to do |format|
       if @product.save
@@ -65,7 +65,7 @@ class Foswipe::Admin::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Foswipe::Product.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

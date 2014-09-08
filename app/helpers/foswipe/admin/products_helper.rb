@@ -1,2 +1,2 @@
-module Admin::ProductsHelper
+module Foswipe::Admin::ProductsHelper
 end

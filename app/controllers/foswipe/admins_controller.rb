@@ -4,9 +4,9 @@ class Foswipe::AdminsController < ApplicationController
   # GET /admins
   # GET /admins.json
   def index
-    @tickets = Ticket.all
-    @clients = Client.all
-    @supports = Support.all
+    @tickets = Foswipe::Ticket.all
+    @clients = Foswipe::Client.all
+    @supports = Foswipe::Support.all
   end
 
   # GET /admins/1
@@ -16,7 +16,7 @@ class Foswipe::AdminsController < ApplicationController
 
   # GET /admins/new
   def new
-    @admin = Admin.new
+    @admin = Foswipe::Admin.new
   end
 
   # GET /admins/1/edit
@@ -26,7 +26,7 @@ class Foswipe::AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
-    @admin = Admin.new(admin_params)
+    @admin = Foswipe::Admin.new(admin_params)
 
     respond_to do |format|
       if @admin.save
@@ -74,7 +74,7 @@ class Foswipe::AdminsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
-      @admin = Admin.find(params[:id])
+      @admin = Foswipe::Admin.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

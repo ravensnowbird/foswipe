@@ -1,2 +1,2 @@
-module ProjectsHelper
+module Foswipe::ProjectsHelper
 end

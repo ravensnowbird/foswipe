@@ -5,7 +5,7 @@ class Foswipe::Admin::SupportsController < ApplicationController
   # GET /supports
   # GET /supports.json
   def index
-    @supports = Support.all   
+    @supports = Foswipe::Support.all   
   end
 
   # GET /supports/1
@@ -16,7 +16,7 @@ class Foswipe::Admin::SupportsController < ApplicationController
 
   # GET /supports/new
   def new
-    @support = Support.new
+    @support = Foswipe::Support.new
   end
 
   # GET /supports/1/edit
@@ -26,7 +26,7 @@ class Foswipe::Admin::SupportsController < ApplicationController
   # POST /supports
   # POST /supports.json
   def create
-    @support = Support.new(support_params)
+    @support = Foswipe::Support.new(support_params)
     @support.password = "00000000"
     respond_to do |format|
       if @support.save
@@ -65,8 +65,8 @@ class Foswipe::Admin::SupportsController < ApplicationController
 
   def assign_support_notes_to_tickets
     
-    @support = Support.find(params[:ticket][:support_id])
-    @ticket = Ticket.find(params[:ticket][:ticket_id])
+    @support = Foswipe::Support.find(params[:ticket][:support_id])
+    @ticket = Foswipe::Ticket.find(params[:ticket][:ticket_id])
     @ticket.update(:support_notes => params[:ticket][:support_notes])
     respond_to do |format|
       format.html { redirect_to @ticket }
@@ -77,7 +77,7 @@ class Foswipe::Admin::SupportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_support
-      @support = Support.find(params[:id])
+      @support = Foswipe::Support.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,2 +1,0 @@
-module Admin::TicketHelper
-end

@@ -3,7 +3,7 @@ class Foswipe::Admin::TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   
   def index
-    @tickets = Ticket.all
+    @tickets = Foswipe::Ticket.all
   end
   
   def show
@@ -12,7 +12,7 @@ class Foswipe::Admin::TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
+    @ticket = Foswipe::Ticket.new
   end
 
   # GET /tickets/1/edit
@@ -63,7 +63,7 @@ class Foswipe::Admin::TicketsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
-      @ticket = Ticket.find(params[:id])
+      @ticket = Foswipe::Ticket.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
