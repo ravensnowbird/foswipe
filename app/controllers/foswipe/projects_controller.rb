@@ -1,4 +1,4 @@
-class Foswipe::ProjectsController < ApplicationController
+class Foswipe::ProjectsController < Foswipe::ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects

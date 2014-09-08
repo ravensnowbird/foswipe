@@ -1,4 +1,4 @@
-class Foswipe::TicketsController < ApplicationController
+class Foswipe::TicketsController < Foswipe::ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   # GET /tickets

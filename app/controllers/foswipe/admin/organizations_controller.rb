@@ -1,4 +1,4 @@
-class Foswipe::Admin::OrganizationsController < ApplicationController
+class Foswipe::Admin::OrganizationsController < Foswipe::ApplicationController
   layout 'admin'
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
   

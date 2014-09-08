@@ -1,4 +1,4 @@
-class Foswipe::Admin::UsersController < ApplicationController
+class Foswipe::Admin::UsersController < Foswipe::ApplicationController
   layout 'admin'
   def index
     if params[:approved] == "false"

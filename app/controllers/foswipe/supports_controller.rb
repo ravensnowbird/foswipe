@@ -1,4 +1,4 @@
-class Foswipe::SupportsController < ApplicationController
+class Foswipe::SupportsController < Foswipe::ApplicationController
   before_action :set_support, only: [:show, :edit, :update, :destroy]
 
   # GET /supports

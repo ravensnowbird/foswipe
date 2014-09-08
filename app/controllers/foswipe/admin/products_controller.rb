@@ -1,4 +1,4 @@
-class Foswipe::Admin::ProductsController < ApplicationController
+class Foswipe::Admin::ProductsController < Foswipe::ApplicationController
   layout 'admin'
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 

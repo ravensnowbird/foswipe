@@ -1,4 +1,4 @@
-class Foswipe::ProductsController < ApplicationController
+class Foswipe::ProductsController < Foswipe::ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products

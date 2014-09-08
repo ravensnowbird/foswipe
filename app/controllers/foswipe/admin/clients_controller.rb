@@ -1,4 +1,4 @@
-class Foswipe::Admin::ClientsController < ApplicationController
+class Foswipe::Admin::ClientsController < Foswipe::ApplicationController
   layout 'admin'
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 

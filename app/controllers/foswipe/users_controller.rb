@@ -1,4 +1,4 @@
-class Foswipe::UsersController < ApplicationController
+class Foswipe::UsersController < Foswipe::ApplicationController
   def index
     if params[:approved] == "false"
       @users = User.find_all_by_approved(false)

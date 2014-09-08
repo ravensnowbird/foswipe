@@ -1,4 +1,4 @@
-class Foswipe::PurchasesController < ApplicationController
+class Foswipe::PurchasesController < Foswipe::ApplicationController
   before_action :set_purchase, only: [:show, :edit, :update, :destroy]
 
   # GET /purchases

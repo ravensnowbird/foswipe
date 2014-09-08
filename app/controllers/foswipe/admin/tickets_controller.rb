@@ -1,4 +1,4 @@
-class Foswipe::Admin::TicketsController < ApplicationController
+class Foswipe::Admin::TicketsController < Foswipe::ApplicationController
   layout 'admin'
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   

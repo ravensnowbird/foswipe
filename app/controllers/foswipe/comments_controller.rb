@@ -1,4 +1,4 @@
-class Foswipe::CommentsController < ApplicationController
+class Foswipe::CommentsController < Foswipe::ApplicationController
   before_action :set_comment, only: [:show, :edit, :update]
 
   # GET /comments

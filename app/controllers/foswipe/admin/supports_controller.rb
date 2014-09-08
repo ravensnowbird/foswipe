@@ -1,4 +1,4 @@
-class Foswipe::Admin::SupportsController < ApplicationController
+class Foswipe::Admin::SupportsController < Foswipe::ApplicationController
   layout 'admin'
   before_action :set_support, only: [:show, :edit, :update, :destroy]
 

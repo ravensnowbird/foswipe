@@ -1,4 +1,4 @@
-class Foswipe::ClientsController < ApplicationController
+class Foswipe::ClientsController < Foswipe::ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   # GET /clients

@@ -1,4 +1,4 @@
-class Foswipe::OrganizationsController < ApplicationController
+class Foswipe::OrganizationsController < Foswipe::ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
   # GET /organizations

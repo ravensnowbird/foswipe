@@ -1,5 +1,6 @@
 .bundle/
 log/*.log
+**.log
 pkg/
 test/dummy/db/*.sqlite3
 test/dummy/db/*.sqlite3-journal
@@ -27,9 +28,10 @@ config/secrets.yml
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
-
+test/dummy/dragonfly.log
 # these should all be checked in to normalise the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+test/dummy/dragonfly.log

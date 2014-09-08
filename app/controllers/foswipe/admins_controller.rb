@@ -1,4 +1,4 @@
-class Foswipe::AdminsController < ApplicationController
+class Foswipe::AdminsController < Foswipe::ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   # GET /admins
