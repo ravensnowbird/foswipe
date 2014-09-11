@@ -1,3 +1,88 @@
 = Foswipe
 
 This project rocks and uses MIT-LICENSE.
+
+
+TICKET MANAGEMENT					
+Email ticketing					
+Reusable replies with canned responses					
+Automatic solution suggestion					
+Automatic email notifications					
+Custom ticket views					
+Add tags to tickets, solutions and contacts					
+Merge tickets					
+Add public and private notes to tickets					
+Add watchers to a ticket					
+Assume identity of other agents					
+Export tickets					
+Time tracking					
+Integrated customer satisfaction surveys					
+Agent collision detection					
+MULTI-CHANNEL SUPPORT					
+Freshfone - Integrated phone support					
+Multiple incoming and outgoing mailboxes					
+Add unlimited Twitter accounts					
+Add unlimited Facebook pages					
+Freshchat - Integrated live chat					
+Facebook in-sync app					
+HELPDESK AUTOMATION					
+Automatic ticket assignment using Dispatch'r					
+Time-triggered automations using Supervisor					
+Event-triggered workflow automations with the Observer					
+Multi-task workflows with one-touch Scenario automations					
+Email commands					
+Automatic ticket assignment within group (Round robin)					
+SLA MANAGEMENT					
+Business rules management through SLAs					
+Escalation email for SLA violation					
+Multiple business hours					
+Multiple SLA policies					
+Product, group and company level SLAs					
+KNOWLEDGE-BASE					
+Email to knowledge-base					
+SEO optimization for solutions					
+Suggested solutions					
+COMMUNITY FORUMS					
+MOBILE CUSTOMER SUPPORT					
+Freshdesk for iOS					
+Freshdesk for Android					
+Mobile optimized HTML5 app					
+MobiHelp					
+MULTI-LANGUAGE & MULTIPLE TIME-ZONES					
+Multiple customer portal Languages					
+Multiple agent portal languages					
+Dynamic email notifications					
+Multiple time-zones					
+MULTI-PRODUCT					
+Product level knowledge-base and community forums					
+TICKET FORMS					
+Customizable ticket forms					
+Dependent fields in ticket forms					
+Customizable popup and embedded Feedback widget					
+INTEGRATED GAME MECHANICS					
+REPORTING					
+Exporting reports					
+Basic reporting					
+Advanced reporting					
+Enterprise reporting					
+CUSTOMIZATIONS					
+Access to FreshPlugs gallery					
+Public customer portal customization					
+Custom domain mapping					
+Full CSS customization					
+Customizable agent roles					
+Complete layout customization					
+Access to FreshThemes gallery					
+SECURITY					
+Single Sign On					
+Single Sign On with SAML					
+Wildcard SSL					
+Custom SSL certificates					
+IP Whitelisting					
+Custom Email Servers					
+INTEGRATIONS					
+CRM apps					
+Email marketing					
+Satisfaction surveys					
+Time tracking and invoicing tools					
+And other 30+ applications
