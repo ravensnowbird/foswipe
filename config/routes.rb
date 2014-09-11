@@ -24,7 +24,7 @@ Foswipe::Engine.routes.draw do
 
   resources :organizations
 
-  devise_for :users, class_name: "Foswipe::User"
+  devise_for :users, class_name: "Foswipe::User", module: :devise
 
   resources :tickets do 
     get :all_tickets, :on => :collection

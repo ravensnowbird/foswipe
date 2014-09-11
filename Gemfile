@@ -12,5 +12,6 @@ gemspec
 
 # To use debugger
 gem 'debugger'
+#gem 'debugger2'
 gem "better_errors"
 gem "binding_of_caller"

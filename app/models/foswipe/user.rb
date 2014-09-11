@@ -16,3 +16,4 @@ class Foswipe::User < ActiveRecord::Base
     end 
   end
 end
+
