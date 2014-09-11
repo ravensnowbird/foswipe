@@ -26,6 +26,11 @@
       <tr>
         <td><%= client.name %></td>
         <td><%= client.email %></td>
+            <% if approved == true %>
+              <td><%= approved %></td>
+            <% else %>
+              <td><%= unapproved %>
+            <% end %>
         <td><%= link_to 'Show', admin_client_path(client) %></td>
         <td><%= link_to 'Edit', edit_admin_client_path(client) %></td>
         <td><%= link_to 'Destroy', admin_client_path(client), method: :delete, data: { confirm: 'Are you sure?' } %></td>
