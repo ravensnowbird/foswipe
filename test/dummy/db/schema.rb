@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20140522132715) do
 
   create_table "foswipe_admins", force: true do |t|
-    t.string   "name"
-    t.string   "email"
+    t.string   "name1"
+    t.string   "email1"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
