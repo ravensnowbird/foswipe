@@ -12,7 +12,7 @@ module Foswipe
     belongs_to :Ticket
   end
 
-  class TicketNotes < Comment
+  class TicketNote < Comment
     belongs_to :Ticket
   end
 end

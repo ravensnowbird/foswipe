@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912120003) do
+ActiveRecord::Schema.define(version: 20140912104548) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
