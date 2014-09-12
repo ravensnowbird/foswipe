@@ -5,8 +5,8 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
   # GET /admins.json
   def index
     @tickets = Foswipe::Ticket.all
-    @clients = Foswipe::Client.all
-    @supports = Foswipe::Support.all
+    @clients = Foswipe::User.customers
+    @supports = Foswipe::User.agents
   end
 
   # GET /admins/1

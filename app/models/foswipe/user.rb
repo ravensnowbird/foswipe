@@ -31,7 +31,15 @@ class Foswipe::User < ActiveRecord::Base
   def skip_confirmation
     update(:confirmed_at => Time.now.utc)
   end
-  
+  def self.customers
+    Foswipe::User.where( :agent => false , :admin => false)
+  end
+  def self.agents
+    Foswipe::User.where( :agent => true)
+  end
+  def self.admins
+    Foswipe::User.where( :admin => true)
+  end
   
 end
 

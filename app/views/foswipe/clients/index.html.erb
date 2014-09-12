@@ -40,7 +40,7 @@
 			<% @tickets.order("updated_at desc").each do |ticket| %>
 			<tr>
 				<td> <%= link_to "#{ticket.title}", ticket_path(ticket)%>
-				<% unless ticket.support %> <span class="label label-success">new</span> <% end %> </td>
+				<% unless ticket.agent %> <span class="label label-success">new</span> <% end %> </td>
 				<td><%= ticket.status %></td>
 				<td><%= ticket.priority %></td>
 
@@ -54,6 +54,6 @@
 <br>
 <% end %>
 
-<% if current_user.type == 'Client' %>
+<% if current_user.customer? %>
 <%= link_to 'Create New Ticket', new_ticket_path, :class=>"btn btn-lg btn-primary" %>
 <% end %>

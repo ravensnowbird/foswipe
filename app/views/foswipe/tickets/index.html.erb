@@ -12,6 +12,7 @@
 				<th> Support Notes </th>
 				<th> Status </th>
 				<th> Delete </th>
+				<th> Show </th>
 			</tr>
 		</thead>
 
@@ -20,13 +21,13 @@
 			<tr>
 				<td><%= ticket.id %></td>
 				<td><%= ticket.title %>
-					<% unless ticket.support %>
+					<% unless ticket.agent %>
 					<span class="label label-success">new</span>
 					<% end %>
 				</td>
 				<td><%= ticket.description %></td>
 				<td><%= ticket.priority %></td>
-				<td><% if ticket.support %> 
+				<td><% if ticket.agent %> 
 					<%= ticket.support.name %>
 					<% end %> 
 				</td>
@@ -34,6 +35,7 @@
 				<td><%= ticket.status %></td>
 
 				<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= link_to 'Show', ticket, method: :get %></td>
 			</tr>
 			<% end %>
 		</tbody>

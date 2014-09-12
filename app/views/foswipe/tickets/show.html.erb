@@ -80,7 +80,7 @@
 <%= link_to 'Back', agents_path, :class=>"btn btn-lg btn-primary" %>
 <% end %>
 
-<!-- <% if current_user.type == 'Client' %>
+<!-- <% if current_user.customer? %>
 <%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
 <% end %> -->
 
@@ -90,8 +90,8 @@
 <br>
 <%= form_tag('/assign_tickets_to_supports') do %>
 <%= label_tag("Support List:")%>
-<%= collection_select(:ticket, :support_id, Support.all, :id, :name) %>
-<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%>&nbsp;&nbsp;&nbsp;
+<%= collection_select(:ticket, :support_id, Foswipe::User.where(:agent=>true), :id, :name) %>
+<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%><br />
 <%= submit_tag 'Submit', :class=>"btn btn-primary btn-sm" %>
 <% end %>
 <br>
