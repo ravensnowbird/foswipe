@@ -4,6 +4,8 @@ class Foswipe::User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
          
+  has_many :tickets       
+         
   after_create :skip_confirmation
   
   #def active_for_authentication? 

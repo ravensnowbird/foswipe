@@ -4,7 +4,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    @tickets = Foswipe::Ticket.all
   end
 
   # GET /tickets/1
@@ -18,7 +18,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
+    @ticket = Foswipe::Ticket.new
     #@comment = Comment.new
   end
 

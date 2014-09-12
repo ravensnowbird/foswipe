@@ -18,7 +18,7 @@
 	<%= current_user.email %>
 </p>
 
-<% if current_user.type == 'Support' %>
+<% if current_user.agent? %>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
 		<thead>
@@ -47,7 +47,7 @@
 	<% end %>
 	<br>
 
-	<% if current_user.type == 'Admin' %>
+	<% if current_user.admin? %>
 	<%= link_to 'Create New Support', new_support_path %> |
 	<%= link_to 'Back', admins_path %>
 	<% end %>
