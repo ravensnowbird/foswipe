@@ -5,19 +5,7 @@ Foswipe::Engine.routes.draw do
   
   resources :comments
 
-  namespace :admin do
-    resources :tickets
-    resources :organizations
-    resources :products
-    resources :purchases
-    resources :admins 
-      post '/admins/assign_tickets_to_supports' => 'admins#assign_tickets_to_supports'
-    #end
-    resources :clients
-    resources :supports
-    resources :foswipe_users
-    get '/users/:id/approve'=> 'users#approve_user', as: 'approve_user'
-  end
+  
   resources :purchases
 
   resources :products

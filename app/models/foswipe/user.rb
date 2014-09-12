@@ -18,14 +18,8 @@ class Foswipe::User < ActiveRecord::Base
   #  end 
   #end
   
-  def type
-    if admin
-      "Admin"
-    elsif agent
-      "Agent"
-    else
-      "Customer"
-    end
+  def customer?
+    !(admin? || agent?)
   end
   def name
     first_name + (last_name || "")
