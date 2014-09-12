@@ -4,7 +4,7 @@ class Foswipe::User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
          
-  after_create :skip_confirmation!
+  after_create :skip_confirmation
   
   #def active_for_authentication? 
   #  super && approved? 
@@ -29,6 +29,9 @@ class Foswipe::User < ActiveRecord::Base
   end
   def name
     first_name + (last_name || "")
+  end
+  def skip_confirmation
+    update(:confirmed_at => Time.now.utc)
   end
   
   
