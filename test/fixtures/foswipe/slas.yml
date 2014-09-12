@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  priority: MyString
+  respondwith: MyString
+  resolvewith: MyString
+  operationalhours: MyString
+  esclate: MyString
+  slas_id: 1
+  slas_type: MyString
+
+two:
+  priority: MyString
+  respondwith: MyString
+  resolvewith: MyString
+  operationalhours: MyString
+  esclate: MyString
+  slas_id: 1
+  slas_type: MyString
