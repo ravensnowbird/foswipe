@@ -5,7 +5,7 @@ module Foswipe
   class Engine < ::Rails::Engine
     isolate_namespace Foswipe
     config.to_prepare do
-      Devise::SessionsController.layout "foswipe/application"
+      Devise::SessionsController.layout "foswipe/devise"
     end
   end
 end
