@@ -15,3 +15,4 @@ gem 'debugger'
 #gem 'debugger2'
 gem "better_errors"
 gem "binding_of_caller"
+gem "codeclimate-test-reporter", group: :test, require: nil

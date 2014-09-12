@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522132715) do
+ActiveRecord::Schema.define(version: 20140912104548) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140522132715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ticket_id"
+    t.string   "type"
   end
 
   create_table "foswipe_organizations", force: true do |t|
@@ -51,6 +52,18 @@ ActiveRecord::Schema.define(version: 20140522132715) do
 
   create_table "foswipe_purchases", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "foswipe_slas", force: true do |t|
+    t.string   "priority"
+    t.string   "respondwith"
+    t.string   "resolvewith"
+    t.string   "operationalhours"
+    t.string   "esclate"
+    t.integer  "slas_id"
+    t.string   "slas_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
