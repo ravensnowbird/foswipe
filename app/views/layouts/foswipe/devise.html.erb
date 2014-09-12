@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ticketing System</title>
+		<%= stylesheet_link_tag    "foswipe/application", media: "all" %>
+		<%= javascript_include_tag "foswipe/application" %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body class="skin-blue">
+		<!-- header logo: style can be found in header.less -->
+		<div class="form-box">
+			<%= yield %>
+		</div>
+		<!-- add new calendar event modal -->
+
+	</body>
+</html>
