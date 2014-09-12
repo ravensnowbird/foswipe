@@ -1,3 +1,4 @@
+
 <% if flash[:notice]%>
 <div class="alert alert-success alert-dismissable">
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -25,15 +26,13 @@
 
 		<!-- List group -->
 		<ul class="list-group">
-			<li class="list-group-item">
-				<b>Author:</b> <%= @ticket.author %>
-			</li>
+			
 			<li class="list-group-item">
 				<b>Priority:</b> <%= @ticket.priority %>
 			</li>
 			<li class="list-group-item">
-				<b>Assigned To:</b> <% if @ticket.support %>
-				<%= @ticket.support.name %>
+				<b>Assigned To:</b> <% if @ticket.agent %>
+				<%= @ticket.agent.name %>
 				<% end %>
 			</li>
 			<div class="panel-body">
@@ -49,7 +48,7 @@
 	</div>
 </div>
 
-<% if current_user.type == 'Support' %>
+<% if current_user.agent?  %>
 <br>
 <br>
 <br>
@@ -57,7 +56,7 @@
 	<div class="col-md-4">
 		<%= form_for (@ticket) do|f| %>
 		<%= f.label "Ticket Status:" %>
-		<%= f.select :status, [['Newly open','newly open'],['Duplicate','duplicate'],['In progress','in progress'],['Solution delivered','solution delivered'], ['Closed','closed']] %>
+		<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
 		<br>
 		<br>
 
@@ -78,28 +77,28 @@
 
 </div>
 <br>
-<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
+<%= link_to 'Back', agents_path, :class=>"btn btn-lg btn-primary" %>
 <% end %>
 
-<!-- <% if current_user.type == 'Client' %>
+<!-- <% if current_user.customer? %>
 <%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
 <% end %> -->
 
-<% if current_user.type == 'Admin' %>
+<% if current_user.admin? %>
 <br>
 <br>
 <br>
 <%= form_tag('/assign_tickets_to_supports') do %>
 <%= label_tag("Support List:")%>
-<%= collection_select(:ticket, :support_id, Support.all, :id, :name) %>
-<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%>&nbsp;&nbsp;&nbsp;
+<%= collection_select(:ticket, :support_id, Foswipe::User.where(:agent=>true), :id, :name) %>
+<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%><br />
 <%= submit_tag 'Submit', :class=>"btn btn-primary btn-sm" %>
 <% end %>
 <br>
 <%= link_to 'Back', admins_path, :class=>"btn btn-lg btn-primary" %>
 <% end %>
 
-<% if current_user.type == 'Client' %>
+<% if current_user.customer? %>
 <h1>Listing comments</h1>
 <div class="panel panel-primary">
   <!-- Default panel contents -->
@@ -129,5 +128,4 @@
 <br>
 <%= render 'comments/form' %>
 <% end %>
-
 

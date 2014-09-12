@@ -21,7 +21,7 @@
 			<li>
 				<div style="padding: 10px;">
 					<%= link_to "#{ticket.title}", ticket_path(ticket) %>
-				<% unless ticket.support %>
+				<% unless ticket.agent %>
 					<span class="label label-success">new</span>
 	                <% end %>
 				</div>
@@ -57,14 +57,14 @@
 </div>
 <div class="row">
 	<div class="col-md-2">
-		<% if current_user.type == 'Admin' %>
+		<% if current_user.admin? %>
 		<%= link_to 'Create New Client', new_client_path, :class=>"btn btn-lg btn-primary" %>
 		<br>
 		<% end %>
 	</div>
 	<div class="col-md-6"></div>
 	<div class="col-md-2">
-		<% if current_user.type == 'Admin' %>
+		<% if current_user.admin? %>
 		<%= link_to 'Create New Support', new_support_path, :class=>"btn btn-lg btn-primary" %>
 		<br>
 		<% end %>

@@ -5,7 +5,7 @@ class Foswipe::ClientsController < Foswipe::ApplicationController
   # GET /clients.json
   def index
    #@clients = Client.all
-   @tickets = current_user.tickets if current_user.type == 'Client'
+   @tickets = current_user.tickets if current_user.customer?
   end
 
   # GET /clients/1
