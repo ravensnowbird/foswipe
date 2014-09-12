@@ -5,6 +5,8 @@ class Foswipe::User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
          
   after_create :skip_confirmation
+  has_many :tickets, :foreign_key => 'client_id', :class_name => "Ticket"
+  has_many :support_tickets, :foreign_key => 'support_id', :class_name => "Ticket"
   
   #def active_for_authentication? 
   #  super && approved? 
