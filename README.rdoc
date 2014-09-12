@@ -1,5 +1,6 @@
 = Foswipe
 
+{<img src="https://codeclimate.com/github/ravensnowbird/foswipe/badges/gpa.svg" />}[https://codeclimate.com/github/ravensnowbird/foswipe] {<img src="https://codeclimate.com/github/ravensnowbird/foswipe/badges/coverage.svg" />}[https://codeclimate.com/github/ravensnowbird/foswipe] {<img src="https://travis-ci.org/ravensnowbird/foswipe.svg" alt="Build Status" />}[https://travis-ci.org/ravensnowbird/foswipe]
 This project rocks and uses MIT-LICENSE.
 
 
