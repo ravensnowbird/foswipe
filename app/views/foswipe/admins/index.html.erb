@@ -36,7 +36,7 @@
 			<% @clients.each do |client| %>
 
 			<li>
-				<%= link_to client.name, client_path(client) %>
+				<%= link_to client.first_name, client_path(client) %>
 			</li>
 
 			<% end %>
@@ -48,7 +48,7 @@
 			<% @supports.each do |support| %>
 
 			<li>
-				<%= link_to support.name, support_path(support) %>
+				<%= link_to support.first_name, support_path(support) %>
 			</li>
 
 			<% end %>

@@ -13,20 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140522132715) do
 
-  create_table "foswipe_admins", force: true do |t|
-    t.string   "name1"
-    t.string   "email1"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "foswipe_clients", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -69,13 +55,6 @@ ActiveRecord::Schema.define(version: 20140522132715) do
     t.datetime "updated_at"
   end
 
-  create_table "foswipe_supports", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "foswipe_ticket_attachments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -95,7 +74,6 @@ ActiveRecord::Schema.define(version: 20140522132715) do
     t.text     "support_notes"
     t.string   "title"
     t.string   "priority"
-    t.string   "author"
   end
 
   add_index "foswipe_tickets", ["client_id"], name: "index_foswipe_tickets_on_client_id"
@@ -114,9 +92,17 @@ ActiveRecord::Schema.define(version: 20140522132715) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
-    t.string   "name"
-    t.boolean  "approved"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "mobile_no"
+    t.string   "gender"
+    t.boolean  "agent"
+    t.boolean  "admin"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "foswipe_users", ["email"], name: "index_foswipe_users_on_email", unique: true
