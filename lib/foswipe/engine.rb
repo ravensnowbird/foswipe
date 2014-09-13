@@ -1,6 +1,7 @@
 require "devise"
 require 'adminlte-rails'
 require 'dragonfly'
+require 'pundit'
 module Foswipe
   class Engine < ::Rails::Engine
     isolate_namespace Foswipe

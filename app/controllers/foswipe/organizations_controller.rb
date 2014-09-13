@@ -4,7 +4,7 @@ class Foswipe::OrganizationsController < Foswipe::ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    @organizations = Organization.all
+    @organizations = Foswipe::Organization.all
   end
 
   # GET /organizations/1

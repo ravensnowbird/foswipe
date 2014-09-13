@@ -29,5 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "devise"
 
   s.add_dependency 'dragonfly', '~> 1.0.7'
+  
+  s.add_dependency "pundit"
 
 end

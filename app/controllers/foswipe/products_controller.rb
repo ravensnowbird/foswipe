@@ -4,7 +4,7 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Foswipe::Product.all
   end
 
   # GET /products/1

@@ -16,3 +16,16 @@ module Foswipe
     belongs_to :Ticket
   end
 end
+
+module Foswipe
+  class TicketComment < Comment
+    belongs_to :Ticket
+  end
+
+end
+
+module Foswipe
+  class TicketNote < Comment
+    belongs_to :Ticket
+  end
+end
