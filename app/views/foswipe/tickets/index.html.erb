@@ -1,52 +1,187 @@
-<h1>Listing tickets</h1>
+<div id="page-wrapper">
+	<div class="row">
 
-<div class="table-responsive">
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr bgcolor="#1E90FF">
-				<th> Id </th>
-				<th> Title </th>
-				<th> Description </th>
-				<th> Priority </th>
-				<th> Assigned To </th>
-				<th> Support Notes </th>
-				<th> Status </th>
-				<th> Delete </th>
-				<th> Show </th>
-			</tr>
-		</thead>
+		<div class="col-lg-3 col-md-6">
+			<h3>Filter Tickets</h3>
+			<div class="ff_item  " condition="responder_id" container="dropdown" ff_name="default" id="div_ff_responder_id" operator="is_in">
+				<h4 class="title">Agents</h4>
+				<ul>
+					<li>
+						<% if @admin %>
+						<% @admin.each do |a| %>
+						<div >
+							<input type="checkbox" value = <%= a.id%> >
+							Me
+						</div>
+						<% end %>
+						<%end%>
+						<% if @agents%>
+						<% @agents.each do |a| %>
+					<li>
+						<input   type="checkbox" value = <%= a.id%> >
+						<%= a.name%>
+						<% end%>
+						<% end %>
 
-		<tbody>
-			<% @tickets.order("created_at desc").each do |ticket| %>
-			<tr>
-				<td><%= ticket.id %></td>
-				<td><%= ticket.title %>
-					<% unless ticket.agent %>
-					<span class="label label-success">new</span>
-					<% end %>
-				</td>
-				<td><%= ticket.description %></td>
-				<td><%= ticket.priority %></td>
-				<td><% if ticket.agent %> 
-					<%= ticket.support.name %>
-					<% end %> 
-				</td>
-				<td><%= ticket.support_notes %></td>
-				<td><%= ticket.status %></td>
+					</li>
+				</ul>
 
-				<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-				<td><%= link_to 'Show', ticket, method: :get %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
-	<br>
+				<!-- ><div class="ff_item" condition="group_id" container="multi_select" ff_name="default" id="div_ff_group_id" operator="is_in">
+				<h4 class="title">Groups</h4>
+				<select class="select2 filter_item" id="group_id" multiple="multiple" name="group_id[]" placeholder=" ">
+				<option value="0">My Groups</option>
+				<option value="5000052400">Product Management</option>
+				<option value="5000052401">QA</option>
+				<option value="5000052402">Sales</option>
+				<option value="-1">Unassigned</option>
+				</select>
+				</div> -->
 
-	<% if current_user.admin? %>
-	<%= link_to 'Back', admins_path , :class=>"btn btn-lg btn-primary"%>
-	<% elsif current_user.customer? %>
-	<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
-	<% else %>
-	<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
-	<% end %>
+			</div>
+			<div class="ff_item" condition="created_at" container="single_select" ff_name="default" id="div_ff_created_at" operator="is_greater_than">
+				<h4 class="title">Created</h4>
+				<select class="select2 filter_item" data-minimum-results-for-search="100" data-selected-value="30" id="created_at" name="created_at">
+					<option value="any_time">Any time</option>
+					<option value="5">Within 5 minutes</option>
+					<option value="15">Within 15 minutes</option>
+					<option value="30" selected="selected">Within 30 minutes</option>
+					<option value="60">Within 1 hour</option>
+					<option value="240">Within 4 hours</option>
+					<option value="720">Within 12 hours</option>
+					<option value="1440">Within 24 hours</option>
+					<option value="today">Today</option>
+					<option value="yesterday">Yesterday</option>
+					<option value="week">This Week</option>
+					<option value="month">This Month</option>
+					<option value="two_months">Last 2 months</option>
+					<option value="six_months">Last 6 months</option>
+					<option value="set_date">Select Time Period</option>
+				</select>
+
+			</div>
+			<div class="ff_item" condition="status" container="multi_select" ff_name="default" id="div_ff_status" operator="is_in">
+				<h4 class="title">Status</h4>
+				<select class="select2 filter_item" id="status" multiple="multiple" name="status[]" placeholder=" ">
+					<option value="Open">Open</option>
+					<option value="Pending">Pending</option>
+					<option value="Resolved">Resolved</option>
+					<option value="Closed">Closed</option>
+					<option value="Waiting on Customer">Waiting on Customer</option>
+					<option value="Waiting on Third Party">Waiting on Third Party</option>
+				</select>
+			</div>
+
+			<div class="ff_item" condition="priority" container="dropdown" ff_name="default" id="div_ff_priority" operator="is_in">
+				<h4 class="title">Priority</h4>
+				<% @priority.each do |k,v|%>
+				<br>
+				<label class="item">
+					<input type="checkbox" value= <%= @priority[k] %> >
+					<%= v %></br> </label>
+				<%end%>
+			</div>
+
+			<div>
+				<br>
+				<label>Customers</label></br>
+				<input type="text"  >
+			</div>
+			<div>
+				<br>
+				<label>Supports</label></br>
+				<input type="text" class="select2-input select2-default">
+			</div>
+		</div>
+		<h1>Listing tickets</h1>
+		<div class="row">
+			<div class="col-lg-8">
+				<div class=" col-md-25" >
+
+					<div class="box">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped">
+								<thead>
+									<tr bgcolor="#1E90FF">
+										<th>
+										<input type="checkbox">
+										</th>
+										<th>
+										<input type="button" value="Pick Up">
+										</th>
+										<th>
+										<input type="button" value="Assign To Agent">
+										</th>
+										<th>
+										<input type="button" value="Close">
+										</th>
+										<th>
+										<input type="button" value="Bulk Actions">
+										</th>
+										<th>
+										<input type="button" value="Delete">
+										</th>
+									</tr>
+								</thead>
+							</table>
+
+							<table>
+								<% @tickets.order("created_at desc").each do |ticket| %>
+								<tr>
+									<td><label class='hasborder'>
+										<input type='checkbox' >
+									</label></td>
+									<td><%= link_to "#{ticket.title} #  #{ticket.id}", ticket_path(ticket.id), method: :get %> 
+										
+						
+							
+									From : <% if ticket.agent %>
+									<%= ticlet.agent.name %>
+									<% end %>
+									<% if ticket.customer %>
+									<%= ticket.customer.name %>
+									<% end %>
+										</td>
+									<!-- <td><%= ticket.description %></td>
+									<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+									<td><%= link_to 'Show', ticket, method: :get %></td> -->
+									<td>
+									<ul>
+										<li>
+											<label> Agent : </label>
+											<% if ticket.agent %>
+											<%= ticket.agent.name %>
+											<% end %>
+										</li>
+										<li>
+											<label> Status : </label>
+											<% if ticket.status %>
+											<%= ticket.status %>
+											<% end %>
+										</li>
+										<li>
+											<label> Priority : </label>
+											<% if ticket.priority %>
+											<%= ticket.priority %>
+											<% end %>
+										</li>
+									</ul></td>
+								</tr>
+								<% end %>
+							</table>
+						</div>
+						<br>
+
+						<% if current_user.admin? %>
+						<%= link_to 'Back', admins_path , :class=>"btn btn-lg btn-primary"%>
+						<% elsif current_user.customer? %>
+						<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
+						<% else %>
+						<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
+						<% end %>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	

@@ -5,13 +5,16 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets.json
   def index
     @tickets = Foswipe::Ticket.all
+    @agents = Foswipe::User.agents
+    @admin = Foswipe::User.where(:id=> current_user.id , :admin => true)
+    @priority = {"1"=>"Low","2"=>"Medium","3"=>"High","4"=>"Urgent"}
   end
 
   # GET /tickets/1
   # GET /tickets/1.json
   def show
     @ticket = Foswipe::Ticket.find(params[:id])
-    @comments = @ticket.comments
+    @comments = @ticket.ticket_comments
     @comment = Foswipe::Comment.new
     
   end
