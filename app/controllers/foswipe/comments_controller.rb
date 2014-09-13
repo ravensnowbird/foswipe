@@ -1,5 +1,6 @@
 class Foswipe::CommentsController < Foswipe::ApplicationController
   before_action :set_comment, only: [:show, :edit, :update]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /comments
   # GET /comments.json
@@ -74,6 +75,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+      authorise_filter @comment
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

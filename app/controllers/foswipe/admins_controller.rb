@@ -1,11 +1,10 @@
 class Foswipe::AdminsController < Foswipe::ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /admins
   # GET /admins.json
   def index
-    p "#####################"
-    p @admin
     @tickets = Foswipe::Ticket.all
     @clients = Foswipe::User.customers
     @supports = Foswipe::User.agents
@@ -77,6 +76,7 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
       @admin = Foswipe::Admin.find(params[:id])
+      authorise_filter @admin
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

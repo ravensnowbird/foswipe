@@ -14,22 +14,22 @@ class Foswipe::ProductsPolicy < Foswipe::ApplicationPolicy
   end
 
   def new?
-    true
+    @user.admin_or_agent?
   end
 
   def edit?
-    true
+    @user.admin_or_agent?
   end
 
   def create?
-    true
+    @user.admin_or_agent?
   end
 
   def update?
-    true
+    @user.admin_or_agent?
   end
 
   def destroy?
-    true
+    @user.admin_or_agent?
   end
 end

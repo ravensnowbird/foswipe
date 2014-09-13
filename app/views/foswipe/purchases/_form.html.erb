@@ -15,7 +15,7 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-<%= select_tag "products", options_from_collection_for_select(@products, "id", "name"), include_blank: true %>
+<%= select_tag "products", options_from_collection_for_select(Foswipe::Product.all, "id", "name"), include_blank: true %>
   <div class="actions">
     <%= f.submit %>
   </div>

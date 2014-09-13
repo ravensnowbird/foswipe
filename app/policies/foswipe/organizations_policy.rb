@@ -6,30 +6,34 @@ class Foswipe::OrganizationsPolicy < Foswipe::ApplicationPolicy
   end
 
   def index?
-    true
+    @user.admin_or_agent?
   end
 
   def show?
-    true
+    unless @user.customer?
+    return true
+    else
+    @user.organigation == @organization
+    end
   end
 
   def new?
-    true
+    @user.admin_or_agent?
   end
 
   def edit?
-    true
+    @user.admin_or_agent?
   end
 
   def create?
-    true
+    @user.admin_or_agent?
   end
 
   def update?
-    true
+    check_user
   end
 
   def destroy?
-    true
+    @user.admin_or_agent?
   end
 end

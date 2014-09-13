@@ -6,30 +6,39 @@ class Foswipe::AdminsPolicy < Foswipe::ApplicationPolicy
   end
 
   def index?
-    true
+    check_user
   end
 
   def show?
-    true
+    check_user
   end
 
   def new?
-    true
+    check_user
   end
 
   def edit?
-    true
+    check_user
   end
 
   def create?
-    true
+    check_user
   end
 
   def update?
-    true
+    check_user
   end
 
   def destroy?
-    true
+    check_user
+  end
+  private
+
+  def check_user
+    if @user.admin?
+    return true
+    else
+    return false
+    end
   end
 end

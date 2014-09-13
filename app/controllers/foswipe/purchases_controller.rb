@@ -1,10 +1,11 @@
 class Foswipe::PurchasesController < Foswipe::ApplicationController
   before_action :set_purchase, only: [:show, :edit, :update, :destroy]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /purchases
   # GET /purchases.json
   def index
-    @purchases = Purchase.all
+    @purchases = Foswipe::Purchase.all
   end
 
   # GET /purchases/1
@@ -14,7 +15,7 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
 
   # GET /purchases/new
   def new
-    @purchase = Purchase.new
+    @purchase = Foswipe::Purchase.new
   end
 
   # GET /purchases/1/edit
@@ -24,7 +25,7 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
   # POST /purchases
   # POST /purchases.json
   def create
-    @purchase = Purchase.new(purchase_params)
+    @purchase = Foswipe::Purchase.new(purchase_params)
 
     respond_to do |format|
       if @purchase.save
@@ -64,7 +65,8 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
-      @purchase = Purchase.find(params[:id])
+      @purchase = Foswipe::Purchase.find(params[:id])
+      authorise_filter @purchase
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -2,9 +2,8 @@ class Foswipe::ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
-    p "############" * 10
-    p @user = user
-    p @record = record
+     @user = user
+     @record = record
   end
 
   def index?

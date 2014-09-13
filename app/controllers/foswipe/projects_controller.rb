@@ -1,5 +1,6 @@
 class Foswipe::ProjectsController < Foswipe::ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /projects
   # GET /projects.json
@@ -65,6 +66,7 @@ class Foswipe::ProjectsController < Foswipe::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
+      authorise_filter @project
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

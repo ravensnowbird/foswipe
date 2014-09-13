@@ -1,28 +1,25 @@
 class Foswipe::TicketsController < Foswipe::ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorise_filter, :only => [:index, :new, :create]
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Foswipe::Ticket.all
     @agents = Foswipe::User.agents
     @admin = Foswipe::User.where(:id=> current_user.id , :admin => true)
     @priority = {"1"=>"Low","2"=>"Medium","3"=>"High","4"=>"Urgent"}
+    @tickets = current_user.all_tickets
   end
 
   # GET /tickets/1
   # GET /tickets/1.json
   def show
-    @ticket = Foswipe::Ticket.find(params[:id])
     @comments = @ticket.ticket_comments
     @comment = Foswipe::Comment.new
-    
   end
 
   # GET /tickets/new
   def new
     @ticket = Foswipe::Ticket.new
-    #@comment = Comment.new
   end
 
   # GET /tickets/1/edit
@@ -59,7 +56,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
       end
     end
   end
-  
+
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
@@ -71,13 +68,15 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ticket
-      @ticket = Foswipe::Ticket.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ticket_params
-      params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ticket
+    @ticket = Foswipe::Ticket.find(params[:id])
+    authorise_filter @ticket
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ticket_params
+    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment])
+  end
 end

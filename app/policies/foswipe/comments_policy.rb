@@ -6,7 +6,7 @@ class Foswipe::CommentsPolicy < Foswipe::ApplicationPolicy
   end
 
   def index?
-    true
+    @user.admin_or_agent?
   end
 
   def show?
