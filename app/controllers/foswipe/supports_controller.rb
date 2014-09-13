@@ -1,5 +1,6 @@
 class Foswipe::SupportsController < Foswipe::ApplicationController
   before_action :set_support, only: [:show, :edit, :update, :destroy]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /supports
   # GET /supports.json
@@ -80,6 +81,7 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_support
       @support = Support.find(params[:id])
+      authorise_filter @support
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

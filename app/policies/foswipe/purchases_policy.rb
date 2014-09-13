@@ -10,26 +10,26 @@ class Foswipe::PurchasesPolicy < Foswipe::ApplicationPolicy
   end
 
   def show?
-    true
+    @user.admin_or_agent? || (@user.organization ? @user.organization.purchases.incude?(@purchase) : false)
   end
 
   def new?
-    true
+    @user.admin_or_agent?
   end
 
   def edit?
-    true
+    @user.admin_or_agent?
   end
 
   def create?
-    true
+    @user.admin_or_agent?
   end
 
   def update?
-    true
+    @user.admin_or_agent?
   end
 
   def destroy?
-    true
+    @user.admin_or_agent?
   end
 end

@@ -1,5 +1,6 @@
 class Foswipe::OrganizationsController < Foswipe::ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /organizations
   # GET /organizations.json
@@ -65,6 +66,7 @@ class Foswipe::OrganizationsController < Foswipe::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_organization
       @organization = Organization.find(params[:id])
+      authorise_filter @organization
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

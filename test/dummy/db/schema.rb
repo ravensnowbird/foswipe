@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912104548) do
+ActiveRecord::Schema.define(version: 20140913132026) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
@@ -54,7 +54,10 @@ ActiveRecord::Schema.define(version: 20140912104548) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
+
+  add_index "foswipe_purchases", ["organization_id"], name: "index_foswipe_purchases_on_organization_id"
 
   create_table "foswipe_slas", force: true do |t|
     t.string   "priority"
@@ -116,9 +119,11 @@ ActiveRecord::Schema.define(version: 20140912104548) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "organization_id"
   end
 
   add_index "foswipe_users", ["email"], name: "index_foswipe_users_on_email", unique: true
+  add_index "foswipe_users", ["organization_id"], name: "index_foswipe_users_on_organization_id"
   add_index "foswipe_users", ["reset_password_token"], name: "index_foswipe_users_on_reset_password_token", unique: true
 
 end

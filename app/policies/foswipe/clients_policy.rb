@@ -6,30 +6,31 @@ class Foswipe::ClientsPolicy < Foswipe::ApplicationPolicy
   end
 
   def index?
-    true
+    @user.admin_or_agent?
   end
 
   def show?
-    true
+    user == client
   end
 
   def new?
-    true
+    @user.admin_or_agent?
   end
 
   def edit?
-    true
+    @user.admin? || @user == @client
   end
 
   def create?
-    true
+    @user.admin_or_agent?
   end
 
   def update?
-    true
+    @user.admin? || @user == @client
   end
 
   def destroy?
-    true
+    @user.admin_or_agent?
   end
+
 end

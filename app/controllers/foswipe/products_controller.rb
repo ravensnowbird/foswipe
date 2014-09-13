@@ -1,5 +1,6 @@
 class Foswipe::ProductsController < Foswipe::ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authorise_filter, :only => [:index, :new, :create]
 
   # GET /products
   # GET /products.json
@@ -65,6 +66,7 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
+      authorise_filter @product
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
