@@ -4,7 +4,7 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
   # GET /supports
   # GET /supports.json
   def index
-   @supports = Support.all if current_user.agent?
+   @supports = Foswipe::User.agents if current_user.agent?
     @tickets = current_user.tickets if current_user.agent?
   end
 
