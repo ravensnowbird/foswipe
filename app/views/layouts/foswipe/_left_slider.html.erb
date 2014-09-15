@@ -2,12 +2,12 @@
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
 		<div class="user-panel">
-			<div class="pull-left image">
-				<img src="../../img/avatar3.png" class="img-circle" alt="User Image">
+		  <div class="pull-left image">
+			  <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(current_user.email) %>" class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
 				<p>
-					Hello, <%= current_user.name %>
+					Hello, <%= current_user.first_name.to_s %>
 				</p>
 
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
