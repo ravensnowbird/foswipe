@@ -6,11 +6,11 @@ class Foswipe::ProductsPolicy < Foswipe::ApplicationPolicy
   end
 
   def index?
-    true
+    @user.admin_or_agent?
   end
 
   def show?
-    true
+    @user.admin_or_agent?
   end
 
   def new?

@@ -1,5 +1,5 @@
 <div class="">
 	<h1>New Admin</h1>
-	<%= render(:partial => '/foswipe/users/new', :locals => {:user => @admin, :user_path => admins_path }) %>
+	<%= render(:partial => '/foswipe/users/form', :locals => {:user => @admin, :user_path => admins_path, :organization => false }) %>
 	<%= link_to 'Back', admins_path %>
 </div>

@@ -1,4 +1,4 @@
 
 <h1>Editing Client</h1>
-<%= render(:partial => '/foswipe/users/edit', :locals => {:user => @client, :user_path => client_path(@client) }) %>
+<%= render(:partial => '/foswipe/users/form', :locals => {:user => @client, :user_path => client_path(@client), :organization => true }) %>
 <%= link_to 'Back', clients_path %>

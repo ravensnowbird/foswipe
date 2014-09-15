@@ -5,7 +5,12 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
   # GET /purchases
   # GET /purchases.json
   def index
-    @purchases = Foswipe::Purchase.all
+    if current_user.admin_or_agent?
+      @purchases = Foswipe::Purchase.all
+    else
+      @purchases = current_user.organization.purchases
+    end
+    
   end
 
   # GET /purchases/1

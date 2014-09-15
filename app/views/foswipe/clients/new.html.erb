@@ -1,5 +1,5 @@
 <div class="">
 	<h1>New Customer</h1>
-	<%= render(:partial => '/foswipe/users/new', :locals => {:user => @client, :user_path => clients_path }) %>
+	<%= render(:partial => '/foswipe/users/form', :locals => {:user => @client, :user_path => clients_path, :organization => true }) %>
 	<%= link_to 'Back', clients_path %>
 </div>

@@ -1,7 +1,6 @@
 class Foswipe::ProductsController < Foswipe::ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authorise_filter, :only => [:index, :new, :create]
-
   # GET /products
   # GET /products.json
   def index
@@ -63,14 +62,15 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Foswipe::Product.find(params[:id])
-      authorise_filter @product
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Foswipe::Product.find(params[:id])
+    authorise_filter @product
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    params.require(:product).permit(:name)
+  end
 end
