@@ -28,7 +28,7 @@ class Foswipe::User < ActiveRecord::Base
   end
 
   def name
-    first_name + (last_name || "")
+    first_name.to_s + (last_name || "")
   end
 
   def skip_confirmation

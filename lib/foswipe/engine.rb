@@ -7,6 +7,7 @@ module Foswipe
     isolate_namespace Foswipe
     config.to_prepare do
       Devise::SessionsController.layout "foswipe/devise"
+      Devise::RegistrationsController.layout "foswipe/devise"
     end
   end
 end
