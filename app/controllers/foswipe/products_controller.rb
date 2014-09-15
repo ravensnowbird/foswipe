@@ -15,7 +15,7 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = Foswipe::Product.new
   end
 
   # GET /products/1/edit
@@ -25,11 +25,11 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
+    @product = Foswipe::Product.new(product_params)
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to products_url, notice: 'Product was successfully created.' }
         format.json { render action: 'show', status: :created, location: @product }
       else
         format.html { render action: 'new' }
@@ -43,7 +43,7 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to products_url, notice: 'Product was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -65,7 +65,7 @@ class Foswipe::ProductsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Foswipe::Product.find(params[:id])
       authorise_filter @product
     end
 

@@ -1,6 +1,3 @@
-<h1>Editing support</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @support %> |
+<h1>Editing Support</h1>
+<%= render(:partial => '/foswipe/users/edit', :locals => {:user => @support, :user_path => support_path(@support) }) %>
 <%= link_to 'Back', supports_path %>

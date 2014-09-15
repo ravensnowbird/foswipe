@@ -1,72 +1,26 @@
-  
-<h1>Welcome Admin</h1>
- 
+<h1>Listing Admins</h1>
 
-<div class="row">
-	<div class="col-md-4">
-		<h3>Tickets</h3>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+				<th>Name</th>
+				<th>Email</th>
+				<th></th>
+			</tr>
+		</thead>
 
-		<ul class="nav">
-			<% @tickets.order("created_at desc").each do |ticket| %>
-			<li>
-				<div style="padding: 10px;">
-					<%= link_to "#{ticket.title}", ticket_path(ticket) %>
-				<% unless ticket.agent %>
-					<span class="label label-success">new</span>
-	                <% end %>
-				</div>
-			</li>
+		<tbody>
+			<% @admins.each do |admin| %>
+			<tr>
+				<td> <%= link_to admin.name, edit_admin_path(admin) %> </td>
+				<td><%= link_to admin.email, edit_admin_path(admin) %></td>
+				<td><%= link_to raw('<i class="fa  fa-trash-o"></i>'), admin_path(admin), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
 			<% end %>
-		</ul>
-
-	</div>
-	<div class="col-md-4">
-		<h3>Clients</h3>
-		<ul class="nav">
-			<% @clients.each do |client| %>
-
-			<li>
-				<%= link_to client.first_name, client_path(client) %>
-			</li>
-
-			<% end %>
-		</ul>
-	</div>
-	<div class="col-md-4">
-		<h3>Support Members</h3>
-		<ul class="nav">
-			<% @supports.each do |support| %>
-
-			<li>
-				<%= link_to support.first_name, support_path(support) %>
-			</li>
-
-			<% end %>
-		</ul>
-	</div>
+		</tbody>
+	</table>
 </div>
-<div class="row">
-	<div class="col-md-2">
-		<% if current_user.admin? %>
-		<%= link_to 'Create New Client', new_client_path, :class=>"btn btn-lg btn-primary" %>
-		<br>
-		<% end %>
-	</div>
-	<div class="col-md-6"></div>
-	<div class="col-md-2">
-		<% if current_user.admin? %>
-		<%= link_to 'Create New Support', new_support_path, :class=>"btn btn-lg btn-primary" %>
-		<br>
-		<% end %>
-	</div>
-	<div class="col-md-2"></div>
-</div>
+<br>
 
-
-
-
-          
-          
-
-
-
+<%= link_to 'New Admin', new_admin_path, :class=>"btn btn-primary btn-sm" %>

@@ -15,7 +15,7 @@ class Foswipe::OrganizationsController < Foswipe::ApplicationController
 
   # GET /organizations/new
   def new
-    @organization = Organization.new
+    @organization = Foswipe::Organization.new
   end
 
   # GET /organizations/1/edit
@@ -25,11 +25,12 @@ class Foswipe::OrganizationsController < Foswipe::ApplicationController
   # POST /organizations
   # POST /organizations.json
   def create
-    @organization = Organization.new(organization_params)
+    @organization = Foswipe::Organization.new(organization_params)
 
     respond_to do |format|
       if @organization.save
-        format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
+        @organizations = Foswipe::Organization.all
+        format.html { render action: 'index', notice: 'Organization was successfully created.' }
         format.json { render action: 'show', status: :created, location: @organization }
       else
         format.html { render action: 'new' }
@@ -65,7 +66,7 @@ class Foswipe::OrganizationsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization
-      @organization = Organization.find(params[:id])
+      @organization = Foswipe::Organization.find(params[:id])
       authorise_filter @organization
     end
 
