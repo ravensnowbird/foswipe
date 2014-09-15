@@ -4,6 +4,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
+    @user = Foswipe::User.find(current_user.id)
     @agents = Foswipe::User.agents
     @admin = Foswipe::User.where(:id=> current_user.id , :admin => true)
     @priority = {"1"=>"Low","2"=>"Medium","3"=>"High","4"=>"Urgent"}
@@ -15,6 +16,8 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   def show
     @comments = @ticket.ticket_comments
     @comment = Foswipe::Comment.new
+    @user = Foswipe::User.all
+    @agents = Foswipe::User.agents
   end
 
   # GET /tickets/new
@@ -24,6 +27,8 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
 
   # GET /tickets/1/edit
   def edit
+    @find = true
+    @agents = Foswipe::User.where(:agent => true).all
   end
 
   # POST /tickets
@@ -60,6 +65,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
+    @ticket = Foswipe::Ticket.find(params[:id])
     @ticket.destroy
     respond_to do |format|
       format.html { redirect_to clients_url, notice: 'Ticket was successfully deleted.' }

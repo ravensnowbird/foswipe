@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140913132026) do
+ActiveRecord::Schema.define(version: 20140915071647) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
@@ -75,10 +75,10 @@ ActiveRecord::Schema.define(version: 20140913132026) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "attachment_uid"
-    t.integer  "foswipe_ticket_id"
+    t.integer  "ticket_id"
   end
 
-  add_index "foswipe_ticket_attachments", ["foswipe_ticket_id"], name: "index_foswipe_ticket_attachments_on_foswipe_ticket_id"
+  add_index "foswipe_ticket_attachments", ["ticket_id"], name: "index_foswipe_ticket_attachments_on_ticket_id"
 
   create_table "foswipe_tickets", force: true do |t|
     t.text     "description"

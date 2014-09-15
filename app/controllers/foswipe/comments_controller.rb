@@ -5,7 +5,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    @comments = Foswipe::TicketComment.all
   end
 
   # GET /comments/1
@@ -27,9 +27,9 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @ticket = Ticket.find(params[:ticket_id])
+    @ticket = Foswipe::Ticket.find(params[:ticket_id])
     
-    @comment = @ticket.comments.new(comment_params)
+    @comment = @ticket.ticket_comments.new(comment_params)
 
     respond_to do |format|
       if @comment.save
@@ -74,7 +74,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = Foswipe::TicketComment.find(params[:id])
       authorise_filter @comment
     end
 

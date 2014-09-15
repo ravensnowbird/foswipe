@@ -7,17 +7,19 @@
 			<div class="ff_item  " condition="responder_id" container="dropdown" ff_name="default" id="div_ff_responder_id" operator="is_in">
 				<h4 class="title">Agents</h4>
 				<ul>
-					<li>
+					
 						<% if @admin %>
+						<li>
 						<% @admin.each do |a| %>
 						<div >
-							<input type="checkbox" value = <%= a.id%> >
+							<input type="radio" value = "#{a.id}" >
 							Me
 						</div>
 						<% end %>
+						</li>
 						<%end%>
 						<% if @agents%>
-						<% @agents.each do |a| %>
+						<% @agents.each do  |a| %>
 					<li>
 						<input   type="checkbox" value = <%= a.id%> >
 						<%= a.name%>
@@ -94,12 +96,15 @@
 			</div>
 		</div>
 		<h1>Listing tickets</h1>
+		
 		<div class="row">
 			<div class="col-lg-8">
 				<div class=" col-md-25" >
-
+                 
 					<div class="box">
+						
 						<div class="table-responsive">
+							<% unless @user.agent %>
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr bgcolor="#1E90FF">
@@ -124,7 +129,7 @@
 									</tr>
 								</thead>
 							</table>
-
+                           <% end %>
 							<table>
 								<% @tickets.order("created_at desc").each do |ticket| %>
 								<tr>
@@ -136,7 +141,7 @@
 						
 							
 									From : <% if ticket.agent %>
-									<%= ticlet.agent.name %>
+									<%= ticket.agent.name %>
 									<% end %>
 									<% if ticket.customer %>
 									<%= ticket.customer.name %>
@@ -150,7 +155,7 @@
 										<li>
 											<label> Agent : </label>
 											<% if ticket.agent %>
-											<%= ticket.agent.name %>
+							 				<%= ticket.agent.name %>
 											<% end %>
 										</li>
 										<li>
@@ -171,6 +176,11 @@
 							</table>
 						</div>
 						<br>
+						<% unless @user.agent %>
+					 	  <%= link_to '<i class="btn btn-primary">New Ticket</i> '.html_safe, new_ticket_path, method: :get %>
+					 	<% end %>  
+						</br>
+						<br>
 
 						<% if current_user.admin? %>
 						<%= link_to 'Back', admins_path , :class=>"btn btn-lg btn-primary"%>
@@ -179,11 +189,11 @@
 						<% else %>
 						<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
 						<% end %>
-
+						</br>
+ 
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
 
