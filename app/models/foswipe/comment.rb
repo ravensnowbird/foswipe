@@ -7,3 +7,4 @@ class Foswipe::Comment < ActiveRecord::Base
   accepts_nested_attributes_for :comment_attachments
 end
 
+

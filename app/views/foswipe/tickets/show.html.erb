@@ -1,122 +1,65 @@
 
+        <!-- Main content -->
+                <section class="content">
 
-<div class="bs-example">
-	<div class="panel panel-primary">
-		<!-- Default panel contents -->
-		<div class="panel-heading">
-			<b>Ticket Details</b>
-		</div>
-		<li class="list-group-item">
-			<b>Title:</b> <%= @ticket.title %>
-		</li>
-		<div class="panel-body">
-			<p>
-				<b>Description:</b> <%= @ticket.description %>
-			</p>
-		</div>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-9">
+                            <!-- The time line -->
+                            <ul class="timeline">
+                                <!-- timeline time label -->
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        <%= @ticket.created_at.time %>
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <li>
+                                    <i class="fa fa-envelope bg-blue"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                                        <h3 class="timeline-header"><a href="#"><%= @ticket.customer.name %></a> Generated this Ticket</h3>
+                                        <div class="timeline-body">
+                                            <%= @ticket.description %>
+                                        </div>
+                                        <div class='timeline-footer'>
+                                            <a class="btn btn-primary btn-xs"></a>
+                                            <%= link_to "Delete" , ticket_path(@ticket.id), method: :delete  %>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                              <!-- <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                                    </div>
+                                </li>
+                                <!-- END timeline item -->
+                                <!-- timeline item -->  
+                               <% if @ticket.ticket_comments %>
+                                <li>
+                                    <i class="fa fa-comments bg-yellow"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                        <div class="timeline-body">
+                                            Take me to your leader!
+                                            Switzerland is small and neutral!
+                                            We are more like Germany, ambitious and misunderstood!
+                                        </div>
+                                        <div class='timeline-footer'>
+                                            <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% end %>
+                                <!-- END timeline item -->
+                                <!-- timeline time label -->
 
-		<!-- List group -->
-		<ul class="list-group">
-			
-			<li class="list-group-item">
-				<b>Priority:</b> <%= @ticket.priority %>
-			</li>
-			<li class="list-group-item">
-				<b>Assigned To:</b> <% if @ticket.agent %>
-				<%= @ticket.agent.name %>
-				<% end %>
-			</li>
-			<div class="panel-body">
-				<p>
-					<b>Support Notes:</b> <%= @ticket.support_notes %>
-				</p>
-			</div>
 
-			<li class="list-group-item">
-				<b>Status:</b><%= @ticket.status %>
-			</li>
-		</ul>
-	</div>
-</div>
 
-<% if current_user.agent?  %>
-<br>
-<br>
-<br>
-<div class="row">
-	<div class="col-md-4">
-		<%= form_for (@ticket) do|f| %>
-		<%= f.label "Ticket Status:" %>
-		<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
-		<br>
-		<br>
-
-		<%= form_tag('/assign_support_notes_to_tickets') do %>
-
-		<%= label_tag("Support notes:")%>
-		<br>
-		<%= text_area_tag("ticket[support_notes]",nil,:cols => "30", :rows => "5")%>
-		<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%>
-		<%= hidden_field_tag("ticket[support_id]", current_user.id)%>
-		<br>
-		<%= submit_tag 'Submit', :class=>"btn btn-primary btn-sm" %>
-
-		<% end %>
-		<% end %>
-	</div>
-	<br>
-
-</div>
-<br>
-<%= link_to 'Back', agents_path, :class=>"btn btn-lg btn-primary" %>
-<% end %>
-
-<!-- <% if current_user.customer? %>
-<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
-<% end %> -->
-
-<% if current_user.admin? %>
-<br>
-<br>
-<br>
-<%= form_tag('/assign_tickets_to_supports') do %>
-<%= label_tag("Support List:")%>
-<%= collection_select(:ticket, :support_id, Foswipe::User.where(:agent=>true), :id, :name) %>
-<%= hidden_field_tag("ticket[ticket_id]", @ticket.id)%><br />
-<%= submit_tag 'Submit', :class=>"btn btn-primary btn-sm" %>
-<% end %>
-<br>
-<%= link_to 'Back', admins_path, :class=>"btn btn-lg btn-primary" %>
-<% end %>
-
-<% if current_user.customer? %>
-<h1>Listing comments</h1>
-<div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading"><b>All Comments</b></div>
-  <div class="panel-body">
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Content</th>
-      <th>User</th>
-      <th></th>
-      
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td><div class="panel-body"><%= comment.content %></div></td>
-        <td><%= comment.user %></td>
-         <td><%= link_to 'Destroy', comment_path, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        
-      </tr>
-    <% end %>
-  </tbody>
-</table></div></div>
-<br>
-<%= render 'comments/form' %>
-<% end %>
 

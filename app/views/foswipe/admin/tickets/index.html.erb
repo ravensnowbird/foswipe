@@ -1,49 +1,8 @@
-
-<% if flash[:notice]%>
-<div class="alert alert-success alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-		&times;
-	</button>
-	<%= flash[:notice]%>
+<div id="leftcol" class="ticket-leftcol" style="display:block">
+      <div id="ticket-leftFilter" rel="remote" class="leftFilter">   
+        <div id="all-views-tmpl" class="hide">
+    <div class="view_filters"> 
+	<span class="hide unsaved_star">*</span>
+	<div class="link-item"><a href="/helpdesk/tickets" class="drop-right nav-trigger " id="active_filter" menuid="#leftViewMenu">Open tickets</a></div><div class="fd-menu" id="leftViewMenu"><a href="/helpdesk/tickets/view/5000064519" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_key=5000064519" data-pjax="#body-container" rel="">My Open and Pending Tickets</a><a href="/helpdesk/tickets/view/5000064520" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_key=5000064520" data-pjax="#body-container" rel="">My Overdue Tickets</a><a href="/helpdesk/tickets/view/5000064521" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_key=5000064521" data-pjax="#body-container" rel="">Open Tickets in My Groups</a><a href="/helpdesk/tickets/view/5000064522" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_key=5000064522" data-pjax="#body-container" rel="">Urgent and High priority Tickets</a><span class="seperator"></span><a href="/helpdesk/tickets/filter/new_and_my_open" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_name=new_and_my_open" data-pjax="#body-container" rel="default_filter">New & My Open Tickets</a><a href="/helpdesk/tickets/filter/all_tickets" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_name=all_tickets" data-pjax="#body-container" rel="default_filter">All Tickets</a><a href="/helpdesk/tickets/filter/monitored_by" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_name=monitored_by" data-pjax="#body-container" rel="default_filter">Tickets I'm Watching</a><a href="/helpdesk/tickets/filter/spam" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_name=spam" data-pjax="#body-container" rel="default_filter">Spam</a><a href="/helpdesk/tickets/filter/deleted" class=" " data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_name=deleted" data-pjax="#body-container" rel="default_filter">Trash</a></div><div id="view_manage_links"><a href="/helpdesk/tickets/custom_view_save?operation=save_as" class="hide" data-close-label="Cancel" data-submit-label="Save" data-submit-loading="Saving..." data-target="#filter_div" data-title="Save as" data-width="525px" id="save_as_filter" rel="freshdialog"><i class="ticket-view-saveas tooltip" data-placement="below" title="Save as"></i></a><a href="/helpdesk/tickets/filter/open" class="hide" data-parallel-placeholder="#ticket-leftFilter" data-parallel-url="/helpdesk/tickets/filter_options?filter_name=open" data-pjax="#body-container" id="cancel_filter"><i class="ticket-view-cancel tooltip" data-placement="below" title="Discard changes"></i></a></div>
 </div>
-<% end %>
-
-<h1>Listing tickets</h1>
-
-<div class="table-responsive">
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr bgcolor="#1E90FF">
-				<th> Id </th>
-				<th> Title </th>
-		        <th> Status </th>
-		        <th>  </th>
-		        <th>  </th>
-			
-			</tr>
-		</thead>
-
-		<tbody>
-			<% @tickets.order("created_at desc").each do |ticket| %>
-			<tr>
-				<td><%= ticket.id %></td>
-				<td><%= ticket.title %>
-					<% unless ticket.support %>
-					<span class="label label-success">new</span>
-					<% end %>
-				</td>
-				
-				
-				
-				<td><%= ticket.status %></td>
-                <td><%= link_to 'Show', admin_ticket_path(ticket) %></td>
-        <%#= link_to 'Edit', edit_ticket_path(ticket) %>
-				<td><%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
 </div>
-	<br>
-
-	
