@@ -1,27 +1,28 @@
 <h1>Listing purchases</h1>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+				<th>Name</th>
+				<th>Organization</th>
+				<th>Product</th>
+				<th></th>
+			</tr>
+		</thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @purchases.each do |purchase| %>
-      <tr>
-        <td><%= purchase.name %></td>
-        <td><%= link_to 'Show', purchase %></td>
-        <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-        <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+		<tbody>
+			<% @purchases.each do |purchase| %>
+			<tr>
+				<td><%= link_to purchase.name, edit_purchase_path(purchase) %></td>
+				<td><%= link_to purchase.organization.name, edit_purchase_path(purchase) %></td>
+				<td><%= link_to purchase.product.name, edit_purchase_path(purchase) %></td>
+				<td><%= link_to link_to raw('<i class="fa  fa-trash-o"></i>'), purchase, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin_or_agent? %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
 
 <br>
 
-<%= link_to 'New Purchase', new_purchase_path %>
+<%= link_to 'New Purchase', new_purchase_path if current_user.admin_or_agent? %>

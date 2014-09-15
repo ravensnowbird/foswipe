@@ -1,6 +1,4 @@
-<h1>Editing client</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @client %> |
+<h1>Editing Client</h1>
+<%= render(:partial => '/foswipe/users/form', :locals => {:user => @client, :user_path => client_path(@client), :organization => true }) %>
 <%= link_to 'Back', clients_path %>

@@ -1,6 +1,3 @@
 <h1>Editing admin</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @admin %> |
+<%= render(:partial => '/foswipe/users/form', :locals => {:user => @admin, :user_path => admin_path(@admin), :organization => false }) %>
 <%= link_to 'Back', admins_path %>

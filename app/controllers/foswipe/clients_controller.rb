@@ -5,8 +5,8 @@ class Foswipe::ClientsController < Foswipe::ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-   #@clients = Client.all
-   @tickets = current_user.tickets if current_user.customer?
+      @clients = Foswipe::User.customers
+      #@tickets = current_user.tickets if current_user.customer?
   end
 
   # GET /clients/1
@@ -18,7 +18,7 @@ class Foswipe::ClientsController < Foswipe::ApplicationController
 
   # GET /clients/new
   def new
-    @client = Client.new
+    @client = Foswipe::User.new
   end
 
   # GET /clients/1/edit
@@ -28,11 +28,10 @@ class Foswipe::ClientsController < Foswipe::ApplicationController
   # POST /clients
   # POST /clients.json
   def create
-    @client = Client.new(client_params)
-    @client.password = "00000000"
+    @client = Foswipe::User.new(user_params)
     respond_to do |format|
       if @client.save
-        format.html { redirect_to admins_path, notice: 'Client was successfully created.' }
+        format.html { redirect_to clients_url, notice: 'Client was successfully created.' }
         format.json { render action: 'show', status: :created, location: @client }
       else
         format.html { render action: 'new' }
@@ -45,8 +44,8 @@ class Foswipe::ClientsController < Foswipe::ApplicationController
   # PATCH/PUT /clients/1.json
   def update
     respond_to do |format|
-      if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+      if @client.update(user_params)
+        format.html { redirect_to clients_url, notice: 'Client was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -68,12 +67,7 @@ class Foswipe::ClientsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
-      @client = Client.find(params[:id])
+      @client = Foswipe::User.find(params[:id])
       authorise_filter @client
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def client_params
-      params.require(:client).permit(:name, :email, :password)
     end
 end

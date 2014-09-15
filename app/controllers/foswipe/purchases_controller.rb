@@ -5,7 +5,12 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
   # GET /purchases
   # GET /purchases.json
   def index
-    @purchases = Foswipe::Purchase.all
+    if current_user.admin_or_agent?
+      @purchases = Foswipe::Purchase.all
+    else
+      @purchases = current_user.organization.purchases
+    end
+    
   end
 
   # GET /purchases/1
@@ -29,7 +34,7 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
+        format.html { redirect_to purchases_url, notice: 'Purchase was successfully created.' }
         format.json { render action: 'show', status: :created, location: @purchase }
       else
         format.html { render action: 'new' }
@@ -43,7 +48,7 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
   def update
     respond_to do |format|
       if @purchase.update(purchase_params)
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully updated.' }
+        format.html { redirect_to purchases_url, notice: 'Purchase was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -71,6 +76,6 @@ class Foswipe::PurchasesController < Foswipe::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_params
-      params.require(:purchase).permit(:name)
+      params.require(:purchase).permit(:name, :organization_id, :product_id)
     end
 end

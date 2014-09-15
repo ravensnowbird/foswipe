@@ -1,5 +1,7 @@
-<center><h1>New support</h1></center>
 
-<%= render 'form' %>
 
-<%#= link_to 'Back', admins_path %>
+<div class="">
+	<h1>New Agent</h1>
+	<%= render(:partial => '/foswipe/users/form', :locals => {:user => @support, :user_path => supports_path, :organization => false }) %>
+	<%= link_to 'Back', supports_path %>
+</div>

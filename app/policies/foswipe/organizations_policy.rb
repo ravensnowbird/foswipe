@@ -6,14 +6,14 @@ class Foswipe::OrganizationsPolicy < Foswipe::ApplicationPolicy
   end
 
   def index?
-    @user.admin_or_agent?
+    true
   end
 
   def show?
     unless @user.customer?
     return true
     else
-    @user.organigation == @organization
+    @user.organization == @organization
     end
   end
 
