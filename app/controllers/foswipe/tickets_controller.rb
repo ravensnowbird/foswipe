@@ -6,7 +6,6 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   def index
     @user = Foswipe::User.find(current_user.id)
     @agents = Foswipe::User.agents
-    @admin = Foswipe::User.where(:id=> current_user.id , :admin => true)
     @priority = {"1"=>"Low","2"=>"Medium","3"=>"High","4"=>"Urgent"}
     @tickets = current_user.all_tickets
   end
