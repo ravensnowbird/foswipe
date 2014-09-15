@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20140915092268) do
-
+ActiveRecord::Schema.define(version: 20140915071647) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
@@ -57,11 +55,9 @@ ActiveRecord::Schema.define(version: 20140915092268) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
-    t.integer  "product_id"
   end
 
   add_index "foswipe_purchases", ["organization_id"], name: "index_foswipe_purchases_on_organization_id"
-  add_index "foswipe_purchases", ["product_id"], name: "index_foswipe_purchases_on_product_id"
 
   create_table "foswipe_slas", force: true do |t|
     t.string   "priority"
