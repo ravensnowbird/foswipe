@@ -12,6 +12,8 @@ class Foswipe::User < ActiveRecord::Base
   has_many :slas, :as => :slas
   belongs_to :organization
 
+  before_save :admin_becomes_agent
+
   #def active_for_authentication?
   #  super && approved?
   #end
@@ -40,7 +42,7 @@ class Foswipe::User < ActiveRecord::Base
   end
 
   def self.agents
-    Foswipe::User.where( :agent => true)
+    Foswipe::User.where(:agent => true)
   end
 
   def self.admins
@@ -61,5 +63,8 @@ class Foswipe::User < ActiveRecord::Base
     end
   end
 
+  def admin_becomes_agent
+    self.agent = true if self.admin == true
+  end
 end
 

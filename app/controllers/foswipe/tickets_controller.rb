@@ -5,7 +5,6 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets.json
   def index
     @agents = Foswipe::User.agents
-    @admin = Foswipe::User.where(:id=> current_user.id , :admin => true)
     @priority = {"1"=>"Low","2"=>"Medium","3"=>"High","4"=>"Urgent"}
     @tickets = current_user.all_tickets
   end

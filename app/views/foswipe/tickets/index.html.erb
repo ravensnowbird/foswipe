@@ -1,189 +1,330 @@
+<!-- MAILBOX BEGIN -->
+<div class="mailbox row">
+  <div class="col-xs-12">
+    <div class="box box-solid">
+      <div class="box-body">
+	<div class="row">
+	  <div class="col-md-2 col-sm-4">
+	    <!-- BOXES are complex enough to move the .box-header around.
+																																			      This is an example of having the box header within the box body -->
+	    <div class="box-header">
+	      <i class="fa fa-filter"></i>
+	      <h3 class="box-title">FILTERS</h3>
+	    </div>
+	    <!-- compose message btn -->
+	    <!-- Navigation - folders-->
+	    <div style="margin-top: 15px;">
+	      <ul class="nav nav-pills nav-stacked">
+		<li class="header">Agents</li>
+		<% @agents.each do |a| %>
+		  <li>
+		  <label> <input type="checkbox" name="agents_filter[]" value="<%= a.id%>">&nbsp; &nbsp; &nbsp; <%= a.name%></label>
+		  </li>
+		<% end%>
+	      </ul>
+	      <ul class="nav nav-pills nav-stacked">
+		<li class="header">Groups</li>
+		<% @agents.each do |a| %>
+		  <li>
+		  <label> <input type="checkbox" name="agents_filter[]" value="<%= a.id%>">&nbsp; &nbsp; &nbsp; <%= a.name%></label>
+		  </li>
+		<% end%>
+	      </ul>
+	      <ul class="nav nav-pills nav-stacked">
+		<li class="header">Created</li>
+		<li><select class="form-control" data-minimum-results-for-search="100" data-selected-value="30" id="created_at" name="created_at">
+		  <option value="any_time">Any time</option>
+		  <option value="5">Within 5 minutes</option>
+		  <option value="15">Within 15 minutes</option>
+		  <option value="30" selected="selected">Within 30 minutes</option>
+		  <option value="60">Within 1 hour</option>
+		  <option value="240">Within 4 hours</option>
+		  <option value="720">Within 12 hours</option>
+		  <option value="1440">Within 24 hours</option>
+		  <option value="today">Today</option>
+		  <option value="yesterday">Yesterday</option>
+		  <option value="week">This Week</option>
+		  <option value="month">This Month</option>
+		  <option value="two_months">Last 2 months</option>
+		  <option value="six_months">Last 6 months</option>
+		  <option value="set_date">Select Time Period</option>
+		</select>
+		</li>
+	      </ul>
+	      <ul class="nav nav-pills nav-stacked">
+		<li class="header">Due by</li>
+		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Overdue</label></li>
+		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Today</label></li>
+		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Tomorrow</label></li>
+		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Next 8 hours</label></li>
+	      </ul>
+
+
+	      <ul class="nav nav-pills nav-stacked">
+		<li class="header">Status</li>
+		<li><select class="select2 filter_item" id="status" multiple="multiple" name="status[]" placeholder="Select a status">
+		  <option value="Open" selected="selected">Open</option>
+		  <option value="Pending">Pending</option>
+		  <option value="Resolved">Resolved</option>
+		  <option value="Closed">Closed</option>
+		  <option value="Waiting on Customer">Waiting on Customer</option>
+		  <option value="Waiting on Third Party">Waiting on Third Party</option>
+		</select>
+		</li>
+	      </ul>
+	      <ul class="nav nav-pills nav-stacked">
+		<li class="header">Priority</li>
+		<% @priority.each do |k,v|%>
+		  <li>
+		  <label class="item">
+		    <input type="checkbox" name="priority[]" value="<%= @priority[k] %>" >
+		    &nbsp; &nbsp; &nbsp; <%= v %>
+		</label>
+		</li>
+	      <% end %>
+	    </ul>
+	    <ul class="nav nav-pills nav-stacked">
+	      <li class="header">Ticket Type</li>
+	      <li>
+	      <select class="select2 filter_item" id="ticket_type" multiple="multiple" name="ticket_type[]" placeholder="Select ticket type">
+		<option value="Question">Question</option>
+		<option value="Incident">Incident</option>
+		<option value="Problem" selected="selected">Problem</option>
+		<option value="Feature Request">Feature Request</option>
+		<option value="Lead">Lead</option>
+	      </select>
+	      </li>
+	    </ul>
+	    <ul class="nav nav-pills nav-stacked">
+	      <li class="header">Ticket Source</li>
+	      <li>
+	      <select class="select2 filter_item" id="source" multiple="multiple" name="source[]" placeholder="Select ticket source">
+		<option value="1" selected="selected">Email</option>
+		<option value="2">Portal</option>
+		<option value="3">Phone</option>
+		<option value="4">Forum</option>
+		<option value="5">Twitter</option>
+		<option value="6">Facebook</option>
+		<option value="7">Chat</option>
+		<option value="8">MobiHelp</option>
+		<option value="9">Feedback Widget</option>
+	      </select>
+	      </li>
+	    </ul>
+	    <ul class="nav nav-pills nav-stacked">
+	      <li class="header">Customer or Requestor</li>
+	      <li>
+	      <select class="select2 filter_item" id="source" multiple="multiple" name="source[]" placeholder="Select ticket source">
+
+	      </select>
+	      </li>
+	    </ul>
+
+
+
+
+	  </div>
+	</div><!-- /.col (LEFT) -->
+	<div class="col-md-10 col-sm-9">
+	  <div class="row pad">
+	    <div class="col-sm-6">
+	      <label style="margin-right: 10px;">
+		<input type="checkbox" id="check-all"/>
+	      </label>
+	      <!-- Action button -->
+	      <div class="btn-group">
+		<button type="button" class="btn btn-default btn-sm btn-flat dropdown-toggle" data-toggle="dropdown">
+		  Action <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+		  <li><a href="#">Mark as read</a></li>
+		  <li><a href="#">Mark as unread</a></li>
+		  <li class="divider"></li>
+		  <li><a href="#">Move to junk</a></li>
+		  <li class="divider"></li>
+		  <li><a href="#">Delete</a></li>
+		</ul>
+	      </div>
+
+	    </div>
+	    <div class="col-sm-6 search-form">
+	      <form action="#" class="text-right">
+		<div class="input-group">
+		  <input type="text" class="form-control input-sm" placeholder="Search">
+		  <div class="input-group-btn">
+		    <button type="submit" name="q" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
+		  </div>
+		</div>
+	      </form>
+	    </div>
+	  </div><!-- /.row -->
+
+	  <div class="table-responsive">
+	    <!-- THE MESSAGES -->
+	    <table class="table table-mailbox">
+	      <tr>
+		<td class="bg-aqua no-padding" style="width: 3px;"></td>
+		<td class="small-col"><input type="checkbox" /></td>
+		<td class="small-col">
+		  <div class="user-panel no-padding">
+		    <div class="image">
+		      <img src="http://www.gravatar.com/avatar/2da864f0202e0387adda7531651d8682" class="img-circle" alt="User Image">
+		    </div>
+		  </div>
+		</td>
+		<td class="name">
+		  <h4 class="no-margin"><a href="#">Ticket Name</a></h4>
+		  <div>
+		    <h6 class=""><span class="text-muted">From:</span>&nbsp;&nbsp;Creator Name&nbsp;&nbsp;<span class="text-muted">Created:</span>&nbsp;&nbsp;9 days ago</h6>
+		  </div>
+		  <div>
+		    <h6 class="" style="
+		      margin-bottom: 0px;
+		      ">Overdue by 9 days</h6>
+		  </div>
+
+		</td>
+		<td class="time" style="vertical-align: middle;"><small class="badge pull-right bg-red">overdue</small></td>
+		<td class="name">
+		  <blockquote class="no-margin" style="padding: 0px 20px;float: left;">
+		    <div class="pull-left" style="margin-right: 10px;">
+		      <h5 class="" style="
+			margin-top: 0px;
+			"><span class="text-muted">Agent:</span></h5>
+		      <h5><span class="text-muted">Agent:</span></h5>
+		      <h5 style="
+			margin-bottom: 0px;
+			"><span class="text-muted">Agent:</span></h5>
+		    </div>
+		    <div class="pull-left">
+		      <h5 style="
+			margin-top: 0px;
+			">Vivek Sampara</h5>
+		      <h5>Vivek Sampara</h5>
+		      <h5 style="
+			margin-bottom: 0px;
+			">Vivek Sampara</h5>
+		    </div>
+		  </blockquote>
+		</td>
+	      </tr>
+	    </table>
+	  </div><!-- /.table-responsive -->
+	</div><!-- /.col (RIGHT) -->
+      </div><!-- /.row -->
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+      <div class="pull-right">
+	<small>Showing 1-12/1,240</small>
+	<button class="btn btn-xs btn-primary"><i class="fa fa-caret-left"></i></button>
+	<button class="btn btn-xs btn-primary"><i class="fa fa-caret-right"></i></button>
+      </div>
+    </div><!-- box-footer -->
+  </div><!-- /.box -->
+</div><!-- /.col (MAIN) -->
+</div>
+<!-- MAILBOX END -->
 
 <div id="page-wrapper">
-	<div class="row">
+  <div class="row">
 
-		<div class="col-lg-3 col-md-6">
-			<h3>Filter Tickets</h3>
-			<div class="ff_item  " condition="responder_id" container="dropdown" ff_name="default" id="div_ff_responder_id" operator="is_in">
-				<h4 class="title">Agents</h4>
-				<ul>
-					<li>
-						<% if @admin %>
-						<% @admin.each do |a| %>
-						<div >
-							<input type="checkbox" value = <%= a.id%> >
-							Me
-						</div>
-						<% end %>
-						<%end%>
-						<% if @agents%>
-						<% @agents.each do |a| %>
-					<li>
-						<input   type="checkbox" value = <%= a.id%> >
-						<%= a.name%>
-						<% end%>
-						<% end %>
+    <div class="col-lg-3 col-md-6">
+      <br>
+      <label>Supports</label></br>
+      <input type="text" class="select2-input select2-default">
+    </div>
+  </div>
+  <h1>Listing tickets</h1>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class=" col-md-25" >
 
-					</li>
-				</ul>
+	<div class="box">
+	  <div class="table-responsive">
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<tr bgcolor="#1E90FF">
+		  <th>
+		    <input type="checkbox">
+		  </th>
+		  <th>
+		    <input type="button" value="Pick Up">
+		  </th>
+		  <th>
+		    <input type="button" value="Assign To Agent">
+		  </th>
+		  <th>
+		    <input type="button" value="Close">
+		  </th>
+		  <th>
+		    <input type="button" value="Bulk Actions">
+		  </th>
+		  <th>
+		    <input type="button" value="Delete">
+		  </th>
+		</tr>
+	      </thead>
+	    </table>
 
-				<!-- ><div class="ff_item" condition="group_id" container="multi_select" ff_name="default" id="div_ff_group_id" operator="is_in">
-				<h4 class="title">Groups</h4>
-				<select class="select2 filter_item" id="group_id" multiple="multiple" name="group_id[]" placeholder=" ">
-				<option value="0">My Groups</option>
-				<option value="5000052400">Product Management</option>
-				<option value="5000052401">QA</option>
-				<option value="5000052402">Sales</option>
-				<option value="-1">Unassigned</option>
-				</select>
-				</div> -->
+	    <table>
+	      <% @tickets.order("created_at desc").each do |ticket| %>
+		<tr>
+		  <td><label class='hasborder'>
+		      <input type='checkbox' >
+		  </label></td>
+		  <td><%= link_to "#{ticket.title} #  #{ticket.id}", ticket_path(ticket.id), method: :get %> 
 
-			</div>
-			<div class="ff_item" condition="created_at" container="single_select" ff_name="default" id="div_ff_created_at" operator="is_greater_than">
-				<h4 class="title">Created</h4>
-				<select class="select2 filter_item" data-minimum-results-for-search="100" data-selected-value="30" id="created_at" name="created_at">
-					<option value="any_time">Any time</option>
-					<option value="5">Within 5 minutes</option>
-					<option value="15">Within 15 minutes</option>
-					<option value="30" selected="selected">Within 30 minutes</option>
-					<option value="60">Within 1 hour</option>
-					<option value="240">Within 4 hours</option>
-					<option value="720">Within 12 hours</option>
-					<option value="1440">Within 24 hours</option>
-					<option value="today">Today</option>
-					<option value="yesterday">Yesterday</option>
-					<option value="week">This Week</option>
-					<option value="month">This Month</option>
-					<option value="two_months">Last 2 months</option>
-					<option value="six_months">Last 6 months</option>
-					<option value="set_date">Select Time Period</option>
-				</select>
 
-			</div>
-			<div class="ff_item" condition="status" container="multi_select" ff_name="default" id="div_ff_status" operator="is_in">
-				<h4 class="title">Status</h4>
-				<select class="select2 filter_item" id="status" multiple="multiple" name="status[]" placeholder=" ">
-					<option value="Open">Open</option>
-					<option value="Pending">Pending</option>
-					<option value="Resolved">Resolved</option>
-					<option value="Closed">Closed</option>
-					<option value="Waiting on Customer">Waiting on Customer</option>
-					<option value="Waiting on Third Party">Waiting on Third Party</option>
-				</select>
-			</div>
 
-			<div class="ff_item" condition="priority" container="dropdown" ff_name="default" id="div_ff_priority" operator="is_in">
-				<h4 class="title">Priority</h4>
-				<% @priority.each do |k,v|%>
-				<br>
-				<label class="item">
-					<input type="checkbox" value= <%= @priority[k] %> >
-					<%= v %></br> </label>
-				<%end%>
-			</div>
-
-			<div>
-				<br>
-				<label>Customers</label></br>
-				<input type="text"  >
-			</div>
-			<div>
-				<br>
-				<label>Supports</label></br>
-				<input type="text" class="select2-input select2-default">
-			</div>
-		</div>
-		<h1>Listing tickets</h1>
-		<div class="row">
-			<div class="col-lg-8">
-				<div class=" col-md-25" >
-
-					<div class="box">
-						<div class="table-responsive">
-							<table class="table table-bordered table-striped">
-								<thead>
-									<tr bgcolor="#1E90FF">
-										<th>
-										<input type="checkbox">
-										</th>
-										<th>
-										<input type="button" value="Pick Up">
-										</th>
-										<th>
-										<input type="button" value="Assign To Agent">
-										</th>
-										<th>
-										<input type="button" value="Close">
-										</th>
-										<th>
-										<input type="button" value="Bulk Actions">
-										</th>
-										<th>
-										<input type="button" value="Delete">
-										</th>
-									</tr>
-								</thead>
-							</table>
-
-							<table>
-								<% @tickets.order("created_at desc").each do |ticket| %>
-								<tr>
-									<td><label class='hasborder'>
-										<input type='checkbox' >
-									</label></td>
-									<td><%= link_to "#{ticket.title} #  #{ticket.id}", ticket_path(ticket.id), method: :get %> 
-										
-						
-							
-									From : <% if ticket.agent %>
-									<%= ticlet.agent.name %>
-									<% end %>
-									<% if ticket.customer %>
-									<%= ticket.customer.name %>
-									<% end %>
-										</td>
-									<!-- <td><%= ticket.description %></td>
+		  From : <% if ticket.agent %>
+		  <%= ticlet.agent.name %>
+		<% end %>
+		<% if ticket.customer %>
+		  <%= ticket.customer.name %>
+		<% end %>
+	      </td>
+	      <!-- <td><%= ticket.description %></td>
 									<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 									<td><%= link_to 'Show', ticket, method: :get %></td> -->
-									<td>
-									<ul>
-										<li>
-											<label> Agent : </label>
-											<% if ticket.agent %>
-											<%= ticket.agent.name %>
-											<% end %>
-										</li>
-										<li>
-											<label> Status : </label>
-											<% if ticket.status %>
-											<%= ticket.status %>
-											<% end %>
-										</li>
-										<li>
-											<label> Priority : </label>
-											<% if ticket.priority %>
-											<%= ticket.priority %>
-											<% end %>
-										</li>
-									</ul></td>
-								</tr>
-								<% end %>
-							</table>
-						</div>
-						<br>
+	      <td>
+		<ul>
+		  <li>
+		  <label> Agent : </label>
+		  <% if ticket.agent %>
+		    <%= ticket.agent.name %>
+		  <% end %>
+		  </li>
+		  <li>
+		  <label> Status : </label>
+		  <% if ticket.status %>
+		    <%= ticket.status %>
+		  <% end %>
+		  </li>
+		  <li>
+		  <label> Priority : </label>
+		  <% if ticket.priority %>
+		    <%= ticket.priority %>
+		  <% end %>
+		  </li>
+	      </ul></td>
+	    </tr>
+	  <% end %>
+	</table>
+      </div>
+      <br>
 
-						<% if current_user.admin? %>
-						<%= link_to 'Back', admins_path , :class=>"btn btn-lg btn-primary"%>
-						<% elsif current_user.customer? %>
-						<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
-						<% else %>
-						<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
-						<% end %>
+      <% if current_user.admin? %>
+	<%= link_to 'Back', admins_path , :class=>"btn btn-lg btn-primary"%>
+      <% elsif current_user.customer? %>
+	<%= link_to 'Back', clients_path, :class=>"btn btn-lg btn-primary" %>
+      <% else %>
+	<%= link_to 'Back', supports_path, :class=>"btn btn-lg btn-primary" %>
+      <% end %>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
 
