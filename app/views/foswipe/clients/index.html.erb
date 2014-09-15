@@ -1,50 +1,26 @@
-
-<h1>Welcome Client</h1>
-
-<p>
-	<strong>Name:</strong>
-	<%= current_user.name %>
-</p>
-
-<p>
-	<strong>Email:</strong>
-	<%= current_user.email %>
-</p>
-
-<br>
-
-<% if current_user.customer? %>
+<h1>Listing Customers</h1>
 
 <div class="table-responsive">
-
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr bgcolor="#1E90FF">
-				<th>Tickets</th>
-				<th>Status</th>
-				<th>Priority</th>
-				<th>Delete</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th></th>
 			</tr>
 		</thead>
-		<tbody>
-			<% unless @tickets.blank? %>
-			<% @tickets.order("updated_at desc").each do |ticket| %>
-			<tr>
-				<td> <%= link_to "#{ticket.title}", ticket_path(ticket)%>
-				<% unless ticket.agent %> <span class="label label-success">new</span> <% end %> </td>
-				<td><%= ticket.status %></td>
-				<td><%= ticket.priority %></td>
 
-				<td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		<tbody>
+			<% @clients.each do |client| %>
+			<tr>
+				<td> <%= link_to client.name, edit_client_path(client) %> </td>
+				<td><%= link_to client.email, edit_client_path(client) %></td>
+				<td><%= link_to raw('<i class="fa  fa-trash-o"></i>'), client_path(client), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 			</tr>
-			<% end %>
 			<% end %>
 		</tbody>
 	</table>
 </div>
 <br>
-<% end %>
 
-<% if current_user.customer? %>
-<%= link_to 'Create New Ticket', new_ticket_path, :class=>"btn btn-lg btn-primary" %>
-<% end %>
+<%= link_to 'New Client', new_client_path, :class=>"btn btn-primary btn-sm" %>

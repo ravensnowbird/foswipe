@@ -5,8 +5,8 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
   # GET /supports
   # GET /supports.json
   def index
-   @supports = Foswipe::User.agents if current_user.agent?
-    @tickets = current_user.tickets if current_user.agent?
+   @supports = Foswipe::User.agents 
+    #@tickets = current_user.tickets if current_user.agent?
   end
 
   # GET /supports/1
@@ -19,7 +19,7 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
 
   # GET /supports/new
   def new
-    @support = Support.new
+    @support = Foswipe::User.new
   end
 
   # GET /supports/1/edit
@@ -29,11 +29,11 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
   # POST /supports
   # POST /supports.json
   def create
-    @support = Support.new(support_params)
-    @support.password = "00000000"
+    @support = Foswipe::User.new(user_params)
+    @support.agent = true
     respond_to do |format|
       if @support.save
-        format.html { redirect_to admins_path, notice: 'Support was successfully created.' }
+        format.html { redirect_to supports_url, notice: 'Agent was successfully created.' }
         format.json { render action: 'show', status: :created, location: @support }
       else
         format.html { render action: 'new' }
@@ -46,8 +46,8 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
   # PATCH/PUT /supports/1.json
   def update
     respond_to do |format|
-      if @support.update(support_params)
-        format.html { redirect_to @support, notice: 'Support was successfully updated.' }
+      if @support.update(user_params)
+        format.html { redirect_to supports_url, notice: 'Agent was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -80,12 +80,8 @@ class Foswipe::SupportsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_support
-      @support = Support.find(params[:id])
+      @support = Foswipe::User.find(params[:id])
       authorise_filter @support
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def support_params
-      params.require(:support).permit(:name, :email, :password)
-    end
 end

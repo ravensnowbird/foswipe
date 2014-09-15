@@ -5,9 +5,7 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
   # GET /admins
   # GET /admins.json
   def index
-    @tickets = Foswipe::Ticket.all
-    @clients = Foswipe::User.customers
-    @supports = Foswipe::User.agents
+    @admins = Foswipe::User.admins
   end
 
   # GET /admins/1
@@ -17,7 +15,7 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
 
   # GET /admins/new
   def new
-    @admin = Foswipe::Admin.new
+    @admin = Foswipe::User.new
   end
 
   # GET /admins/1/edit
@@ -27,11 +25,11 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
   # POST /admins
   # POST /admins.json
   def create
-    @admin = Foswipe::Admin.new(admin_params)
-
+    @admin = Foswipe::User.new(user_params)
+    @admin.admin = true
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
+        format.html { redirect_to admins_url, notice: 'Admin was successfully created.' }
         format.json { render action: 'show', status: :created, location: @admin }
       else
         format.html { render action: 'new' }
@@ -44,8 +42,8 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
   # PATCH/PUT /admins/1.json
   def update
     respond_to do |format|
-      if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+      if @admin.update(user_params)
+        format.html { redirect_to admins_url, notice: 'Admin was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -75,12 +73,10 @@ class Foswipe::AdminsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
-      @admin = Foswipe::Admin.find(params[:id])
+      @admin = Foswipe::User.find(params[:id])
       authorise_filter @admin
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_params
-      params.require(:admin).permit(:name, :email)
-    end
+    
 end

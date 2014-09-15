@@ -6,18 +6,14 @@
 			<tr bgcolor="#1E90FF">
       <th>Name</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @organizations.each do |organization| %>
       <tr>
-        <td><%= organization.name %></td>
-        <td><%= link_to 'Show', organization %></td>
-        <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-        <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to organization.name, edit_organization_path(organization) %></td>
+        <td><%= link_to raw('<i class="fa  fa-trash-o"></i>'), organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

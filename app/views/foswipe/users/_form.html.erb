@@ -1,0 +1,60 @@
+
+<% if user.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(user.errors.count, "error") %> prohibited this admin from being saved:</h2>
+
+	<ul>
+		<% user.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="field form-group">
+			<%= f.label :first_name %>
+			<%= f.text_field :first_name, :class => "form-control" %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.label :last_name %>
+			<%= f.text_field :last_name, :class => "form-control" %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.label :password %>
+			<%= f.password_field :password, :class => "form-control" %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.label :password_confirmation %>
+			<%= f.password_field :password_confirmation, :class => "form-control" %>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+		<div class=" form-group">
+			<%= f.label :email %>
+			<br>
+			<%= f.text_field :email, :class => "form-control" %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.label :mobile_no %>
+			<%= f.text_field :mobile_no, :class => "form-control" %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.label :address %>
+			<%= f.text_area :address, :class => "form-control" %>
+		</div>
+
+	</div>
+</div>
+<div class="actions">
+		<%= f.submit :class => "btn  btn-primary " %>
+	</div>

@@ -11,6 +11,8 @@ class Foswipe::User < ActiveRecord::Base
   has_many :support_tickets, :foreign_key => 'support_id', :class_name => "Ticket"
   has_many :slas, :as => :slas
   belongs_to :organization
+  
+  validate :first_name, :presence => true
 
   #def active_for_authentication?
   #  super && approved?
@@ -28,7 +30,7 @@ class Foswipe::User < ActiveRecord::Base
   end
 
   def name
-    first_name + (last_name || "")
+    first_name +  " " +(last_name || "")
   end
 
   def skip_confirmation
@@ -36,7 +38,7 @@ class Foswipe::User < ActiveRecord::Base
   end
 
   def self.customers
-    Foswipe::User.where( :agent => false , :admin => false)
+    Foswipe::User.where( :agent => nil , :admin => nil)
   end
 
   def self.agents
