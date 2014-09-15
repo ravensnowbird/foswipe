@@ -16,7 +16,7 @@
 				<td><%= link_to purchase.name, edit_purchase_path(purchase) %></td>
 				<td><%= link_to purchase.organization.name, edit_purchase_path(purchase) %></td>
 				<td><%= link_to purchase.product.name, edit_purchase_path(purchase) %></td>
-				<td><%= link_to link_to raw('<i class="fa  fa-trash-o"></i>'), purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= link_to link_to raw('<i class="fa  fa-trash-o"></i>'), purchase, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin_or_agent? %></td>
 			</tr>
 			<% end %>
 		</tbody>
@@ -25,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Purchase', new_purchase_path %>
+<%= link_to 'New Purchase', new_purchase_path if current_user.admin_or_agent? %>

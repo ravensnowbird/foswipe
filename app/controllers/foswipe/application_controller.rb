@@ -22,7 +22,7 @@ module Foswipe
       end
     end
     def user_params
-      params.require(:user).permit(:name, :email, :first_name, :last_name, :password, :password_confirmation, :mobile_no, :address)
+      params.require(:user).permit(:name, :email, :first_name, :last_name, :password, :password_confirmation, :mobile_no, :address, :organization_id)
     end
 
   end
