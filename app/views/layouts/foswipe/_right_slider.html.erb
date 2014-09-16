@@ -1,15 +1,18 @@
 <aside class="right-side">
-	<section class="content">
-		<% if flash[:notice]%>
-		<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-				&times;
-			</button>
-			<%= flash[:notice]%>
-		</div>
-		<% end %>
-
-		<%= yield %>
-
-	</section><!-- /.content -->
+  <section class="content-header no-margin">
+    <h1 class="text-center">
+      Tickets
+    </h1>
+  </section>
+  <section class="content">
+    <% if flash[:notice]%>
+      <div class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+	  &times;
+	</button>
+	<%= flash[:notice]%>
+      </div>
+    <% end %>
+    <%= yield %>
+  </section><!-- /.content -->
 </aside>

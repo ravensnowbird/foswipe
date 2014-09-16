@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require admin-lte
+//= require foswipe/select2.min
 //= require_tree .

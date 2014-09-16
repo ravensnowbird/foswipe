@@ -15,5 +15,7 @@
  *= require admin-lte
  *= require iCheck/all
  *= require datatables/dataTables.bootstrap
+ *= require foswipe/select2
+ *= require foswipe/select2-bootstrap
  *= require_tree .
  */
