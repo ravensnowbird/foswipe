@@ -1,4 +1,6 @@
 Foswipe::Engine.routes.draw do
+  resources :user_groups
+
   resources :tickets do
     resources :comments
   end
@@ -25,10 +27,13 @@ Foswipe::Engine.routes.draw do
   end
 
   resources :projects
+  
+  resources :users
 
   resources :admins
 
   root 'admins#index'
   #post '/assign_tickets_to_supports' => 'admins#assign_tickets_to_supports'
   post '/assign_support_notes_to_tickets' => 'supports#assign_support_notes_to_tickets'
+     
 end
