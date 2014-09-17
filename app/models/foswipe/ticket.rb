@@ -9,4 +9,5 @@ class Foswipe::Ticket < ActiveRecord::Base
  has_many :ticket_attachments, :dependent => :destroy
  accepts_nested_attributes_for :ticket_attachments
  accepts_nested_attributes_for :ticket_comments
+ accepts_nested_attributes_for :ticket_notes
 end

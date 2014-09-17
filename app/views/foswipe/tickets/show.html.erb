@@ -95,15 +95,24 @@
 							<li>
 							  <i class="fa  fa-hospital-o bg-green"></i>
 							    <div class="timeline-item">
-							    	<%= form_for(@ticket) do |f| %>
 							    	<p>
-							    	  <%= f.label :support_notes %><br />
-							    	  <%= f.text_area :support_notes, :cols => "70", :rows => "5" %>
-							    	  </p>
-							    	  <p>
-							    	  	<%= f.submit %>
-							    	  </p>
-							    	<% end %>
+										<%= form_for([@ticket,@ticket.ticket_notes.new], :url => create_note_ticket_comments_path(@ticket)) do |f| %>
+
+										<div class="field">
+											<%= f.label "Support Notes:" %>
+											<br>
+											<%= f.text_area :content,:cols => "30", :rows => "5",:class=>"form-control" %>
+										</div>
+										<br>
+										<%= f.label "Support Note Attachment:" %>
+
+										<%= f.file_field :attachment, :name => "ticket_note[note_attachments_attributes][][attachment]", :multiple => true %>
+										<br>
+										<div class="actions">
+											<%= f.submit %>
+										</div>
+										<% end %>
+									</p>
 							    </div>
 						    </li>
 

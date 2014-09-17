@@ -43,6 +43,24 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
       end
     end
   end
+  def create_note
+    
+     @ticket = Foswipe::Ticket.find(params[:ticket_id])
+    
+    @comment = @ticket.ticket_notes.new(note_params)
+    @comment.user = current_user
+
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @ticket, notice: 'Notes was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @comment }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+    
+  end
 
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
@@ -84,4 +102,8 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
     def comment_params
       params.require(:ticket_comment).permit(:content, :user_id, :comment_attachments_attributes => [:attachment])
     end
+    def note_params
+       params.require(:ticket_note).permit(:content, :user_id, :comment_attachments_attributes => [:attachment])
+    end
+    
 end
