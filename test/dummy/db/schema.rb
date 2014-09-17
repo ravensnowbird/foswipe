@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915071647) do
+ActiveRecord::Schema.define(version: 20140917093500) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "attachment_uid"
-    t.integer  "foswipe_comment_id"
+    t.integer  "comment_id"
   end
 
   create_table "foswipe_comments", force: true do |t|
     t.text     "content"
-    t.string   "user"
+    t.string   "user_id"
     t.text     "attachment"
     t.datetime "created_at"
     t.datetime "updated_at"

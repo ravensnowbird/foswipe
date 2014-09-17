@@ -1,178 +1,244 @@
 <!-- Main content -->
-<div class="clearfix" >
-	<section class="content">
+
 
 		<!-- row -->
 		<div class="row">
-			<div class="col-md-9">
-				<!-- The time line -->
-				<ul class="timeline">
-					<!-- timeline time label -->
-					<li class="time-label">
-						<span class="bg-red"> <%= @ticket.created_at.time %> </span>
-					</li>
-					<!-- /.timeline-label -->
-					<!-- timeline item -->
-					<li>
-						<i class="fa fa-envelope bg-blue"></i>
-						<div class="timeline-item">
-							<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-							<h3 class="timeline-header"><a href="#"><%= @ticket.customer.name %></a> Generated this Ticket</h3>
-							<div class="timeline-body">
-								<%= @ticket.description %>
-							</div>
-							<div class='timeline-footer'>
+			<div class="box box-solid ">
+					<div class="col-md-15">
+						<!-- Info box -->
+						<div class="col-xs-9">
+							<div class="box">
+								<div class="box-header">
+									<h3 class="box-title">
+									<font color="green"><%= @ticket.title %></font>
+									</h3>
+								</div>
+								<div class="box-body">
+									<h5 class><font color="blue"><%= @ticket.customer.name.humanize %></font><span class="text-muted">:  Generated this Ticket</span></h5>
+								</div>
 
-								<%= link_to '<i class="btn btn-primary">Edit</i>'.html_safe , edit_ticket_path(@ticket.id), method: :get  %> <!--<%= link_to "Delete" , ticket_path(@ticket.id), method: :delete  %> -->
+								<div class="box-body">
+									<p>
+										<%= @ticket.description %>
+									</p>
+									<p>
+										<% @ticket.ticket_attachments.each do |a| %>
+										<% if a.attachment.image? %>
+										<%= image_tag a.attachment.url %>
+										<% else %>
+										<%= File.read(a.attachment.file) %>
+										<% end %>
+										<% end %>
+									</p>
+								</div><!-- /.box-body -->
 							</div>
-						</div>
-					</li>
-					<!-- END timeline item -->
-					<!-- timeline item -->
-					<!-- <li>
-					<i class="fa fa-user bg-aqua"></i>
-					<div class="timeline-item">
-					<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-					<h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-					</div>
-					</li>
-					<!-- END timeline item -->
-					<!-- timeline item -->
+							
+							<div class="col-md-9">
+						<!-- The time line -->
+						<ul class="timeline">
+							<!-- timeline time label -->
 
-					<li>
-						<i class="fa fa-comments bg-yellow"></i>
-						<div class="timeline-item">
-							<%= form_for([@ticket,@comment]) do |f| %>
-							<% if @comment.errors.any? %>
-							<div id="error_explanation">
-								<h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+							<% if @ticket.ticket_comments %>
 
-								<ul>
-									<% @comment.errors.full_messages.each do |msg| %>
-									<li>
-										<%= msg %>
-									</li>
-									<% end %>
-								</ul>
-							</div>
-							<% end %>
-
-							<div class="field">
-								<%= f.label :content %>
-								<br>
-								<%= f.text_area :content,:cols => "30", :rows => "5",:class=>"form-control" %>
-							</div>
-							<br>
-							<div class="actions">
-								<%= f.submit %>
-							</div>
-							<% end %>
-						</div>
-					</li>
-
-					<% if @ticket.ticket_comments %>
-					<li>
-						<i class="fa fa-comments bg-yellow"></i>
-						<div class="timeline-item">
 							<% @ticket.ticket_comments.each do |c|%>
-							<span class="time"><i class="fa fa-clock-o"></i>time</span>
-							<h3 class="timeline-header"><a href="#"><%= @user.find(c.id).first_name %></a> commented on this Ticket</h3>
-							<div class="timeline-body">
-								<%= c.content %>
+							<li>
+								<i class="fa fa-comments bg-yellow"></i>
+								<div class="timeline-item">
+
+									<span class="time"><i class="fa fa-clock-o"></i>time</span>
+									<h3 class="timeline-header"><a href="#"><%= c.user.name if c.user %></a> commented on this Ticket</h3>
+									<div class="timeline-body">
+										<%= c.content %>
+									</div>
+									<div>
+										<% c.comment_attachments.each do |a| %>
+										  <% if a.attachment.image? %>
+										    <%= image_tag a.attachment.url %>
+										  <% else %>
+										    <%= File.read(a.attachment.file) %>
+										  <% end %>
+										<% end %>
+									</div>
+									<div class='timeline-footer'>
+
+									</div>
+
+								</div>
+							</li>
+							<% end %>
+							<% end %>
+							<!-- END timeline item -->
+							<!-- timeline time label -->
+							<li>
+								<i class="fa fa-comments bg-yellow"></i>
+								<div class="timeline-item">
+
+									<p>
+										<%= form_for([@ticket,@ticket.ticket_comments.new], :url => ticket_comments_path(@ticket)) do |f| %>
+
+										<div class="field">
+											<%= f.label :content %>
+											<br>
+											<%= f.text_area :content,:cols => "30", :rows => "5",:class=>"form-control" %>
+										</div>
+										<%= f.label "Comment Attachment:" %>
+
+										<%= f.file_field :attachment, :name => "ticket_comment[comment_attachments_attributes][][attachment]", :multiple => true %>
+										<br>
+										<div class="actions">
+											<%= f.submit %>
+										</div>
+										<% end %>
+									</p>
+								</div>
+							</li>
+							<li>
+							  <i class="fa  fa-hospital-o bg-green"></i>
+							    <div class="timeline-item">
+							    	<%= form_for(@ticket) do |f| %>
+							    	<p>
+							    	  <%= f.label :support_notes %><br />
+							    	  <%= f.text_area :support_notes, :cols => "70", :rows => "5" %>
+							    	  </p>
+							    	  <p>
+							    	  	<%= f.submit %>
+							    	  </p>
+							    	<% end %>
+							    </div>
+						    </li>
+
+						</ul>
+
+					</div>
+						
+						</div><!-- /.col -->
+						<div class="row">
+						<div style="float:right; width:25%; ">
+							<div class="callout callout-warning">
+								<div>
+									Ticket Status : <h4> <%= @ticket.status %> </h4>
+								</div>
+								<p>
+
+								</p>
 							</div>
-							<div class='timeline-footer'>
-								<%= link_to '<i class="btn btn-warning btn-flat btn-xs">View Comment</i>'.html_safe, ticket_comment_path(@ticket.id,c.id), method: :get%></a>
+
+							<!-- Default box -->
+							<div class="box">
+								<div class="box-header">
+									<h3 class="box-title">Requestor Info</h3>
+									<div class="box-tools pull-right">
+										<button class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+											<i class="fa fa-minus"></i>
+										</button>
+										<button class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+											<i class="fa fa-times"></i>
+										</button>
+									</div>
+								</div>
+								<div class="box-body">
+									<div class="form-group">
+										<td class="small-col">
+										<div class="user-panel no-padding">
+											<div class="image">
+												<img src="#" class="img-circle" alt="User Image">
+												<%= @ticket.customer.first_name %>
+											</div>
+										</div></td>
+									</div><!-- /.form group -->
+
+									<div class="form-group">
+										<i class="fa fa-envelope fa-fw"></i><%= @ticket.customer.email %>
+
+									</div><!-- /.form group -->
+
+								</div><!-- /.box-body -->
+
+							</div><!-- /.box -->
+
+							<!-- Default Box ended-->
+
+							<div class="box box-primary">
+								<!-- <div class="box-header">
+								<h3 class="box-title">Quick Example</h3>
+								</div><!-- /.box-header -->
+								<!-- form start -->
+								<h4>Ticket Properties</h4>
+
+								<%= form_for(@ticket, :html => {:multipart => true}) do |f| %>
+								<div class="box-body">
+									<% if @ticket.errors.any? %>
+									<div id="error_explanation">
+										<h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+
+										<ul>
+											<% @ticket.errors.full_messages.each do |msg| %>
+											<li>
+												<%= msg %>
+											</li>
+											<% end %>
+										</ul>
+									</div>
+									<% end %>
+
+									<div class="form-group">
+
+										<%= f.label :status %>
+										<br />
+										<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
+
+										<br />
+									</div>
+
+									<div class="form-group">
+										<%= f.label :priority %>
+										div
+										<br />
+										<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker"  %>
+										<br />
+									</div>
+									<label> Assign an Agent</label>
+									<br />
+									<%= f.select "support_id", options_from_collection_for_select(@agents, "id", "first_name"), prompt: "Assign to Agent"  %>
+								</div>
+
+							</div><!-- /.box -->
+
+							<div class="box-footer">
+								<%= f.submit  %>
+								<br />
 							</div>
 							<% end %>
-						</div>
-					</li>
-					<% end %>
-					<!-- END timeline item -->
-					<!-- timeline time label -->
-			</div>
-			<div style="float:right; width:25%; ">
-				<div class="callout callout-warning">
-					<h5>Ticket Status </h5> : <h3><font color="green"><%= @ticket.status %></font></h3>
-				</div>
-				<div class="col-md-4">
-					<!-- Default box -->
-					<div class="box">
+							
+							<!-- todo list -->
+					<div class="box box-warning">
 						<div class="box-header">
-							<h3 class="box-title">Requestor Info</h3>
-							<div class="box-tools pull-right">
-								<button class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-									<i class="fa fa-minus"></i>
-								</button>
-								<button class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
-									<i class="fa fa-times"></i>
-								</button>
-							</div>
-						</div>
+							<h3 class="box-title">Todo List</h3>
+						</div><!-- /.box-header -->
 						<div class="box-body">
-							<code>
-								<%= @user.find(@ticket.client_id).first_name %>
-							</code>
-							<p>
-								<%= @user.find(@ticket.client_id).email %>
-							</p>
-						</div><!-- /.box-body -->
-
-					</div><!-- /.box -->
-				</div>
-				<!-- Default Box ended-->
-
-				<div class="box box-primary">
-					<!-- <div class="box-header">
-					<h3 class="box-title">Quick Example</h3>
-					</div><!-- /.box-header -->
-					<!-- form start -->
-					<h4>Ticket Properties</h4>
-
-					<%= form_for(@ticket, :html => {:multipart => true}) do |f| %>
-					<div class="box-body">
-						<% if @ticket.errors.any? %>
-						<div id="error_explanation">
-							<h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
-
-							<ul>
-								<% @ticket.errors.full_messages.each do |msg| %>
-								<li>
-									<%= msg %>
-								</li>
-								<% end %>
-							</ul>
+							<form role="form">
+								<!-- text input -->
+								<div class="form-group">
+									<label>Add to do</label>
+									<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+								</div>
 						</div>
-						<% end %>
-
-						<div class="form-group">
-
-							<%= f.label :status %>
-							<br />
-							<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
-
-							<br />
-						</div>
-
-						<div class="form-group">
-							<%= f.label :priority %>
-							<br />
-							<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker"  %>
-							<br />
-						</div>
-						<label> Assign an Agent</label>
-						<br />
-						<%= f.select "support_id", options_from_collection_for_select(@agents, "id", "first_name"), prompt: "Assign to Agent"  %>
 					</div>
 
-				</div><!-- /.box -->
+						
+					</div>
+					
 
-			</div><!-- /.box-body -->
+					<!-- timeline item -->
 
-			<div class="box-footer">
-				<%= f.submit  %>
+					
+
+					<!-- right side -->
+					</div><!-- /.box box-solid-->
+					
+				
 			</div>
-			<% end %>
+			</div>
 		</div>
 
-</div>
-
+		

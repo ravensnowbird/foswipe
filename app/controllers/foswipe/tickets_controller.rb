@@ -14,14 +14,13 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets/1.json
   def show
     @comments = @ticket.ticket_comments
-    @comment = Foswipe::Comment.new
-    @user = Foswipe::User.all
     @agents = Foswipe::User.agents
   end
 
   # GET /tickets/new
   def new
     @ticket = Foswipe::Ticket.new
+    @ticket_attachment = @ticket.ticket_attachments.build
   end
 
   # GET /tickets/1/edit
@@ -37,7 +36,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
     @ticket = current_user.tickets.new(ticket_params)
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to clients_path, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to tickets_path, notice: 'Ticket was successfully created.' }
         format.json { render action: 'show', status: :created, location: @ticket }
       else
         format.html { render action: 'new' }
@@ -82,6 +81,6 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
-    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment])
+    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment], :ticket_comments_attributes => [:content, :comment_attachments => [:attachment]])
   end
 end

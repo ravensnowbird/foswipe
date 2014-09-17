@@ -1,3 +1,4 @@
 class Foswipe::TicketNote < Foswipe::Comment
-  belongs_to :Ticket
+  belongs_to :ticket
+  belongs_to :user
 end
