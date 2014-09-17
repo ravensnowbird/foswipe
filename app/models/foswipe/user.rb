@@ -11,6 +11,10 @@ class Foswipe::User < ActiveRecord::Base
   has_many :slas, :as => :slas
   belongs_to :organization
   has_many :ticket_comments
+  has_and_belongs_to_many :user_groups
+  
+  
+
   validate :first_name, :presence => true
 
   before_save :admin_becomes_agent

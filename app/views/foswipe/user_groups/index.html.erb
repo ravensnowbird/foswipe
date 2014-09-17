@@ -1,0 +1,27 @@
+<h1>Listing user_groups</h1>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr bgcolor="#1E90FF">
+				<th>Group name</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @user_groups.each do |user_group| %>
+			<tr>
+				<td><%= link_to user_group.group_name + "(#{user_group.users.count})", user_group %></td>
+				<td><%= link_to raw('<i class="fa  fa-edit"></i>'), edit_user_group_path(user_group) %></td>
+				<td><%= link_to raw('<i class="fa  fa-trash-o"></i>'), user_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<br>
+
+<%= link_to 'New User group', new_user_group_path %>

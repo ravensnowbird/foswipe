@@ -1,0 +1,34 @@
+<p id="notice">
+	<%= notice %>
+</p>
+<div>
+	<p>
+		<strong>Group name:</strong>
+		<%= @user_group.group_name %>
+
+		
+
+	</p>
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr bgcolor="#1E90FF">
+					<th>Name</th>
+					<th>Email</th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @user_group.users.each do |user| %>
+				<tr>
+					<td> <%= link_to user.name, edit_user_path(user) %> </td>
+					<td><%= link_to user.email, edit_user_path(user) %></td>
+					<td><%= link_to raw('<i class="fa  fa-trash-o"></i>'), user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
