@@ -9,8 +9,15 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   def index
     @user = Foswipe::User.find(current_user.id)
     @agents = Foswipe::User.agents
-    @priority = {"1"=>"Low","2"=>"Medium","3"=>"High","4"=>"Urgent"}
-    @tickets = current_user.all_tickets
+    @group = Foswipe::UserGroup.all
+    
+    
+    if current_user.admin_or_agent?
+      @tickets = Foswipe::Ticket.filter(params.slice(:agents, :groups, :created_at, :status, :ticket_type, :source, :priority, :search))
+    else
+      @tickets = current_user.all_tickets
+    end
+
   end
 
   # GET /tickets/1
@@ -59,7 +66,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   def update
     respond_to do |format|
       if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: 'Status was successfully updated.' }
+        format.html { redirect_to tickets_url, notice: 'Status was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -74,7 +81,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
     @ticket = Foswipe::Ticket.find(params[:id])
     @ticket.destroy
     respond_to do |format|
-      format.html { redirect_to clients_url, notice: 'Ticket was successfully deleted.' }
+      format.html { redirect_to tickets_url, notice: 'Ticket was successfully deleted.' }
       format.json { head :no_content }
     end
   end

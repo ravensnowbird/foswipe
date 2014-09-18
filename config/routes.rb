@@ -2,10 +2,9 @@ Foswipe::Engine.routes.draw do
   resources :user_groups
 
   resources :tickets do
+    post :index, :on => :collection
+    resources :comments
     post :create_from_email, :on => :collection
-    resources :comments do
-      post :create_note, :on => :collection
-    end
   end
 
   resources :comments

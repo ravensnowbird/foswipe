@@ -1,4 +1,0 @@
----
-name: one.jpg
-model_class: Foswipe::CommentAttachment
-model_attachment: attachment
