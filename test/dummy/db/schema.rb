@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916071901) do
+ActiveRecord::Schema.define(version: 20140918072431) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
@@ -28,7 +28,10 @@ ActiveRecord::Schema.define(version: 20140916071901) do
     t.datetime "updated_at"
     t.integer  "ticket_id"
     t.string   "type"
+    t.string   "message_id"
   end
+
+  add_index "foswipe_comments", ["message_id"], name: "index_foswipe_comments_on_message_id"
 
   create_table "foswipe_organizations", force: true do |t|
     t.string   "name"
@@ -83,7 +86,7 @@ ActiveRecord::Schema.define(version: 20140916071901) do
   add_index "foswipe_ticket_attachments", ["foswipe_ticket_id"], name: "index_foswipe_ticket_attachments_on_foswipe_ticket_id"
 
   create_table "foswipe_tickets", force: true do |t|
-    t.text     "description"
+    t.text     "content"
     t.integer  "client_id"
     t.integer  "support_id"
     t.datetime "created_at"
@@ -92,9 +95,11 @@ ActiveRecord::Schema.define(version: 20140916071901) do
     t.text     "support_notes"
     t.string   "title"
     t.string   "priority"
+    t.string   "message_id"
   end
 
   add_index "foswipe_tickets", ["client_id"], name: "index_foswipe_tickets_on_client_id"
+  add_index "foswipe_tickets", ["message_id"], name: "index_foswipe_tickets_on_message_id"
   add_index "foswipe_tickets", ["support_id"], name: "index_foswipe_tickets_on_support_id"
 
   create_table "foswipe_user_groups", force: true do |t|
@@ -141,13 +146,5 @@ ActiveRecord::Schema.define(version: 20140916071901) do
   add_index "foswipe_users", ["email"], name: "index_foswipe_users_on_email", unique: true
   add_index "foswipe_users", ["organization_id"], name: "index_foswipe_users_on_organization_id"
   add_index "foswipe_users", ["reset_password_token"], name: "index_foswipe_users_on_reset_password_token", unique: true
-
-  create_table "table_foswipe_user_groups_users", force: true do |t|
-    t.integer "user_id"
-    t.integer "user_group_id"
-  end
-
-  add_index "table_foswipe_user_groups_users", ["user_group_id"], name: "index_table_foswipe_user_groups_users_on_user_group_id"
-  add_index "table_foswipe_user_groups_users", ["user_id"], name: "index_table_foswipe_user_groups_users_on_user_id"
 
 end

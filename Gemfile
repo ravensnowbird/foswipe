@@ -16,3 +16,4 @@ gem 'debugger'
 gem "better_errors"
 gem "binding_of_caller"
 gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'pry', :group => :development

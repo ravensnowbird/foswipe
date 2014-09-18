@@ -2,6 +2,7 @@ Foswipe::Engine.routes.draw do
   resources :user_groups
 
   resources :tickets do
+    post :create_from_email, :on => :collection
     resources :comments
   end
   

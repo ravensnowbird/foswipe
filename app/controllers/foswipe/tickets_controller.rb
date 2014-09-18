@@ -1,6 +1,9 @@
 class Foswipe::TicketsController < Foswipe::ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   before_action :authorise_filter, :only => [:index, :new, :create]
+  skip_before_filter :verify_authenticity_token, :only => [:create_from_email]
+  skip_before_action :authenticate_user!, :only => [:create_from_email]
+
   # GET /tickets
   # GET /tickets.json
   def index
@@ -40,6 +43,11 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
       end
     end
 
+  end
+
+  def create_from_email
+    Foswipe::TicketMailer.recieve(params[:message])
+    render :nothing => true, :status => 200
   end
 
   # PATCH/PUT /tickets/1
