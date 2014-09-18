@@ -57,7 +57,7 @@
 
 											<%= f.label :status %>
 											<br />
-											<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
+											<%= f.select :status, Foswipe::Ticket.statuses, {},:class=>"selectpicker"  %>
 
 											<br />
 										</div>
@@ -67,7 +67,7 @@
 
 												<%= f.label :priority %>
 												<br />
-												<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker"  %>
+												<%= f.select :priority, Foswipe::Ticket.priorities, {},:class=>"selectpicker"  %>
 											</li>
 											<br />
 										</div>
