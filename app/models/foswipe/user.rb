@@ -4,16 +4,17 @@ class Foswipe::User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  has_many :tickets
 
   #after_create :skip_confirmation
   has_many :tickets, :foreign_key => 'client_id', :class_name => "Ticket"
   has_many :support_tickets, :foreign_key => 'support_id', :class_name => "Ticket"
   has_many :slas, :as => :slas
   belongs_to :organization
+  has_many :ticket_comments
   has_and_belongs_to_many :user_groups
   
   
+
   validate :first_name, :presence => true
 
   before_save :admin_becomes_agent

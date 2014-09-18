@@ -1,0 +1,4 @@
+---
+name: 03.jpg
+model_class: Foswipe::TicketAttachment
+model_attachment: attachment

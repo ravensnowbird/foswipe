@@ -11,19 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918072431) do
+ActiveRecord::Schema.define(version: 20140918085910) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "attachment_uid"
-    t.integer  "foswipe_comment_id"
+    t.integer  "comment_id"
   end
 
   create_table "foswipe_comments", force: true do |t|
     t.text     "content"
-    t.string   "user"
-    t.text     "attachment"
+    t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ticket_id"
@@ -80,10 +79,10 @@ ActiveRecord::Schema.define(version: 20140918072431) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "attachment_uid"
-    t.integer  "foswipe_ticket_id"
+    t.integer  "ticket_id"
   end
 
-  add_index "foswipe_ticket_attachments", ["foswipe_ticket_id"], name: "index_foswipe_ticket_attachments_on_foswipe_ticket_id"
+  add_index "foswipe_ticket_attachments", ["ticket_id"], name: "index_foswipe_ticket_attachments_on_ticket_id"
 
   create_table "foswipe_tickets", force: true do |t|
     t.text     "content"
