@@ -73,6 +73,7 @@ class Foswipe::User < ActiveRecord::Base
   end
 
   def self.find_or_create(from_email)
+    p from_email
     return self.where(:email => from_email).first unless self.where(:email => from_email).blank?
     user = self.create(:email => from_email, :password => "00000000", :password_confirmation => "00000000")
     user.send_reset_password_instructions

@@ -4,11 +4,11 @@ module Foswipe
     def recieve(email)
       require 'mail'
       binding.pry
-      @email = Mail.new(message)
+      @email = Mail.new(email)
       ticket_or_comment.message_id = @email.message_id
-      ticket_comment.content = @email.body
-      ticket_comment.title = @email.subject if ticket_comment.class == Foswipe::Ticket
-      ticket_comment.save
+      ticket_or_comment.content = (@email.text_part || @email.html_part || @email).body.decoded
+      ticket_or_comment.title = @email.subject if ticket_or_comment.class == Foswipe::Ticket
+      ticket_or_comment.save
       create_attachments if @email.has_attachments?
     end
 
@@ -29,7 +29,13 @@ module Foswipe
     end
     
     def create_attachments
-      p @email.attachments
+      @email.attachments.each do |a|
+	t = Dragonfly::TempObject.new(a.decoded)
+	ta = ticket_or_comment.attachments.new
+	ta.attachment = t
+	ta.attachment.name = a.name
+	ta.save
+      end
     end
   end
 end
