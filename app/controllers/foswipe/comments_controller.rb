@@ -5,7 +5,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    @comments = Foswipe::TicketComment.all
   end
 
   # GET /comments/1
@@ -18,6 +18,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   def new
     #@ticket = Ticket.new
     @comment = Comment.new
+    comment_attachment = @comment.comment_attachments.build
   end
 
   # GET /comments/1/edit
@@ -27,9 +28,10 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @ticket = Ticket.find(params[:ticket_id])
+    @ticket = Foswipe::Ticket.find(params[:ticket_id])
     
-    @comment = @ticket.comments.new(comment_params)
+    @comment = @ticket.ticket_comments.new(comment_params)
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
@@ -40,6 +42,24 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+  end
+  def create_note
+    
+     @ticket = Foswipe::Ticket.find(params[:ticket_id])
+    
+    @comment = @ticket.ticket_notes.new(note_params)
+    @comment.user = current_user
+
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @ticket, notice: 'Notes was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @comment }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+    
   end
 
   # PATCH/PUT /comments/1
@@ -74,12 +94,16 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = Foswipe::TicketComment.find(params[:id])
       authorise_filter @comment
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :user, :comment_attachments_attributes => [:attachment])
+      params.require(:ticket_comment).permit(:content, :user_id, :comment_attachments_attributes => [:attachment])
     end
+    def note_params
+       params.require(:ticket_note).permit(:content, :user_id, :comment_attachments_attributes => [:attachment])
+    end
+    
 end

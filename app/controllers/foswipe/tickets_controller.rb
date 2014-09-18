@@ -1,9 +1,13 @@
 class Foswipe::TicketsController < Foswipe::ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   before_action :authorise_filter, :only => [:index, :new, :create]
+  skip_before_filter :verify_authenticity_token, :only => [:create_from_email]
+  skip_before_action :authenticate_user!, :only => [:create_from_email]
+
   # GET /tickets
   # GET /tickets.json
   def index
+    @user = Foswipe::User.find(current_user.id)
     @agents = Foswipe::User.agents
     @group = Foswipe::UserGroup.all
     
@@ -20,16 +24,19 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets/1.json
   def show
     @comments = @ticket.ticket_comments
-    @comment = Foswipe::Comment.new
+    @agents = Foswipe::User.agents
   end
 
   # GET /tickets/new
   def new
     @ticket = Foswipe::Ticket.new
+    @ticket_attachment = @ticket.ticket_attachments.build
   end
 
   # GET /tickets/1/edit
   def edit
+    @find = true
+    @agents = Foswipe::User.where(:agent => true).all
   end
 
   # POST /tickets
@@ -49,6 +56,11 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
 
   end
 
+  def create_from_email
+    Foswipe::TicketMailer.recieve(params[:message])
+    render :nothing => true, :status => 200
+  end
+
   # PATCH/PUT /tickets/1
   # PATCH/PUT /tickets/1.json
   def update
@@ -66,6 +78,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
+    @ticket = Foswipe::Ticket.find(params[:id])
     @ticket.destroy
     respond_to do |format|
       format.html { redirect_to tickets_url, notice: 'Ticket was successfully deleted.' }
@@ -83,6 +96,6 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
-    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment])
+    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment], :ticket_comments_attributes => [:content, :comment_attachments => [:attachment]])
   end
 end

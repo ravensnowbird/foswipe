@@ -4,11 +4,11 @@ Foswipe::Engine.routes.draw do
   resources :tickets do
     post :index, :on => :collection
     resources :comments
+    post :create_from_email, :on => :collection
   end
-  
+
   resources :comments
 
-  
   resources :purchases
 
   resources :products
@@ -17,18 +17,18 @@ Foswipe::Engine.routes.draw do
 
   devise_for :users, class_name: "Foswipe::User", module: :devise
 
-  resources :tickets do 
+  resources :tickets do
     get :all_tickets, :on => :collection
   end
 
   resources :supports
 
-  resources :clients do 
+  resources :clients do
     resources :tickets
   end
 
   resources :projects
-  
+
   resources :users
 
   resources :admins
@@ -36,5 +36,5 @@ Foswipe::Engine.routes.draw do
   root 'admins#index'
   #post '/assign_tickets_to_supports' => 'admins#assign_tickets_to_supports'
   post '/assign_support_notes_to_tickets' => 'supports#assign_support_notes_to_tickets'
-     
+
 end

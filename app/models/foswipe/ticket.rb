@@ -10,6 +10,8 @@ class Foswipe::Ticket < ActiveRecord::Base
   #dragonfly_accessor :attachment
   has_many :ticket_attachments, :dependent => :destroy
   accepts_nested_attributes_for :ticket_attachments
+  accepts_nested_attributes_for :ticket_comments
+  accepts_nested_attributes_for :ticket_notes
 
   scope :agents, -> support { where(:support_id =>  support) }
   scope :groups, -> group { where(:user_group_id =>  group) }
@@ -24,7 +26,7 @@ class Foswipe::Ticket < ActiveRecord::Base
 
   scope :created_at, -> created_at do
     where(:created_at => eval(created_at)) if eval(created_at).class == Range
-end
+  end
 
 end
 
