@@ -8,8 +8,9 @@ class Foswipe::Ticket < ActiveRecord::Base
   has_many :ticket_notes
   #belongs_to :support
   #dragonfly_accessor :attachment
-  has_many :ticket_attachments, :dependent => :destroy
-  accepts_nested_attributes_for :ticket_attachments
+  has_many :attachments, :dependent => :destroy, :as => :attachable
+  
+  accepts_nested_attributes_for :attachments
   accepts_nested_attributes_for :ticket_comments
   accepts_nested_attributes_for :ticket_notes
 
@@ -26,6 +27,11 @@ class Foswipe::Ticket < ActiveRecord::Base
 
   scope :created_at, -> created_at do
     where(:created_at => eval(created_at)) if eval(created_at).class == Range
+  end
+  
+  
+  def ticket_attachments
+    attachments
   end
 
 end
