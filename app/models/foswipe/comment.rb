@@ -3,8 +3,11 @@ class Foswipe::Comment < ActiveRecord::Base
   belongs_to :user
   #has_many :attachments
 
-  has_many :comment_attachments, :dependent => :destroy
-  accepts_nested_attributes_for :comment_attachments
-end
+  has_many :attachments, :dependent => :destroy, :as => :attachable
+  accepts_nested_attributes_for :attachments
+  def comment_attachments
+    attachments
+  end
 
+end
 

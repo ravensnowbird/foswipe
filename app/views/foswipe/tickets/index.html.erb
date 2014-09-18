@@ -1,228 +1,274 @@
 <!-- MAILBOX BEGIN -->
 <div class="mailbox row">
-  <div class="col-xs-12">
-    <div class="box box-solid">
-      <div class="box-body">
-	<div class="row">
-	  <div class="col-md-2 col-sm-4">
-	    <!-- BOXES are complex enough to move the .box-header around.
-																																			      This is an example of having the box header within the box body -->
-	    <div class="box-header">
-	      <i class="fa fa-filter"></i>
-	      <h3 class="box-title">FILTERS</h3>
-	    </div>
-	    <!-- compose message btn -->
-	    <!-- Navigation - folders-->
-	    <div style="margin-top: 15px;">
-	      <ul class="nav nav-pills nav-stacked">
-		<li class="header">Agents</li>
-		<% @agents.each do |a| %>
-		  <li>
-		  <label> <input type="checkbox" name="agents_filter[]" value="<%= a.id%>">&nbsp; &nbsp; &nbsp; <%= a.name%></label>
-		  </li>
-		<% end%>
-	      </ul>
-	      <ul class="nav nav-pills nav-stacked">
-		<li class="header">Groups</li>
-		<% @agents.each do |a| %>
-		  <li>
-		  <label> <input type="checkbox" name="agents_filter[]" value="<%= a.id%>">&nbsp; &nbsp; &nbsp; <%= a.name%></label>
-		  </li>
-		<% end%>
-	      </ul>
-	      <ul class="nav nav-pills nav-stacked">
-		<li class="header">Created</li>
-		<li><select class="form-control" data-minimum-results-for-search="100" data-selected-value="30" id="created_at" name="created_at">
-		  <option value="any_time">Any time</option>
-		  <option value="5">Within 5 minutes</option>
-		  <option value="15">Within 15 minutes</option>
-		  <option value="30" selected="selected">Within 30 minutes</option>
-		  <option value="60">Within 1 hour</option>
-		  <option value="240">Within 4 hours</option>
-		  <option value="720">Within 12 hours</option>
-		  <option value="1440">Within 24 hours</option>
-		  <option value="today">Today</option>
-		  <option value="yesterday">Yesterday</option>
-		  <option value="week">This Week</option>
-		  <option value="month">This Month</option>
-		  <option value="two_months">Last 2 months</option>
-		  <option value="six_months">Last 6 months</option>
-		  <option value="set_date">Select Time Period</option>
-		</select>
-		</li>
-	      </ul>
-	      <ul class="nav nav-pills nav-stacked">
-		<li class="header">Due by</li>
-		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Overdue</label></li>
-		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Today</label></li>
-		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Tomorrow</label></li>
-		<li><label class="item"><input type="checkbox" name="due_by[]" value="overdue" >&nbsp; &nbsp; &nbsp; Next 8 hours</label></li>
-	      </ul>
+	<div class="col-xs-12">
+		<div class="box box-solid">
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-2 col-sm-4">
+						<%= form_tag(tickets_path) do %>
+						<!-- BOXES are complex enough to move the .box-header around.
+						This is an example of having the box header within the box body -->
+						<div class="box-header">
+							<i class="fa fa-filter"></i>
+							<h3 class="box-title">FILTERS</h3>
+						</div>
+						<!-- compose message btn -->
+						<!-- Navigation - folders-->
+						<div style="margin-top: 15px;">
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Agents
+								</li>
+								<% @agents.each do |a| %>
+								<li>
+									<label>
+										<input type="checkbox" name="agents[]" value="<%= a.id%>" class="onclick">
+										&nbsp; &nbsp; &nbsp; <%= a.name%></label>
+								</li>
+								<% end%>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Groups
+								</li>
+								<% @group.each do |g| %>
+								<li>
+									<label>
+										<input type="checkbox" name="groups[]" value="<%= g.id%>" class="onsubmit">
+										&nbsp; &nbsp; &nbsp; <%= g.group_name%></label>
+								</li>
+								<% end%>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Created
+								</li>
+								<li>
+									<select class="form-control onsubmit" data-minimum-results-for-search="100" data-selected-value="30" id="created_at" name="created_at">
+										<option value="">Any time</option>
+										<option value="5.minutes.ago..Time.now">Within 5 minutes</option>
+										<option value="15.minutes.ago..Time.now">Within 15 minutes</option>
+										<option value="30.minutes.ago..Time.now" >Within 30 minutes</option>
+										<option value="1.hours.ago..Time.now">Within 1 hour</option>
+										<option value="4.hours.ago..Time.now">Within 4 hours</option>
+										<option value="12.hours.ago..Time.now">Within 12 hours</option>
+										<option value="24.hours.ago..Time.now">Within 24 hours</option>
+										<option value="Time.now.beginning_of_day..Time.now.end_of_day">Today</option>
+										<option value="1.day.ago.beginning_of_day..1.day.ago.end_of_day">Yesterday</option>
+										<option value="Time.now.beginning_of_week..Time.now">This Week</option>
+										<option value="Time.now.beginning_of_month..Time.now">This Month</option>
+										<option value="2.months.ago.beginning_of_day..Time.now">Last 2 months</option>
+										<option value="6.months.ago.beginning_of_day..Time.now">Last 6 months</option>
+									</select>
+								</li>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Due by
+								</li>
+								<li>
+									<label class="item">
+										<input type="checkbox" name="due_by[]" value="overdue" >
+										&nbsp; &nbsp; &nbsp; Overdue</label>
+								</li>
+								<li>
+									<label class="item">
+										<input type="checkbox" name="due_by[]" value="overdue" >
+										&nbsp; &nbsp; &nbsp; Today</label>
+								</li>
+								<li>
+									<label class="item">
+										<input type="checkbox" name="due_by[]" value="overdue" >
+										&nbsp; &nbsp; &nbsp; Tomorrow</label>
+								</li>
+								<li>
+									<label class="item">
+										<input type="checkbox" name="due_by[]" value="overdue" >
+										&nbsp; &nbsp; &nbsp; Next 8 hours</label>
+								</li>
+							</ul>
 
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Status
+								</li>
+								<li>
 
+									<%= select_tag "status", options_for_select(Foswipe::Ticket.statuses), multiple: "multiple", class: 'select2 filter_item onsubmit', placeholder: "Select a status", id: "status", name: "status[]"  %>
 
-	      <ul class="nav nav-pills nav-stacked">
-		<li class="header">Status</li>
-		<li><select class="select2 filter_item" id="status" multiple="multiple" name="status[]" placeholder="Select a status">
-		  <option value="Open" selected="selected">Open</option>
-		  <option value="Pending">Pending</option>
-		  <option value="Resolved">Resolved</option>
-		  <option value="Closed">Closed</option>
-		  <option value="Waiting on Customer">Waiting on Customer</option>
-		  <option value="Waiting on Third Party">Waiting on Third Party</option>
-		</select>
-		</li>
-	      </ul>
-	      <ul class="nav nav-pills nav-stacked">
-		<li class="header">Priority</li>
-		<% @priority.each do |k,v|%>
-		  <li>
-		  <label class="item">
-		    <input type="checkbox" name="priority[]" value="<%= @priority[k] %>" >
-		    &nbsp; &nbsp; &nbsp; <%= v %>
-		</label>
-		</li>
-	      <% end %>
-	    </ul>
-	    <ul class="nav nav-pills nav-stacked">
-	      <li class="header">Ticket Type</li>
-	      <li>
-	      <select class="select2 filter_item" id="ticket_type" multiple="multiple" name="ticket_type[]" placeholder="Select ticket type">
-		<option value="Question">Question</option>
-		<option value="Incident">Incident</option>
-		<option value="Problem" selected="selected">Problem</option>
-		<option value="Feature Request">Feature Request</option>
-		<option value="Lead">Lead</option>
-	      </select>
-	      </li>
-	    </ul>
-	    <ul class="nav nav-pills nav-stacked">
-	      <li class="header">Ticket Source</li>
-	      <li>
-	      <select class="select2 filter_item" id="source" multiple="multiple" name="source[]" placeholder="Select ticket source">
-		<option value="1" selected="selected">Email</option>
-		<option value="2">Portal</option>
-		<option value="3">Phone</option>
-		<option value="4">Forum</option>
-		<option value="5">Twitter</option>
-		<option value="6">Facebook</option>
-		<option value="7">Chat</option>
-		<option value="8">MobiHelp</option>
-		<option value="9">Feedback Widget</option>
-	      </select>
-	      </li>
-	    </ul>
-	    <ul class="nav nav-pills nav-stacked">
-	      <li class="header">Customer or Requestor</li>
-	      <li>
-	      <select class="select2 filter_item" id="source" multiple="multiple" name="source[]" placeholder="Select ticket source">
+								</li>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Priority
+								</li>
+								<% Foswipe::Ticket.priorities.each do |priority|%>
+								<li>
+									<label class="item">
+										<input type="checkbox" name="priority[]" value="<%= priority %>" class="onsubmit">
+										&nbsp; &nbsp; &nbsp; <%= priority %> </label>
+								</li>
+								<% end %>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Ticket Type
+								</li>
+								<li>
+									<select class="select2 filter_item onsubmit" id="ticket_type" multiple="multiple" name="ticket_type[]" placeholder="Select ticket type">
+										<option value="Question">Question</option>
+										<option value="Incident">Incident</option>
+										<option value="Problem" >Problem</option>
+										<option value="Feature Request">Feature Request</option>
+										<option value="Lead">Lead</option>
+									</select>
+								</li>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Ticket Source
+								</li>
+								<li>
+									<select class="select2 filter_item onsubmit" id="source" multiple="multiple" name="source[]" placeholder="Select ticket source">
+										<option value="1" >Email</option>
+										<option value="2">Portal</option>
+										<option value="3">Phone</option>
+										<option value="4">Forum</option>
+										<option value="5">Twitter</option>
+										<option value="6">Facebook</option>
+										<option value="7">Chat</option>
+										<option value="8">MobiHelp</option>
+										<option value="9">Feedback Widget</option>
+									</select>
+								</li>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="header">
+									Customer or Requestor
+								</li>
+								<li>
+									<select class="select2 filter_item onsubmit" id="source" multiple="multiple" name="source[]" placeholder="Select ticket source">
 
-	      </select>
-	      </li>
-	    </ul>
+									</select>
+								</li>
+							</ul>
 
+						</div>
 
+					</div><!-- /.col (LEFT) -->
+					<div class="col-md-10 col-sm-9">
+						<div class="row pad">
+							<div class="col-sm-6">
+								<label style="margin-right: 10px;">
+									<input type="checkbox" id="check-all"/>
+								</label>
+								<!-- Action button -->
+								<div class="btn-group">
+									<button type="button" class="btn btn-default btn-sm btn-flat dropdown-toggle" data-toggle="dropdown">
+										Action <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li>
+											<a href="#">Mark as read</a>
+										</li>
+										<li>
+											<a href="#">Mark as unread</a>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<a href="#">Move to junk</a>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<a href="#">Delete</a>
+										</li>
+									</ul>
+								</div>
 
+							</div>
+							<div class="col-sm-6 search-form">
+								<div  class="text-right">
+									<div class="input-group">
+										<input type="text" class="form-control input-sm" placeholder="Search" name = "search">
+										<div class="input-group-btn">
+											<button type="submit" name="q" class="btn btn-sm btn-primary">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.row -->
 
-
-	  </div>
-	</div><!-- /.col (LEFT) -->
-	<div class="col-md-10 col-sm-9">
-	  <div class="row pad">
-	    <div class="col-sm-6">
-	      <label style="margin-right: 10px;">
-		<input type="checkbox" id="check-all"/>
-	      </label>
-	      <!-- Action button -->
-	      <div class="btn-group">
-		<button type="button" class="btn btn-default btn-sm btn-flat dropdown-toggle" data-toggle="dropdown">
-		  Action <span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-		  <li><a href="#">Mark as read</a></li>
-		  <li><a href="#">Mark as unread</a></li>
-		  <li class="divider"></li>
-		  <li><a href="#">Move to junk</a></li>
-		  <li class="divider"></li>
-		  <li><a href="#">Delete</a></li>
-		</ul>
-	      </div>
-
-	    </div>
-	    <div class="col-sm-6 search-form">
-	      <form action="#" class="text-right">
-		<div class="input-group">
-		  <input type="text" class="form-control input-sm" placeholder="Search">
-		  <div class="input-group-btn">
-		    <button type="submit" name="q" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
-		  </div>
-		</div>
-	      </form>
-	    </div>
-	  </div><!-- /.row -->
-
-	  <div class="table-responsive">
-	    <!-- THE MESSAGES -->
-	    <table class="table table-mailbox">
-	      <tr>
-		<td class="bg-aqua no-padding" style="width: 3px;"></td>
-		<td class="small-col"><input type="checkbox" /></td>
-		<td class="small-col">
-		  <div class="user-panel no-padding">
-		    <div class="image">
-		      <img src="http://www.gravatar.com/avatar/2da864f0202e0387adda7531651d8682" class="img-circle" alt="User Image">
-		    </div>
-		  </div>
-		</td>
-		<td class="name">
-		  <h4 class="no-margin"><a href="#">Ticket Name</a></h4>
-		  <div>
-		    <h6 class=""><span class="text-muted">From:</span>&nbsp;&nbsp;Creator Name&nbsp;&nbsp;<span class="text-muted">Created:</span>&nbsp;&nbsp;9 days ago</h6>
-		  </div>
-		  <div>
-		    <h6 class="" style="
-		      margin-bottom: 0px;
-		      ">Overdue by 9 days</h6>
-		  </div>
-
-		</td>
-		<td class="time" style="vertical-align: middle;"><small class="badge pull-right bg-red">overdue</small></td>
-		<td class="name">
-		  <blockquote class="no-margin" style="padding: 0px 20px;float: left;">
-		    <div class="pull-left" style="margin-right: 10px;">
-		      <h5 class="" style="
-			margin-top: 0px;
-			"><span class="text-muted">Agent:</span></h5>
-		      <h5><span class="text-muted">Agent:</span></h5>
-		      <h5 style="
-			margin-bottom: 0px;
-			"><span class="text-muted">Agent:</span></h5>
-		    </div>
-		    <div class="pull-left">
-		      <h5 style="
-			margin-top: 0px;
-			">Vivek Sampara</h5>
-		      <h5>Vivek Sampara</h5>
-		      <h5 style="
-			margin-bottom: 0px;
-			">Vivek Sampara</h5>
-		    </div>
-		  </blockquote>
-		</td>
-	      </tr>
-	    </table>
-	  </div><!-- /.table-responsive -->
-	</div><!-- /.col (RIGHT) -->
-      </div><!-- /.row -->
-    </div><!-- /.box-body -->
-    <div class="box-footer clearfix">
-      <div class="pull-right">
-	<small>Showing 1-12/1,240</small>
-	<button class="btn btn-xs btn-primary"><i class="fa fa-caret-left"></i></button>
-	<button class="btn btn-xs btn-primary"><i class="fa fa-caret-right"></i></button>
-      </div>
-    </div><!-- box-footer -->
-  </div><!-- /.box -->
-</div><!-- /.col (MAIN) -->
+						<% end %>
+						<div class="table-responsive">
+							<!-- THE MESSAGES -->
+							<table class="table table-mailbox">
+								<% @tickets.each do |ticket| %>
+								<tr>
+									<td class="bg-aqua no-padding" style="width: 3px;"></td>
+									<td class="small-col">
+									<input type="checkbox" />
+									</td>
+									<td class="small-col">
+									<div class="user-panel no-padding">
+										<div class="image">
+											<img src="http://www.gravatar.com/avatar/2da864f0202e0387adda7531651d8682" class="img-circle" alt="User Image">
+										</div>
+									</div></td>
+									<td class="name"><h4 class="no-margin"><%= link_to ticket.title, ticket %></h4>
+									<div>
+										<input type="hidden" value="<%= ticket.created_at %>" id="<%= "#{ticket.id}_ago" %>"/>
+										<h6 class=""><span class="text-muted">From:</span>&nbsp;&nbsp;<%= ticket.customer.name %>&nbsp;&nbsp;<span class="text-muted">Created:</span>&nbsp;&nbsp;<span class="days_ago" id="<%= ticket.id %>"> 9 </span> days ago</h6>
+									</div>
+									<div>
+										<h6 class="" style="
+										margin-bottom: 0px;
+										">Overdue by 9 days</h6>
+									</div></td>
+									<td class="time" style="vertical-align: middle;"><small class="badge pull-right bg-red">overdue</small></td>
+									<td class="name">
+									<blockquote class="no-margin" style="padding: 0px 20px;float: left;">
+										<%= form_for ticket do |f| %>
+										<div class="pull-left" style="margin-right: 10px;">
+											<h5 class="" style="
+											margin-top: 0px;
+											"><span class="text-muted">Agent:</span></h5>
+											<h5><span class="text-muted">Status:</span></h5>
+											<h5 style="margin-bottom: 0px;"><span class="text-muted">Priority:</span></h5>
+										</div>
+										
+										<div class="pull-left">
+											<h5 style="
+											margin-top: 0px;
+											"> <%= ticket.agent ? ticket.agent.name : "Not Assigned" %></h5>
+											<h5><%= f.select :status, Foswipe::Ticket.statuses, {},:class=>"form-control custome-form-control onsubmit"  %></h5>
+											<h5 style="margin-bottom: 0px;">
+												<%= f.select :priority, Foswipe::Ticket.priorities, {},:class=>"form-control custome-form-control onsubmit"  %>
+												
+											</h5>
+										</div>
+										<% end %>
+									</blockquote></td>
+								</tr>
+								<% end %>
+							</table>
+						</div><!-- /.table-responsive -->
+					</div><!-- /.col (RIGHT) -->
+				</div><!-- /.row -->
+			</div><!-- /.box-body -->
+			<div class="box-footer clearfix">
+				<div class="pull-right">
+					<small>Showing 1-12/1,240</small>
+					<button class="btn btn-xs btn-primary">
+						<i class="fa fa-caret-left"></i>
+					</button>
+					<button class="btn btn-xs btn-primary">
+						<i class="fa fa-caret-right"></i>
+					</button>
+				</div>
+			</div><!-- box-footer -->
+		</div><!-- /.box -->
+	</div><!-- /.col (MAIN) -->
 </div>
 <!-- MAILBOX END -->

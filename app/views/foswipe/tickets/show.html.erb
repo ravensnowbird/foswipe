@@ -61,6 +61,20 @@
 
 								</div>
 
+								<div class="box-body">
+									<p>
+										<%= @ticket.title %>
+									</p>
+									<p>
+										<% @ticket.ticket_attachments.each do |a| %>
+										<% if a.attachment.image? %>
+										<%= image_tag a.attachment.url %>
+										<% else %>
+										<%= File.read(a.attachment.file) %>
+										<% end %>
+										<% end %>
+									</p>
+								</div><!-- /.box-body -->
 							</div>
 						</li>
 						<% end %>
