@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(version: 20140918102238) do
   add_index "foswipe_tickets", ["support_id"], name: "index_foswipe_tickets_on_support_id"
   add_index "foswipe_tickets", ["user_group_id"], name: "index_foswipe_tickets_on_user_group_id"
 
+  create_table "foswipe_todos", force: true do |t|
+    t.text     "content"
+    t.integer  "ticket_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "foswipe_todos", ["ticket_id"], name: "index_foswipe_todos_on_ticket_id"
+
   create_table "foswipe_user_groups", force: true do |t|
     t.string   "group_name"
     t.datetime "created_at"
