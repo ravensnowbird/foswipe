@@ -15,6 +15,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   def show
     @comments = @ticket.ticket_comments
     @agents = Foswipe::User.agents
+    @user = Foswipe::User.find(current_user.id)
   end
 
   # GET /tickets/new

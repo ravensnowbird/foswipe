@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917125445) do
+ActiveRecord::Schema.define(version: 20140918100548) do
 
   create_table "foswipe_comment_attachments", force: true do |t|
     t.datetime "created_at"
@@ -95,6 +95,15 @@ ActiveRecord::Schema.define(version: 20140917125445) do
 
   add_index "foswipe_tickets", ["client_id"], name: "index_foswipe_tickets_on_client_id"
   add_index "foswipe_tickets", ["support_id"], name: "index_foswipe_tickets_on_support_id"
+
+  create_table "foswipe_todos", force: true do |t|
+    t.text     "content"
+    t.integer  "ticket_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "foswipe_todos", ["ticket_id"], name: "index_foswipe_todos_on_ticket_id"
 
   create_table "foswipe_user_groups", force: true do |t|
     t.string   "group_name"
