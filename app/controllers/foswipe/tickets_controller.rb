@@ -23,7 +23,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
-    @comments = @ticket.ticket_comments
+    @comments = @ticket.comments
     @agents = Foswipe::User.agents
     @user = Foswipe::User.find(current_user.id)
   end

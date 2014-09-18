@@ -41,11 +41,7 @@
 												<br>
 												<%= f.text_field :title, :class => "form-control" %>
 											</div>
-											<div class="form-group">
-												<%= f.label :description %>
-												<br>
-												<%= f.text_field :description, :class => "form-control" %>
-											</div>
+											
 
 										</div><!-- /.box-body -->
 										<div class="form-group">
@@ -67,9 +63,9 @@
 											<br />
 										</div>
 
-										<%= f.label :description %>
+										<%= f.label :content %>
 										<br />
-										<%= f.text_area :description, :cols => "100", :rows => "10" %>
+										<%= f.text_area :content, :cols => "100", :rows => "10" %>
 
 										<div class="form-group">
 											<%= f.fields_for :ticket_attachments do |builder| %>

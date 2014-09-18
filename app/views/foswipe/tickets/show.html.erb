@@ -17,7 +17,7 @@
 
 					<div class="box-body">
 						<p>
-							<%= @ticket.description %>
+							<%= @ticket.content %>
 						</p>
 						<p>
 							<% @ticket.ticket_attachments.each do |a| %>
@@ -36,9 +36,9 @@
 					<ul class="timeline">
 						<!-- timeline time label -->
 
-						<% if @ticket.ticket_comments %>
+						<% if @ticket.comments %>
 
-						<% @ticket.ticket_comments.each do |c|%>
+						<% @ticket.comments.each do |c|%>
 						<li>
 							<i class="fa fa-comments bg-yellow"></i>
 							<div class="timeline-item">

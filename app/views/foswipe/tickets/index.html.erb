@@ -5,7 +5,7 @@
 			<div class="box-body">
 				<div class="row">
 					<div class="col-md-2 col-sm-4">
-						<%= form_tag(tickets_path) do %>
+						<%= form_tag(tickets_path, :method => :get) do %>
 						<!-- BOXES are complex enough to move the .box-header around.
 						This is an example of having the box header within the box body -->
 						<div class="box-header">

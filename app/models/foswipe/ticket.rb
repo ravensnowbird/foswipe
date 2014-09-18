@@ -11,8 +11,6 @@ class Foswipe::Ticket < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy, :as => :attachable
 
   accepts_nested_attributes_for :attachments
-  accepts_nested_attributes_for :ticket_comments
-  accepts_nested_attributes_for :ticket_notes
 
   scope :agents, -> support { where(:support_id =>  support) }
   scope :groups, -> group { where(:user_group_id =>  group) }
