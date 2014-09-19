@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	$('#new_comment').hide();
 	$("#create_new_note").click(function() {
 		$('#new_comment').show();
@@ -21,6 +22,9 @@ $(document).ready(function() {
 	$('.onclick').on('ifToggled', function() {
 		this.form.submit();
 	});
+	
+		
+	
 
 });
 
