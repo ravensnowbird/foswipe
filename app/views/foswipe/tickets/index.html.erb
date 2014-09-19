@@ -4,6 +4,7 @@
 		<div class="box box-solid">
 			<div class="box-body">
 				<div class="row">
+					<% if current_user.admin_or_agent? %>
 					<div class="col-md-2 col-sm-4">
 						<%= form_tag(tickets_path, :method => :get) do %>
 						<!-- BOXES are complex enough to move the .box-header around.
@@ -156,6 +157,7 @@
 						</div>
 
 					</div><!-- /.col (LEFT) -->
+					<% end %>
 					<div class="col-md-10 col-sm-9">
 						<div class="row pad">
 							<div class="col-sm-6">
@@ -237,16 +239,13 @@
 											<h5><span class="text-muted">Status:</span></h5>
 											<h5 style="margin-bottom: 0px;"><span class="text-muted">Priority:</span></h5>
 										</div>
-										
+
 										<div class="pull-left">
 											<h5 style="
 											margin-top: 0px;
-											"> <%= ticket.agent ? ticket.agent.name : "Not Assigned" %></h5>
+											"> <%= f.select :support_id, Foswipe::User.agents.collect{|a| [a.name, a.id]}, {},:class=>"form-control custome-form-control onsubmit"  %> </h5>
 											<h5><%= f.select :status, Foswipe::Ticket.statuses, {},:class=>"form-control custome-form-control onsubmit"  %></h5>
-											<h5 style="margin-bottom: 0px;">
-												<%= f.select :priority, Foswipe::Ticket.priorities, {},:class=>"form-control custome-form-control onsubmit"  %>
-												
-											</h5>
+											<h5 style="margin-bottom: 0px;"> <%= f.select :priority, Foswipe::Ticket.priorities, {},:class=>"form-control custome-form-control onsubmit"  %> </h5>
 										</div>
 										<% end %>
 									</blockquote></td>
