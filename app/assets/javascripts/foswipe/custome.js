@@ -3,6 +3,7 @@ $(document).ready(function() {
     $("#create_new_note").click(function(){
     	$('#new_comment').show();
     	$('#comment_type').val("Foswipe::TicketNote");
+    	
     });
     
     $("#create_new_comment").click(function(){
@@ -22,6 +23,9 @@ $(document).ready(function() {
 	$('.onclick').on('ifClicked', function() {
 		alert('Well done, Sir');
 	});
+	
+		
+	
 
 });
 

@@ -12,7 +12,7 @@
 						<h3 class="box-title"><font color="green"><%= @ticket.title %></font></h3>
 					</div>
 					<div class="box-body">
-						<h5 class><font color="blue"><%= @ticket.customer.name.humanize %></font><span class="text-muted">:  Generated this Ticket</span></h5>
+						<h5 class><font color="blue"><%= @ticket.customer.name.humanize %></font><span class="text-muted">:  Generated this Ticket(<%= Time.at(@ticket.created_at.to_i).strftime("%B %e, %Y at %I:%M %p") %>)</span></h5>
 					</div>
 
 					<div class="box-body">
@@ -106,12 +106,12 @@
 								<%= f.hidden_field :type %>
 								<p>
 
-									<div class="field">
-										<%= f.label "write your comment:" %>
+									<div  class="field">
+										<%= f.label :content  %>
 										<br>
 										<%= f.text_area :content,:cols => "30", :rows => "5",:class=>"form-control" %>
 									</div>
-									<%= f.label "Comment Attachment:" %>
+									<%= f.label :attachment %>
 
 									<%= f.file_field :attachment, :name => "ticket_comment[comment_attachments_attributes][][attachment]", :multiple => true %>
 									<br>
