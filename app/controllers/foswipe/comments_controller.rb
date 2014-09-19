@@ -18,7 +18,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   def new
     #@ticket = Ticket.new
     @comment = Comment.new
-    comment_attachment = @comment.comment_attachments.build
+    comment_attachment = @comment.attachments.build
   end
 
   # GET /comments/1/edit
@@ -29,7 +29,6 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
   # POST /comments.json
   def create
     @ticket = Foswipe::Ticket.find(params[:ticket_id])
-    
     @comment = @ticket.comments.new(comment_params)
     @comment.user = current_user
 
@@ -83,7 +82,7 @@ class Foswipe::CommentsController < Foswipe::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :user_id, :type, :comment_attachments_attributes => [:attachment])
+      params.require(:comment).permit(:content, :user_id, :type, :attachments_attributes => [:attachment])
     end
     
 end

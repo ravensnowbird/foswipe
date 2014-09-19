@@ -26,7 +26,7 @@ $(document).ready(function() {
 	$('.onsubmit').change(function() {
 		this.form.submit();
 	});
-	$('.onclick').on('ifChecked', function() {
+	$('.onclick').on('ifToggled', function() {
 		this.form.submit();
 	});
 	
