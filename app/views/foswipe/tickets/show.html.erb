@@ -1,273 +1,271 @@
-<!-- Main content -->
 
-<!-- row -->
-<div class="row">
-	<div class="col-md-15">
-		<div class="box box-solid">
+					
+<div class="box box-solid">
 
-			<!-- Info box -->
-			<div class="col-xs-9">
-				<div class="box">
-					<div class="box-header">
-						<h3 class="box-title"><font color="green"><%= @ticket.title %></font></h3>
-					</div>
-					<div class="box-body">
-						<h5 class><font color="blue"><%= @ticket.customer.name.humanize %></font><span class="text-muted">:  Generated this Ticket(<%= Time.at(@ticket.created_at.to_i).strftime("%B %e, %Y at %I:%M %p") %>)</span></h5>
-					</div>
-
-					<div class="box-body">
-						<p>
-							<%= @ticket.content %>
-						</p>
-						<p>
-							<% @ticket.ticket_attachments.each do |a| %>
-							<% if a.attachment.image? %>
-							<%= image_tag a.attachment.url %>
-							<% else %>
-							<%= File.read(a.attachment.file) %>
-							<% end %>
-							<% end %>
-						</p>
-					</div><!-- /.box-body -->
+	<!-- Info box -->
+	<div class="row">
+		<div class="col-xs-9">
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title"><font color="green"><%= @ticket.title %></font></h3>
 				</div>
+				<div class="box-body">
+					<h5 class><font color="blue"><%= @ticket.customer.name.humanize %></font><span class="text-muted">:  Generated this Ticket</span></h5>
 
-				<div class="col-md-9">
-					<!-- The time line -->
-					<ul class="timeline">
-						<!-- timeline time label -->
+					<p>
+						<%= @ticket.content %>
+					</p>
+					<p>
+						<% @ticket.ticket_attachments.each do |a| %>
+						<% if a.attachment.image? %>
+						<%= image_tag a.attachment.url %>
+						<% else %>
+						<%= File.read(a.attachment.file) %>
+						<% end %>
+						<% end %>
+					</p>
+				</div><!-- /.box-body -->
+			</div>
 
-						<% if @ticket.comments %>
+			<div class="row">
+				<!-- The time line -->
+				<ul class="timeline">
+					<!-- timeline time label -->
 
-						<% @ticket.comments.each do |c|%>
-						<li>
-							<i class="fa fa-comments bg-yellow"></i>
-							<div class="timeline-item">
+					<% if @ticket.comments %>
 
-								<span class="time"><i class="fa fa-clock-o"></i>time</span>
-								<h3 class="timeline-header"><a href="#"><%= c.user.name if c.user %></a> commented on this Ticket</h3>
-								<div class="timeline-body">
-									<%= c.content %>
-								</div>
-								<div>
-									<% c.comment_attachments.each do |a| %>
+					<% @ticket.comments.each do |c|%>
+					<li>
+						<i class="fa fa-comments bg-yellow"></i>
+						<div class="timeline-item">
+
+							<span class="time"><i class="fa fa-clock-o"></i>time</span>
+							<h3 class="timeline-header"><a href="#"><%= c.user.name if c.user %></a> commented on this Ticket</h3>
+							<div class="timeline-body">
+								<%= c.content %>
+							</div>
+							<div>
+								<% c.comment_attachments.each do |a| %>
+								<% if a.attachment.image? %>
+								<%= image_tag a.attachment.url %>
+								<% else %>
+								<%= File.read(a.attachment.file) %>
+								<% end %>
+								<% end %>
+							</div>
+							<div class='timeline-footer'>
+
+							</div>
+
+							<div class="box-body">
+								<p>
+									<%= @ticket.title %>
+								</p>
+								<p>
+									<% @ticket.ticket_attachments.each do |a| %>
 									<% if a.attachment.image? %>
 									<%= image_tag a.attachment.url %>
 									<% else %>
 									<%= File.read(a.attachment.file) %>
 									<% end %>
 									<% end %>
+								</p>
+							</div><!-- /.box-body -->
+						</div>
+					</li>
+					<% end %>
+					<% end %>
+					<!-- reply -->
+
+					<li>
+						
+						<div class="timeline-item">
+							<h3><a href="javascript:void(0);" id="create_new_comment">Comment</a> <% if (@user.agent || @user.admin) %>
+							/ <a href="javascript:void(0);" id="create_new_note">Notes</a> <% end %> </h3>
+						</div>
+					</li>
+
+					<!-- end of reply -->
+					<!-- END timeline item -->
+					<!-- timeline time label -->
+
+					<li>
+
+					</li>
+
+					<li>
+						
+						<div class="timeline-item">
+
+							<%= form_for([@ticket,@ticket.comments.new]) do |f| %>
+
+							<%= f.hidden_field :type %>
+							<p>
+
+								<div class="field">
+									<%= f.label "write your comment:" %>
+									<br>
+									<%= f.text_area :content,:cols => "30", :rows => "5",:class=>"form-control" %>
 								</div>
-								<div class='timeline-footer'>
+								<%= f.label "Comment Attachment:" %>
 
+								<%= f.file_field :attachment, :name => "ticket_comment[comment_attachments_attributes][][attachment]", :multiple => true %>
+								<br>
+								<div class="actions">
+									<%= f.submit %>
 								</div>
-
-								<div class="box-body">
-									<p>
-										<%= @ticket.title %>
-									</p>
-									<p>
-										<% @ticket.ticket_attachments.each do |a| %>
-										<% if a.attachment.image? %>
-										<%= image_tag a.attachment.url %>
-										<% else %>
-										<%= File.read(a.attachment.file) %>
-										<% end %>
-										<% end %>
-									</p>
-								</div><!-- /.box-body -->
-							</div>
-						</li>
-						<% end %>
-						<% end %>
-						<!-- reply -->
-
-						<li>
-							<i class="fa fa-comments bg-yellow"></i>
-							<div class="timeline-item">
-								<h3><a href="javascript:void(0);" id="create_new_comment">Comment</a> <% if (@user.agent || @user.admin) %>
-								/ <a href="javascript:void(0);" id="create_new_note">Notes</a> <% end %> </h3>
-							</div>
-						</li>
-
-						<!-- end of reply -->
-						<!-- END timeline item -->
-						<!-- timeline time label -->
-
-						<li>
-
-						</li>
-
-						<li>
-							<i class="fa fa-comments bg-yellow"></i>
-							<div class="timeline-item">
-
-								<%= form_for([@ticket,@ticket.comments.new]) do |f| %>
-
-								<%= f.hidden_field :type %>
-								<p>
-
+							</p>
+							<% end %>
+						</div>
+					</li>
 									<div  class="field">
 										<%= f.label :content  %>
 										<br>
 										<%= f.text_area :content,:cols => "30", :rows => "5",:class=>"form-control" %>
 									</div>
 									<%= f.label :attachment %>
+				</ul>
 
-									<%= f.file_field :attachment, :name => "ticket_comment[comment_attachments_attributes][][attachment]", :multiple => true %>
-									<br>
-									<div class="actions">
-										<%= f.submit %>
-									</div>
-								</p>
-							</div>
-						</li>
+			</div>
 
-						<% end %>
-
-					</ul>
-
+		</div><!-- /.col -->
+		<div class="col-xs-3">
+			<div class="callout callout-warning">
+				<div>
+					Ticket Status : <h4> <%= @ticket.status %> </h4>
 				</div>
+				<p>
 
-			</div><!-- /.col -->
-			<div class="row">
-				<div style="float:right; width:25%; ">
-					<div class="callout callout-warning">
-						<div>
-							Ticket Status : <h4> <%= @ticket.status %> </h4>
-						</div>
-						<p>
+				</p>
+			</div>
 
-						</p>
+			<!-- Default box -->
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">Requestor Info</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+						<button class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+							<i class="fa fa-times"></i>
+						</button>
 					</div>
-
-					<!-- Default box -->
-					<div class="box">
-						<div class="box-header">
-							<h3 class="box-title">Requestor Info</h3>
-							<div class="box-tools pull-right">
-								<button class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-									<i class="fa fa-minus"></i>
-								</button>
-								<button class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
-									<i class="fa fa-times"></i>
-								</button>
+				</div>
+				<div class="box-body">
+					<div class="form-group">
+						<td class="small-col">
+						<div class="user-panel no-padding">
+							<div class="image">
+								<img src="#" class="img-circle" alt="User Image">
+								<%= @ticket.customer.first_name %>
 							</div>
-						</div>
-						<div class="box-body">
-							<div class="form-group">
-								<td class="small-col">
-								<div class="user-panel no-padding">
-									<div class="image">
-										<img src="#" class="img-circle" alt="User Image">
-										<%= @ticket.customer.first_name %>
-									</div>
-								</div></td>
-							</div><!-- /.form group -->
+						</div></td>
+					</div><!-- /.form group -->
 
-							<div class="form-group">
-								<i class="fa fa-envelope fa-fw"></i><%= @ticket.customer.email %>
+					<div class="form-group">
+						<i class="fa fa-envelope fa-fw"></i><%= @ticket.customer.email %>
 
-							</div><!-- /.form group -->
+					</div><!-- /.form group -->
 
-						</div><!-- /.box-body -->
+				</div><!-- /.box-body -->
 
-					</div><!-- /.box -->
+			</div><!-- /.box -->
 
-					<!-- Default Box ended-->
+			<!-- Default Box ended-->
 
-					<div class="box box-primary">
-						<!-- <div class="box-header">
-						<h3 class="box-title">Quick Example</h3>
-						</div><!-- /.box-header -->
-						<!-- form start -->
-						<h4>Ticket Properties</h4>
+			<div class="box box-primary">
+				<!-- <div class="box-header">
+				<h3 class="box-title">Quick Example</h3>
+				</div><!-- /.box-header -->
+				<!-- form start -->
+				<h4>Ticket Properties</h4>
 
-						<%= form_for(@ticket, :html => {:multipart => true}) do |f| %>
-						<div class="box-body">
-							<% if @ticket.errors.any? %>
-							<div id="error_explanation">
-								<h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+				<%= form_for(@ticket, :html => {:multipart => true}) do |f| %>
+				<div class="box-body">
+					<% if @ticket.errors.any? %>
+					<div id="error_explanation">
+						<h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
 
-								<ul>
-									<% @ticket.errors.full_messages.each do |msg| %>
-									<li>
-										<%= msg %>
-									</li>
-									<% end %>
-								</ul>
-							</div>
+						<ul>
+							<% @ticket.errors.full_messages.each do |msg| %>
+							<li>
+								<%= msg %>
+							</li>
 							<% end %>
-
-							<div class="form-group">
-
-								<%= f.label :status %>
-								<br />
-								<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
-
-								<br />
-							</div>
-
-							<div class="form-group">
-								<%= f.label :priority %>
-								div
-								<br />
-								<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker"  %>
-								<br />
-							</div>
-							<label> Assign an Agent</label>
-							<br />
-							<%= f.select "support_id", options_from_collection_for_select(@agents, "id", "first_name"), prompt: "Assign to Agent"  %>
-						</div>
-
-					</div><!-- /.box -->
-
-					<div class="box-footer">
-						<%= f.submit  %>
-						<br />
+						</ul>
 					</div>
 					<% end %>
 
-					<!-- todo list -->
-					<div class="box box-warning">
-						<div class="box-header">
-							<h3 class="box-title">Todo List</h3>
-						</div><!-- /.box-header -->
-						<div class="box-body">
-							<div>
-								<% unless @ticket.todos.blank? %>
-								<% @ticket.todos.each do |t| %>
-								<%= t.content %>
-								<%= link_to "delete", ticket_todo_path(@ticket,t) , method: :delete %>
-								<br />
-								<% end %>
-								<% end %>
-							</div>
-							<div>
-								<%= form_for([@ticket,@ticket.todos.new]) do  |f| %>
-								<p>
+					<div class="form-group">
 
-									<div class="field">
-										<%= f.label "write your Todo:" %>
-										<br>
-										<%= f.text_area :content,:cols => "10", :rows => "5",:class=>"form-control" %>
-									</div>
-									<div class="actions">
-										<%= f.submit %>
-									</div>
-								</p>
-								<% end %>
-							</div>
+						<%= f.label :status %>
+						<br />
+						<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
 
-						</div>
+						<br />
+					</div>
+
+					<div class="form-group">
+						<%= f.label :priority %>
+						div
+						<br />
+						<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker"  %>
+						<br />
+					</div>
+					<label> Assign an Agent</label>
+					<br />
+					<%= f.select "support_id", options_from_collection_for_select(@agents, "id", "first_name"), prompt: "Assign to Agent"  %>
+				</div>
+
+			</div><!-- /.box -->
+
+			<div class="box-footer">
+				<%= f.submit  %>
+				<br />
+			</div>
+			<% end %>
+
+			<!-- todo list -->
+			<div class="box box-warning">
+				<div class="box-header">
+					<h3 class="box-title">Todo List</h3>
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<div>
+						<% unless @ticket.todos.blank? %>
+						<% @ticket.todos.each do |t| %>
+						<%= t.content %>
+						<%= link_to "delete", ticket_todo_path(@ticket,t) , method: :delete %>
+						<br />
+						<% end %>
+						<% end %>
+					</div>
+					<div>
+						<%= form_for([@ticket,@ticket.todos.new]) do  |f| %>
+						<p>
+
+							<div class="field">
+								<%= f.label "write your Todo:" %>
+								<br>
+								<%= f.text_area :content,:cols => "10", :rows => "5",:class=>"form-control" %>
+							</div>
+							<div class="actions">
+								<%= f.submit %>
+							</div>
+						</p>
+						<% end %>
 					</div>
 
 				</div>
-
-				<!-- timeline item -->
-
-				<!-- right side -->
-			</div><!-- /.box box-solid-->
+			</div>
 
 		</div>
-	</div>
+
+		<!-- timeline item -->
+
+		<!-- right side -->
+	</div><!-- /.box box-solid-->
+
 </div>
+

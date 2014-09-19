@@ -18,7 +18,7 @@ class Foswipe::Ticket < ActiveRecord::Base
   scope :ticket_type, -> ticket_type { where(:user_group_id =>  ticket_type) }
   scope :source, -> source { where(:user_group_id =>  source) }
   scope :priority, -> priority {where(:priority => priority)}
-  scope :search, -> search {where("description LIKE ? OR title LIKE ? ", "%#{search}%", "%#{search}%")}
+  scope :search, -> search {where("content LIKE ? OR title LIKE ? ", "%#{search}%", "%#{search}%")}
 
   scope :priorities, -> { ["LOW","MEDIUM","HIGH","URGENT"] }
   scope :statuses, -> { ["Open","Pending","Resolved","Closed","Waiting on Customer","Waiting on Third Party"] }
