@@ -233,19 +233,30 @@
 							<h3 class="box-title">Todo List</h3>
 						</div><!-- /.box-header -->
 						<div class="box-body">
-							<%= form_for([@ticket,@ticket.todos.new]) do  |f| %>
-							<p>
+							<div>
+								<% unless @ticket.todos.blank? %>
+								<% @ticket.todos.each do |t| %>
+								<%= t.content %>
+								<%= link_to "delete", ticket_todo_path(@ticket,t) , method: :delete %>
+								<br />
+								<% end %>
+								<% end %>
+							</div>
+							<div>
+								<%= form_for([@ticket,@ticket.todos.new]) do  |f| %>
+								<p>
 
-								<div class="field">
-									<%= f.label "write your Todo:" %>
-									<br>
-									<%= f.text_area :content,:cols => "10", :rows => "5",:class=>"form-control" %>
-								</div>
-								<div class="actions">
-									<%= f.submit %>
-								</div>
-							</p>
-							<% end %>
+									<div class="field">
+										<%= f.label "write your Todo:" %>
+										<br>
+										<%= f.text_area :content,:cols => "10", :rows => "5",:class=>"form-control" %>
+									</div>
+									<div class="actions">
+										<%= f.submit %>
+									</div>
+								</p>
+								<% end %>
+							</div>
 
 						</div>
 					</div>
