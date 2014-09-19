@@ -68,7 +68,7 @@
 										<%= f.text_area :content, :cols => "100", :rows => "10" %>
 
 										<div class="form-group">
-											<%= f.fields_for :ticket_attachments do |builder| %>
+											<%= f.fields_for :attachments do |builder| %>
 											<%= render "attachment_fields", :f => builder %>
 											<% end %>
 										</div>

@@ -18,8 +18,8 @@
 						<%= @ticket.content %>
 					</p>
 					<p>
-						<% @ticket.ticket_attachments.each do |a| %>
-						<% if a.attachment.image? %>
+						<% @ticket.attachments.each do |a| %>
+						<% if a.attachment.mime_type.include?("image") %>
 						<%= image_tag a.attachment.url %>
 						<% else %>
 						<%= File.read(a.attachment.file) %>
@@ -47,8 +47,8 @@
 								<%= c.content %>
 							</div>
 							<div>
-								<% c.comment_attachments.each do |a| %>
-								<% if a.attachment.image? %>
+								<% c.attachments.each do |a| %>
+								<% if a.attachment.mime_type.include?("image") %>
 								<%= image_tag a.attachment.url %>
 								<% else %>
 								<%= File.read(a.attachment.file) %>
@@ -64,8 +64,8 @@
 									<%= @ticket.title %>
 								</p>
 								<p>
-									<% @ticket.ticket_attachments.each do |a| %>
-									<% if a.attachment.image? %>
+									<% @ticket.attachments.each do |a| %>
+									<% if a.attachment.mime_type.include?("image") %>
 									<%= image_tag a.attachment.url %>
 									<% else %>
 									<%= File.read(a.attachment.file) %>
@@ -80,7 +80,7 @@
 					<!-- reply -->
 
 					<li>
-						
+						<i class="fa fa-comments bg-yellow"></i>
 						<div class="timeline-item">
 							<h3><a href="javascript:void(0);" id="create_new_comment">Comment</a> <% if (@user.agent || @user.admin) %>
 							/ <a href="javascript:void(0);" id="create_new_note">Notes</a> <% end %> </h3>
@@ -96,7 +96,7 @@
 					</li>
 
 					<li>
-						
+
 						<div class="timeline-item">
 
 							<%= form_for([@ticket,@ticket.comments.new]) do |f| %>
@@ -111,7 +111,7 @@
 								</div>
 								<%= f.label "Comment Attachment:" %>
 
-								<%= f.file_field :attachment, :name => "ticket_comment[comment_attachments_attributes][][attachment]", :multiple => true %>
+								<%= f.file_field :attachment, :name => "comment[attachments_attributes][][attachment]", :multiple => true %>
 								<br>
 								<div class="actions">
 									<%= f.submit %>

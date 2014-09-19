@@ -68,7 +68,7 @@ class Foswipe::Admin::TicketsController < Foswipe::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment])
+      params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :attachments_attributes => [:attachment])
     end
 
 end

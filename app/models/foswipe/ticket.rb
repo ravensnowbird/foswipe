@@ -26,8 +26,13 @@ class Foswipe::Ticket < ActiveRecord::Base
   scope :created_at, -> created_at do
     where(:created_at => eval(created_at)) if eval(created_at).class == Range
   end
-  def ticket_attachments
-    attachments
+  
+  def ticket_comments
+    comments.where(:type => "Foswipe::TicketComment")
+  end
+  
+  def ticket_notes
+    comments.where(:type => "Foswipe::TicketNote")
   end
 
 end

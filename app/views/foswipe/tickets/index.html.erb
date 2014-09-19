@@ -23,7 +23,7 @@
 								<% @agents.each do |a| %>
 								<li>
 									<label>
-										<input type="checkbox" name="agents[]" value="<%= a.id%>" class="onclick">
+										<input type="checkbox" name="agents[]" value="<%= a.id%>" class="onclick" <%= "checked" if params[:agents] && params[:agents].include?(a.id.to_s) %>>
 										&nbsp; &nbsp; &nbsp; <%= a.name%></label>
 								</li>
 								<% end%>
@@ -45,7 +45,7 @@
 									Created
 								</li>
 								<li>
-									<select class="form-control onsubmit" data-minimum-results-for-search="100" data-selected-value="30" id="created_at" name="created_at">
+									<select class="form-control onsubmit custome-select" data-minimum-results-for-search="100" data-selected-value="<%= params[:created_at] %>" id="created_at" name="created_at">
 										<option value="">Any time</option>
 										<option value="5.minutes.ago..Time.now">Within 5 minutes</option>
 										<option value="15.minutes.ago..Time.now">Within 15 minutes</option>
@@ -94,8 +94,14 @@
 									Status
 								</li>
 								<li>
+									
+									<select class="select2 filter_item onsubmit" id="status" multiple="multiple" name="status[]" placeholder="Select a status">
+		 <% Foswipe::Ticket.statuses.each do|status| %>
+		  <option value="<%= status %>" <%= 'selected="selected"' if params[:status] && params[:status].include?(status) %>><%= status %></option>
+		  <% end %>
+		 
+</select>
 
-									<%= select_tag "status", options_for_select(Foswipe::Ticket.statuses), multiple: "multiple", class: 'select2 filter_item onsubmit', placeholder: "Select a status", id: "status", name: "status[]"  %>
 
 								</li>
 							</ul>
@@ -106,7 +112,7 @@
 								<% Foswipe::Ticket.priorities.each do |priority|%>
 								<li>
 									<label class="item">
-										<input type="checkbox" name="priority[]" value="<%= priority %>" class="onsubmit">
+										<input type="checkbox" name="priority[]" value="<%= priority %>" class="onclick" <%= "checked" if params[:priority] && params[:priority].include?(priority) %>>
 										&nbsp; &nbsp; &nbsp; <%= priority %> </label>
 								</li>
 								<% end %>

@@ -5,9 +5,6 @@ class Foswipe::Comment < ActiveRecord::Base
 
   has_many :attachments, :dependent => :destroy, :as => :attachable
   accepts_nested_attributes_for :attachments
-  def comment_attachments
-    attachments
-  end
 
 end
 

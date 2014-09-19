@@ -31,7 +31,7 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
   # GET /tickets/new
   def new
     @ticket = Foswipe::Ticket.new
-    @ticket_attachment = @ticket.ticket_attachments.build
+    @ticket_attachment = @ticket.attachments.build
   end
 
   # GET /tickets/1/edit
@@ -97,6 +97,6 @@ class Foswipe::TicketsController < Foswipe::ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
-    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :ticket_attachments_attributes => [:attachment], :ticket_comments_attributes => [:content, :comment_attachments => [:attachment]])
+    params.require(:ticket).permit(:description, :client_id, :support_id, :status, :title, :priority, :author, :support_notes, :attachments_attributes => [:attachment], :ticket_comments_attributes => [:content, :attachments => [:attachment]])
   end
 end
