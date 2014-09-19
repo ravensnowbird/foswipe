@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918102238) do
+ActiveRecord::Schema.define(version: 20140919110532) do
 
   create_table "foswipe_attachments", force: true do |t|
     t.string   "attachment_uid"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20140918102238) do
     t.integer  "ticket_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "completed"
   end
 
   add_index "foswipe_todos", ["ticket_id"], name: "index_foswipe_todos_on_ticket_id"
