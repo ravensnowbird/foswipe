@@ -21,13 +21,6 @@ ActiveRecord::Schema.define(version: 20140919110532) do
     t.datetime "updated_at"
   end
 
-  create_table "foswipe_comment_attachments", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "attachment_uid"
-    t.integer  "comment_id"
-  end
-
   create_table "foswipe_comments", force: true do |t|
     t.text     "content"
     t.string   "user_id"
@@ -83,15 +76,6 @@ ActiveRecord::Schema.define(version: 20140919110532) do
     t.datetime "updated_at"
   end
 
-  create_table "foswipe_ticket_attachments", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "attachment_uid"
-    t.integer  "ticket_id"
-  end
-
-  add_index "foswipe_ticket_attachments", ["ticket_id"], name: "index_foswipe_ticket_attachments_on_ticket_id"
-
   create_table "foswipe_tickets", force: true do |t|
     t.text     "content"
     t.integer  "client_id"
@@ -120,6 +104,14 @@ ActiveRecord::Schema.define(version: 20140919110532) do
   end
 
   add_index "foswipe_todos", ["ticket_id"], name: "index_foswipe_todos_on_ticket_id"
+
+  create_table "foswipe_user_chats", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "agent_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "foswipe_user_groups", force: true do |t|
     t.string   "group_name"

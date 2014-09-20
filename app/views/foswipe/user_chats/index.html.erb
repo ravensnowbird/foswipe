@@ -1,0 +1,31 @@
+<h1>Listing user_chats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Agent</th>
+      <th>Content</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_chats.each do |user_chat| %>
+      <tr>
+        <td><%= user_chat.customer_id %></td>
+        <td><%= user_chat.agent_id %></td>
+        <td><%= user_chat.content %></td>
+        <td><%= link_to 'Show', user_chat %></td>
+        <td><%= link_to 'Edit', edit_user_chat_path(user_chat) %></td>
+        <td><%= link_to 'Destroy', user_chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User chat', new_user_chat_path %>

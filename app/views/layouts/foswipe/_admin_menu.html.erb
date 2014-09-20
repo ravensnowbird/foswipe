@@ -22,3 +22,15 @@
 <li>
 	<a href="<%= purchases_path %>"><i class="fa fa-inr"></i> <span>Purchases</span></a>
 </li>
+<li class="treeview">
+	<a href="#"> <i class="fa fa-laptop"></i> <span>Chart</span> <i class="fa fa-angle-left pull-right"></i> </a>
+	<ul class="treeview-menu">
+		<% Foswipe::User.customers.each do |customer| %>
+		<li>
+			<a class='addChat' href="javascript:void(0)" id="<%= customer.id %>"><i class="fa fa-user"></i><%= customer.name %></a>
+		</li>
+		<% end %>
+	</ul>
+</li>
+
+<div id="chat"></div>

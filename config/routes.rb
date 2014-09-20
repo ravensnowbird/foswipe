@@ -1,4 +1,6 @@
 Foswipe::Engine.routes.draw do
+  resources :user_chats
+
   resources :user_groups
 
   
