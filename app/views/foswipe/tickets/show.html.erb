@@ -35,9 +35,9 @@
 					<% @ticket.comments.each do |c|%>
 					  <% if current_user.admin_or_agent? %>
 					   <li>
-						 <i class="fa fa-comments bg-yellow"></i>
+							<% if c.type == "Foswipe::TicketComment" %>
+							 <i class="fa fa-comments bg-yellow"></i>
 						 <div class="timeline-item">
-
 							<span class="time"><i class="fa fa-clock-o"></i><%= Time.at(c.created_at).strftime("%B %e, %Y at %I:%M %p") %></span>
 							<h3 class="timeline-header"><a href="#"><%= c.user.name if c.user %></a> commented on this Ticket</h3>
 							<div class="timeline-body">
@@ -52,7 +52,27 @@
 								<% end %>
 								<% end %>
 							</div>
-						</div>
+								</div>
+							<% else %>
+							 <i class="fa fa-hospital-o bg-green"></i>
+						 <div class="timeline-item">
+							  <span class="time"><i class="fa fa-clock-o"></i><%= Time.at(c.created_at).strftime("%B %e, %Y at %I:%M %p") %></span>
+							  <h3 class="timeline-header"><a href="#"><%= c.user.name if c.user %></a> Wrote Note on this Ticket</h3>
+							<div class="timeline-body">
+								<%= c.content %>
+							</div>
+							<div>
+								<% c.attachments.each do |a| %>
+								<% if a.attachment.mime_type.include?("image") %>
+								<%= image_tag a.attachment.url %>
+								<% else %>
+								<%= File.read(a.attachment.file) %>
+								<% end %>
+								<% end %>
+							</div>
+							</div>
+							<% end %>
+					
 					</li>
 					<% else %>
 					  <% if c.type == "Foswipe::TicketNote"%>
@@ -245,7 +265,7 @@
 						<%= t.content%>&nbsp;&nbsp;
 						<% end %>
 						<%= link_to  ticket_todo_path(@ticket,t) , method: :delete do %>
-						<i class= "icon-trash icon-white"></i>delete
+						<i class= "fa  fa-trash-o"></i>
 						<% end %>
 						<br />
 						<% end %>
