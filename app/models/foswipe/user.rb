@@ -12,6 +12,8 @@ class Foswipe::User < ActiveRecord::Base
   belongs_to :organization
   has_many :ticket_comments
   has_and_belongs_to_many :user_groups
+  has_many :user_chats, :foreign_key => 'customer_id', :class_name => "UserChat"
+  has_many :agent_chats, :foreign_key => 'agent_id', :class_name => "UserChat"
   
   
 

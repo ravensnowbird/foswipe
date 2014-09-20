@@ -31,5 +31,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'dragonfly', '~> 1.0.7'
   
   s.add_dependency "pundit"
+  
+  s.add_dependency "private_pub"
+  
+  s.add_dependency "thin"
 
 end
