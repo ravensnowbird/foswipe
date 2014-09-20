@@ -179,14 +179,14 @@
 						<td class="small-col">
 						<div class="user-panel no-padding">
 							<div class="image">
-								<img src="#" class="img-circle" alt="User Image">
-								<%= @ticket.customer.first_name %>
+								<img src="http://www.gravatar.com/avatar/2da864f0202e0387adda7531651d8682" class="img-circle" alt="User Image">
+								<font color="blue"><%= @ticket.customer.first_name %></font>
 							</div>
 						</div></td>
 					</div><!-- /.form group -->
 
 					<div class="form-group">
-						<i class="fa fa-envelope fa-fw"></i><%= @ticket.customer.email %>
+						<i class="fa fa-envelope fa-fw  "></i>&nbsp;&nbsp;<a><%= @ticket.customer.email %></a>
 
 					</div><!-- /.form group -->
 
@@ -223,7 +223,7 @@
 
 						<%= f.label :status %>
 						<br />
-						<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker"  %>
+						<%= f.select :status, [['Open','open'],['Pending','pending'],['Resolved','resolved'],['Closed','closed'],['Waiting on Customer','waiting on Customer'],['Waiting on Third Party','waiting on Third Party']], {},:class=>"selectpicker btn btn-info"  %>
 
 						<br />
 					</div>
@@ -232,12 +232,12 @@
 						<%= f.label :priority %>
 						div
 						<br />
-						<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker"  %>
+						<%= f.select :priority, [['Low','low'],['Mediem','medium'],['High','high'],['Urgent','urgent']], {},:class=>"selectpicker btn btn-info"  %>
 						<br />
 					</div>
 					<label> Assign an Agent</label>
 					<br />
-					<%= f.select "support_id", options_from_collection_for_select(@agents, "id", "first_name"), prompt: "Assign to Agent"  %>
+					<%= f.select "support_id", options_from_collection_for_select(@agents, "id", "first_name"), prompt: "Assign to Agent" , :class => "selectpicker btn btn-info" %>
 				</div>
 
 			</div><!-- /.box -->

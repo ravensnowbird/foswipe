@@ -14,6 +14,7 @@ class Foswipe::User < ActiveRecord::Base
   has_and_belongs_to_many :user_groups
   
   
+  
 
   validate :first_name, :presence => true
 
